@@ -15,6 +15,10 @@
           </ul>
         </div>
         <div class="take-photo">
+          <div class="uploading" v-if="idCard">
+            <img src="static/img/upload.svg" alt="">
+            <p>请稍后，正在上传中!</p>
+          </div>
           <img v-if="form.idCard" v-lazy="form.idCard" alt="">
           <img style="width:80%;" v-if="!form.idCard" v-lazy="{src: 'static/img/sfz.jpg', error: 'static/img/err1.png', loading: 'static/img/loading3.gif'}" alt="">
           <span class="iconfont icon-add" @click="saveData(1)">
@@ -36,6 +40,10 @@
           </ul>
         </div>
         <div class="take-photo">
+          <div class="uploading" v-if="drivingLicense">
+            <img src="static/img/upload.svg" alt="">
+            <p>请稍后，正在上传中!</p>
+          </div>
           <img v-if="form.drivingLicense" v-lazy="form.drivingLicense" alt="">
           <img style="width:80%;" v-if="!form.drivingLicense" v-lazy="{src: 'static/img/jszf.jpg', error: 'static/img/err1.png', loading: 'static/img/loading3.gif'}" alt="">
           <span class="iconfont icon-add" @click="saveData(2)">
@@ -52,6 +60,10 @@
           </ul>
         </div>
         <div class="take-photo">
+          <div class="uploading" v-if="subDrivingLicense">
+            <img src="static/img/upload.svg" alt="">
+            <p>请稍后，正在上传中!</p>
+          </div>
           <img v-if="form.subDrivingLicense" v-lazy="form.subDrivingLicense" alt="">
           <img style="width:80%;" v-if="!form.subDrivingLicense" v-lazy="{src: 'static/img/jsz.jpg', error: 'static/img/err1.png', loading: 'static/img/loading3.gif'}" alt="">
           <span class="iconfont icon-add" @click="saveData(3)">
@@ -84,6 +96,9 @@
         url: uploadFile,
         url1: uploadBase64,
         type: 0,
+        idCard: false,
+        drivingLicense: false,
+        subDrivingLicense: false,
         form: {
           idCard: '',
           drivingLicense: '',
@@ -133,6 +148,8 @@
       handleFileChange1 (file) {
         let files = file.target.files
         // const _this = this
+        console.log(file)
+        this[file.target.name] = true
         lrz(files[0], {width: 400}).then(rst => {
           // switch (file.target.name) {
           //   case 'idcard':
@@ -149,6 +166,8 @@
         })
       },
       handleUpload (data, tag) {
+        console.log(this[tag])
+        this[tag] = true
         const This = this
         const params = {
           base64Data: data
@@ -165,6 +184,7 @@
           complete: function (data) {
           },
           success: function (res) {
+            This[tag] = false
             if (res.status) {
               This.form[tag] = res.imgUrl
               console.log(This.form)
@@ -197,4 +217,8 @@
 </script>
 <style>
 .iconfont input{width:100%;height:5rem;font-size:5rem;position:absolute;left:0;top:0;z-index:100;opacity:0;}
+.uploading{position:absolute;top:0;left:0;bottom:0;right:0;background:rgba(0,0,0,0.5);z-index:1000;}
+.uploading img{width:3rem;margin-top:4rem;}
+.uploading p{font-size:1rem;color:rgba(255,255,255,0.9);margin-top:0.5rem;}
+.take-photo .iconfont:active{color:#EB3D00;transition:0.3s;}
 </style>
