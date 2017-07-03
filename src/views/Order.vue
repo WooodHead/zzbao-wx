@@ -6,6 +6,10 @@
     <swiper v-model="index" :show-dots="false" class="h" :height="height" @on-index-change="handleSwiper" :min-moving-distance="100">
       <swiper-item v-for="(item, index) in bar" :key="index" class="h">
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
+          <no-data v-if="list.length === 0">
+            <h2 slot="icon" class="iconfont icon-none"></h2>
+            <p slot="title" class="text">没有相关订单！</p>
+          </no-data>
           <div class="tab-swiper vux-center h auto">
             <order-item :list="list"></order-item>
           </div>
@@ -19,6 +23,7 @@
   import OrderItem from '@/components/OrderItem'
   import {orderList} from '../config'
   import VScroll from '../components/VScroll'
+  import noData from '@/components/Null'
   export default {
     name: 'order',
     head: {
@@ -86,7 +91,8 @@
       SwiperItem,
       Sticky,
       OrderItem,
-      VScroll
+      VScroll,
+      noData
     },
     methods: {
       onRefresh (done) {
@@ -124,7 +130,9 @@
           res.body.data.orderList.forEach(el => {
             This.list.push(el)
           })
-          if (res.body.data.orderList.length < This.form.limit) {
+          if (this.list.length < this.form.limit) {
+            this.statusNull()
+          } else if (res.body.data.orderList.length < This.form.limit) {
             console.log('这是最后一页')
             this.statusNoMore()
           } else {
@@ -168,6 +176,14 @@
         })
       },
       statusInit () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'none'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'none'
+        })
+      },
+      statusNull () {
         this.$el.querySelectorAll('.load').forEach(el => {
           el.style.display = 'none'
         })

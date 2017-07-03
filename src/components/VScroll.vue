@@ -149,7 +149,7 @@ export default {
 }
 .yo-scroll .inner {
   position: absolute;
-  min-height:200px;
+  min-height:90vh;
   top: -4rem;
   width: 100%;
   transition-duration: 300ms;

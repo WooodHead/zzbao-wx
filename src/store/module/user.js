@@ -259,7 +259,7 @@ const mutations = {
     if (!This.form.tel) {
       This.$vux.toast.show({
         type: 'text',
-        width: '20em',
+        width: '12em',
         position: 'bottom',
         text: '请填写手机号码！',
         time: '1000'

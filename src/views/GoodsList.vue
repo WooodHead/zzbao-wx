@@ -216,7 +216,7 @@
 </script>
 <style>
 .sort .select .weui-cell{padding:0;}
-.sort.vux-tab{z-index:1000;}
+.sort.vux-tab{z-index:10001;}
 .sort .weui-cell__ft{color:#666;width:100%;text-align:center;}
 .vux-tab-item span{position:relative;display:inline-block;padding-right:0.5rem;}
 .vux-tab .vux-tab-item:first-child span:after{content:"";display:inline-block;width:1rem;height:1rem;background:url(../assets/img/down.png) no-repeat;background-size:1rem;position:absolute;right:-1rem;top:50%;transform:translate(0,-50%);transition:0.3s;}

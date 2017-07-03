@@ -1,7 +1,6 @@
 <template>
   <div class="page row gray login">
     <div class="col v-t t-c form-panel">
-      <p class="tips" v-if="isReg">该号码已经注册，请前往<router-link to="/login">登录</router-link></p>
       <group gutter="0px">
         <x-input placeholder="请输入新手机号" v-model="form.tel" is-type="china-mobile" ref="tel">
           <span class="iconfont icon-shouji" slot="label"></span>
@@ -37,12 +36,11 @@
         show: false, // 倒计时
         start: false,
         time: time,
-        smsType: 1,
+        smsType: 2,
         text: '发送验证码',
         pwd: '',
         form: {
           tel: '',
-          smsType: 2,
           userId: JSON.parse(this.$localStorage.get('userInfo')).userId,
           captcha: ''
         }
@@ -74,26 +72,37 @@
         this.postSMS(this)
       },
       handleSubmit () {
-        this.$vux.toast.show({
-          type: 'text',
-          width: '20em',
-          position: 'bottom',
-          text: '功能正在开发中，请耐心等待！',
-          time: '1000'
+        this.$http({
+          method: 'jsonp',
+          url: phone,
+          jsonp: 'callback',
+          jsonpCallback: 'json',
+          params: {
+            phone: this.form.tel,
+            captcha: this.form.captcha,
+            userId: this.form.userId
+          }
         })
-        console.log(phone)
-        // this.$http({
-        //   method: 'jsonp',
-        //   url: phone,
-        //   jsonp: 'callback',
-        //   jsonpCallback: 'json',
-        //   params: this.form,
-        //   before: () => {
-        //     if (status) {
-        //       this.list = []
-        //     }
-        //   }
-        // })
+        .then(res => {
+          console.log(res)
+          if (res.body.status) {
+            this.$vux.toast.show({
+              type: 'text',
+              width: '20em',
+              position: 'bottom',
+              text: '手机号修改成功！',
+              time: '1000'
+            })
+          } else {
+            this.$vux.toast.show({
+              type: 'text',
+              width: '20em',
+              position: 'bottom',
+              text: res.body.msg,
+              time: '1000'
+            })
+          }
+        })
       },
       ...mapMutations({
         postSMS: 'postSMS'

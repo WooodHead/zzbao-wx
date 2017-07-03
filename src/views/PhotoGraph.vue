@@ -133,7 +133,7 @@
       handleFileChange1 (file) {
         let files = file.target.files
         // const _this = this
-        lrz(files[0]).then(rst => {
+        lrz(files[0], {width: 400}).then(rst => {
           // switch (file.target.name) {
           //   case 'idcard':
           //     _this.form.idCard = rst.base64
