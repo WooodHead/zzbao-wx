@@ -150,7 +150,7 @@
         // const _this = this
         console.log(file)
         this[file.target.name] = true
-        lrz(files[0], {width: 400}).then(rst => {
+        lrz(files[0], {width: 750, height: 480, quality: 0.8}).then(rst => {
           // switch (file.target.name) {
           //   case 'idcard':
           //     _this.form.idCard = rst.base64
@@ -218,7 +218,7 @@
 <style>
 .iconfont input{width:100%;height:5rem;font-size:5rem;position:absolute;left:0;top:0;z-index:100;opacity:0;}
 .uploading{position:absolute;top:0;left:0;bottom:0;right:0;background:rgba(0,0,0,0.5);z-index:1000;}
-.uploading img{width:3rem;margin-top:4rem;}
+.uploading img{width:3rem;margin-top:5rem;}
 .uploading p{font-size:1rem;color:rgba(255,255,255,0.9);margin-top:0.5rem;}
 .take-photo .iconfont:active{color:#EB3D00;transition:0.3s;}
 </style>
