@@ -1,5 +1,5 @@
 // export const server = 'http://192.168.0.105:8080/zzbao' // http://liuwbox.com/zzbao
-export const server = 'http://liuwbox.com/zzbao' // http://liuwbox.com/zzbao
+export const server = 'http://www.liuwbox.com/zzbao' // http://liuwbox.com/zzbao
 export const login = server + '/app/user/login.htm' // 登录api
 export const sms = server + '/app/user/sms.htm' // 短信接口
 export const register = server + '/app/user/regist.htm' // 注册接口
