@@ -35,11 +35,16 @@
   </div>
 </template>
 <script>
-  import {Tab, TabItem, Popup, Swiper, SwiperItem, Scroller, XImg, Group, Cell} from 'vux'
+  import {Tab, TabItem, Popup, Swiper, SwiperItem, XImg, Group, Cell} from 'vux'
   import {mapMutations} from 'vuex'
   import Loading from '@/components/Loading'
   export default {
     name: 'goodsList',
+    head: {
+      title: {
+        inner: '商品分类'
+      }
+    },
     computed: {
       type () {
         return this.$route.params.type
@@ -98,7 +103,6 @@
       Popup,
       Swiper,
       SwiperItem,
-      Scroller,
       XImg,
       Group,
       Cell,

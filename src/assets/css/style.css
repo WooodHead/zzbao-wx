@@ -59,6 +59,7 @@ img{border:none;vertical-align: top;}
 .checkbox input:checked + .iconfont{color:#30AD1B;}
 .checkbox label{font-size:1rem;vertical-align: middle;padding:0 0.5rem;color:#494848;}
 .checkbox label a{color:#EB3D00;text-decoration:underline;}
+.checkbox a{font-size:1rem;display:inline-block;vertical-align: middle;color:#EB3D00;text-decoration: underline;}
 .checkbox.circle .iconfont{border-radius:50%;border-width:1px;position:relative;}
 .checkbox.circle .iconfont:before{display:inline-block;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:1.2rem;width:1.2rem;text-align:center;content:"";border-radius:50%;}
 .checkbox.circle input:checked + .iconfont:before{background-color:#D1D1D1;font-size:1.4rem;}
@@ -128,13 +129,14 @@ img{border:none;vertical-align: top;}
 .head-bar .col:first-child{padding:2rem;padding-bottom:5rem;}
 .head-bar .circle{border-radius:50%;border:1px solid #fff;margin-right:0.5rem;width:80px;}
 .order a{color:#2b2b2b;font-size:1rem;text-align:center;position:relative;}
-.order .col{padding:1rem 0;}
-.order .iconfont{display:block;color:#7A7A7A;font-size:1.4rem;margin-bottom:0.2rem;}
+.order .col{padding:0.8rem 0;}
+.order .iconfont{display:block;color:#7A7A7A;font-size:1.4rem;margin-bottom:0.2rem;padding:0;}
+.order .iconfont:before{position:relative;top:2px;}
 .order .iconfont img{width:2rem;}
 .order .num{position:absolute;top:.2rem;right:0.8rem;color:#EB3E01;font-style:normal;border:2px solid #EB3E01;display:inline-block;min-width:1.4rem;height:1.4rem;border-radius:50%;line-height:1.3rem;font-size:1rem;background:#fff;}
 .order .col:active{background-color:rgba(0,0,0,0.1);}
 .order .col{border-left:1px solid #EEE;}
-.order .iconfont{display:inline-block;width:3.5rem;height:3.5rem;line-height:3.5rem;border-radius:50%;text-align:center;color:#fff;}
+.order .iconfont{display:inline-block;width:3rem;height:3rem;line-height:3rem;border-radius:50%;text-align:center;color:#fff;}
 .order b{display:block;}
 .block-link .col{padding:10px 15px;}
 .block-link{border-bottom:1px solid #E9E9E9;font-size:1.2rem;color:#444;background:#fff;}

@@ -34,7 +34,6 @@ const mutations = {
         }
       })
       .then(res => {
-        console.log(res)
         This.list = res.body.data.productList
         This.showLoading = false
         This.$http({
@@ -47,6 +46,7 @@ const mutations = {
           }
         })
         .then(res => {
+          console.log(res)
           This.recommend = res.body.data.aderList
           This.$http({
             method: 'jsonp',
@@ -58,6 +58,7 @@ const mutations = {
             }
           })
           .then(res => {
+            console.log(res)
             This.advert = res.body.data.aderList
             if (This.$localStorage.get('logined') === 'true') {
               This.$http({
@@ -70,7 +71,6 @@ const mutations = {
                 }
               })
               .then(res => {
-                console.log(res)
                 if (res.body.status) {
                   This.score = res.body.data.wallet.balance
                 }

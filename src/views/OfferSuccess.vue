@@ -31,6 +31,11 @@
   import {orderDetail} from '../config'
   export default {
     name: 'offerSuccess',
+    head: {
+      title: {
+        inner: '报价结果'
+      }
+    },
     components: {
       Group,
       Cell,

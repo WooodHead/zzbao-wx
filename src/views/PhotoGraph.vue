@@ -88,7 +88,7 @@
     name: 'photoGraph',
     head: {
       title: {
-        inner: '拍照上传'
+        inner: '完善信息'
       }
     },
     data () {

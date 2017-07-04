@@ -28,7 +28,7 @@
         </router-link>
       </div>
     </div>
-    <div class="h auto view" style="padding-top:4rem;">
+    <div class="h auto view" style="padding-top:3rem;">
       <group class="mt-5 mb-5" title="订单管理">
         <div class="row w order">
           <router-link :to="'/order/3/' + userId" class="col v-m col-8">
@@ -174,7 +174,7 @@
 .default .num{color:#eb3d00;font-size:1.6rem;}
 .default .text{color:#3a3a3a;font-size:1.1rem;}
 .default a:first-child:after{content:"";display:inline-block;width:1px;height:40px;background:#E0E0E0;position:absolute;right:0;top:50%;transform:translateY(-50%)}
-.fix-info{position:fixed;top:160px;left:50%;width:90%;transform:translateX(-50%);border-radius:1.5rem;z-index:100;box-shadow:0 5px 20px #ccc;}
+.fix-info{position:fixed;top:150px;left:50%;width:90%;transform:translateX(-50%);border-radius:2rem;z-index:100;box-shadow:0 5px 20px #ccc;padding:0.8rem;}
 </style>
 <style scoped>
 .red{background:#FF4C42;}

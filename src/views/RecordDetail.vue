@@ -21,7 +21,7 @@
     name: 'recordDetail',
     head: {
       title: {
-        inner: '提现记录详情'
+        inner: '提现详情'
       }
     },
     components: {

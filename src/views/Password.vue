@@ -41,6 +41,11 @@
   import {mapMutations} from 'vuex'
   export default {
     name: 'password',
+    head: {
+      title: {
+        inner: '忘记密码'
+      }
+    },
     components: {
       Group,
       XInput,

@@ -102,6 +102,7 @@
         }
       },
       getList (done, status) {
+        console.log(this.form)
         const This = this
         this.$http({
           method: 'jsonp',

@@ -78,6 +78,11 @@
   import {mapGetters} from 'vuex'
   export default {
     name: 'goods',
+    head: {
+      title: {
+        inner: '商品详情'
+      }
+    },
     components: {
       Group,
       XImg,

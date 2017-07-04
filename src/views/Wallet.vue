@@ -10,11 +10,11 @@
         </li>
       </ul>
       <div class="row w light">
-        <router-link to="/detail" class="col v-m col-12 t-c" @click.native="handleSave(data.balance)">
+        <router-link :to="'/detail/' + userId" class="col v-m col-12 t-c" @click.native="handleSave(data.balance)">
           <h2 class="num">{{data.cumulative || 0}}</h2>
           <p class="text">累计积分收入（分）</p>
         </router-link>
-        <router-link to="/balanceDetail" class="col v-m col-12 t-c" @click.native="handleSave(data.balance)">
+        <router-link :to="'/balanceDetail/' + userId" class="col v-m col-12 t-c" @click.native="handleSave(data.balance)">
           <h2 class="num">{{data.balance || 0}}</h2>
           <p class="text">积分余额（分）</p>
         </router-link>
@@ -93,7 +93,7 @@
     },
     created () {
       if (this.$localStorage.get('logined') === 'true') {
-        this.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
+        this.userId = this.$route.params.userId
         this.$http({
           method: 'jsonp',
           url: wallet,

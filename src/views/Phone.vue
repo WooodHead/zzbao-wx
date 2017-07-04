@@ -28,6 +28,11 @@
   import {time, phone} from '../config'
   export default {
     name: 'phone',
+    head: {
+      title: {
+        inner: '修改手机号码'
+      }
+    },
     data () {
       return {
         isReg: false,

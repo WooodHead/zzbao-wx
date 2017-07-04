@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-  import {Scroller, Group, Cell, dateFormat} from 'vux'
+  import {Group, Cell, dateFormat} from 'vux'
   import {detail, wallet} from '../config'
   import VScroll from '../components/VScroll'
   export default {
@@ -38,7 +38,6 @@
       }
     },
     components: {
-      Scroller,
       Group,
       Cell,
       VScroll

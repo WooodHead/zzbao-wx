@@ -25,7 +25,7 @@
       <group gutter="10px">
         <x-input placeholder="请输入验证码" v-model="form.captcha" :show-clear="false">
           <span class="iconfont icon-yzm" slot="label"></span>
-          <x-button class="code" slot="right" type="warn" @click.native="handleSendSms" v-show="!show" :show-loading="getting">{{text}}</x-button>
+          <x-button :disabled="!form.tel" class="code" slot="right" type="warn" @click.native="handleSendSms" v-show="!show" :show-loading="getting">{{text}}</x-button>
           <x-button v-show="show" slot="right" class="count" style="margin-top:0;" @click.native="handleTips">
             <countdown v-model="time" @on-finish="handleTime" :start="start"></countdown>
             秒重新获取
@@ -44,6 +44,11 @@
   import {time} from '../config'
   export default {
     name: 'register',
+    head: {
+      title: {
+        inner: '用户注册'
+      }
+    },
     data () {
       return {
         isReg: false,

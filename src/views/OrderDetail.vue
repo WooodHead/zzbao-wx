@@ -56,6 +56,11 @@
   import {orderDetail, backOrder} from '../config'
   export default {
     name: 'orderDetail',
+    head: {
+      title: {
+        inner: '订单详情'
+      }
+    },
     components: {
       Group,
       Cell,
@@ -93,12 +98,15 @@
           if (res.body.status) {
             this.$vux.toast.show({
               type: 'text',
-              width: '20em',
+              width: '22em',
               position: 'bottom',
               text: '成功撤销订单，欢迎再次为您服务！',
               time: '1000'
             })
           }
+          setTimeout(() => {
+            this.$router.replace('/order/-1/' + this.form.userId)
+          }, 1000)
         })
       },
       changeStatus (num) {

@@ -99,13 +99,26 @@
           })
           .then(res => {
             this.loading = false
-            this.$vux.toast.show({
-              type: 'text',
-              width: '15em',
-              position: 'bottom',
-              text: res.body.msg,
-              time: '1000'
-            })
+            if (res.body.status) {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '15em',
+                position: 'bottom',
+                text: '支付密码设置成功！',
+                time: '1000'
+              })
+              let userInfo = JSON.parse(this.$localStorage.get('userInfo'))
+              userInfo.hadPayPwd = true
+              this.$localStorage.set('userInfo', JSON.stringify(userInfo))
+            } else {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '15em',
+                position: 'bottom',
+                text: res.body.msg,
+                time: '1000'
+              })
+            }
             setTimeout(() => {
               this.$router.replace('/personer')
             }, 1000)
