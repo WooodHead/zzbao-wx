@@ -6,11 +6,11 @@
         <p slot="default">{{order.user.insuranceArea}}</p>
       </cell>
     </group>
-    <group gutter="10px">
+    <group gutter="10px" v-if="insurance.length > 0">
       <cell title="商业险"></cell>
       <cell-form-preview :list="insurance"></cell-form-preview>
     </group>
-    <group gutter="10px">
+    <group gutter="10px" v-if="force.length > 0">
       <cell>
         <p slot="title">交强险<span class="c-9">（含车船费）</span></p>
       </cell>

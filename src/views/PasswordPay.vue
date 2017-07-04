@@ -1,12 +1,12 @@
 <template>
   <div class="page gray form-panel">
     <group gutter="0">
-      <x-input placeholder="请输入支付密码" ref="pay" v-model="form.payPwd">
+      <x-input placeholder="请输入支付密码" ref="pay" v-model="form.payPwd" type="password" :min="6" :max="6">
         <span class="iconfont icon-mima" slot="label"></span>
       </x-input>
     </group>
     <group gutter="10px">
-      <x-input placeholder="请再次输入支付密码" ref="pays" v-model="payPwd">
+      <x-input placeholder="请再次输入支付密码" ref="pays" v-model="payPwd" type="password" :min="6" :max="6">
         <span class="iconfont icon-mima" slot="label"></span>
       </x-input>
     </group>
@@ -84,6 +84,22 @@
             width: '20em',
             position: 'bottom',
             text: '两次输入的密码不同！',
+            time: '1000'
+          })
+        } else if (!this.form.captcha) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '20em',
+            position: 'bottom',
+            text: '请先获取验证码！',
+            time: '1000'
+          })
+        } else if (!parseInt(this.form.payPwd)) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '20em',
+            position: 'bottom',
+            text: '请输入6位数字密码！',
             time: '1000'
           })
         } else {

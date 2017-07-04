@@ -7,19 +7,21 @@
       </tab-item>
     </tab>
     <div class="h content">
-      <div class="tab-swiper vux-center h auto">
-        <ul class="grid goods-list">
-          <li class="col col-12" v-for="(item, index) in list" :key="index">
-            <router-link :to="'/goods/' + item.id" class="goods" @click.native="handleSaveData(item)">
-              <span class="cover">
-                <img class="w h" v-lazy="{src: item.listPic, error: 'static/img/err1.png', loading: 'static/img/loading1.gif'}"/>
-              </span>
-              <b class="name">{{item.name}}</b>
-              <span class="c-red">积分<b class="score">{{item.score}}</b></span>
-            </router-link>
-          </li>
-        </ul>
-      </div>
+      <!--<v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" style="top:44px;">-->
+        <div class="tab-swiper vux-center h auto">
+          <ul class="grid goods-list">
+            <li class="col col-12" v-for="(item, index) in list" :key="index">
+              <router-link :to="'/goods/' + item.id" class="goods" @click.native="handleSaveData(item)">
+                <span class="cover">
+                  <img class="w h" v-lazy="{src: item.listPic, error: 'static/img/err1.png', loading: 'static/img/loading1.gif'}"/>
+                </span>
+                <b class="name">{{item.name}}</b>
+                <span class="c-red">积分<b class="score">{{item.score}}</b></span>
+              </router-link>
+            </li>
+          </ul>
+        </div>
+      <!--</v-scroll>-->
       <Loading :show="showLoading">
         <p slot="text">正在拉取商品列表！</p>
       </Loading>
@@ -38,6 +40,7 @@
   import {Tab, TabItem, Popup, Swiper, SwiperItem, XImg, Group, Cell} from 'vux'
   import {mapMutations} from 'vuex'
   import Loading from '@/components/Loading'
+  import VScroll from '../components/VScroll'
   export default {
     name: 'goodsList',
     head: {
@@ -106,7 +109,8 @@
       XImg,
       Group,
       Cell,
-      Loading
+      Loading,
+      VScroll
     },
     created () {
       this.options = JSON.parse(this.$localStorage.get('goodsType'))
@@ -211,6 +215,54 @@
       },
       handleSaveData (item) {
         this.$localStorage.set('goods', JSON.stringify(item))
+      },
+      onRefresh (done) {
+        this.product.pageIndex = 0
+        this.statusInit()
+        // this.getList(done, 1)
+      },
+      onInfinite (done) {
+        this.form.pageIndex = this.list.length / this.form.limit
+        if (this.list.length % this.form.limit) {
+          this.statusNoMore()
+        } else {
+          this.$el.querySelectorAll('.load').forEach(el => {
+            el.style.display = 'block'
+          })
+          // this.getList(done, 0)
+        }
+      },
+      statusNoMore () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'none'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'block'
+        })
+      },
+      statusLoad () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'block'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'none'
+        })
+      },
+      statusInit () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'none'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'none'
+        })
+      },
+      statusNull () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'none'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'none'
+        })
       },
       ...mapMutations({
         getProduct: 'getProduct'

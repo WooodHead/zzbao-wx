@@ -34,8 +34,8 @@
     </group>
     <group gutter="5px" v-if="order.user">
       <cell title="保单信息" value="查看详情" is-link :link="'/policy/' + form.userId + '/' + form.orderId"></cell>
-      <cell title="商业险"></cell>
-      <cell>
+      <cell title="商业险" v-if="hasInsurance"></cell>
+      <cell v-if="hasForce">
         <p slot="title">交强险<span>（含车船税）</span></p>
       </cell>
     </group>
@@ -74,6 +74,8 @@
         id: 0,
         order: {},
         orderDetail: JSON.parse(this.$localStorage.get('orderDetail')),
+        hasInsurance: false,
+        hasForce: false,
         form: {
           userId: '',
           orderId: ''
@@ -162,7 +164,18 @@
         })
         .then(res => {
           this.order = res.body.data.order
-          console.log(res)
+          for (const i in this.order) {
+            if (i === 'insurance') {
+              this.order[i].forEach(el => {
+                console.log(el.type)
+                if (el.type === '0') {
+                  this.hasForce = true
+                } else {
+                  this.hasInsurance = true
+                }
+              })
+            }
+          }
           this.$localStorage.set('order', JSON.stringify(this.order))
         })
       }

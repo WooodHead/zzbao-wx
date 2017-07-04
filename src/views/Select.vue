@@ -105,7 +105,7 @@
       Popup
     },
     mounted () {
-      this.form.userId = this.$route.params.userId || JSON.parse(this.$localStorage.get('userInfo')).userId
+      this.form.userId = this.$route.params.userId
       this.handleInsurance()
     },
     created () {
@@ -120,6 +120,14 @@
         })
         .then(res => {
           const result = res.body.data.insuranceList
+          // result.forEach(el => {
+          //   console.log(el)
+          //   if (el.regardless) {
+          //     el.regardless = true
+          //   } else {
+          //     el.regardless = false
+          //   }
+          // })
           console.log(result)
           result.forEach(item => {
             item.select = false
@@ -156,6 +164,13 @@
         this.additional.forEach(el => {
           if (el.select) {
             this.insurance.push(el)
+          }
+        })
+        this.insurance.forEach(el => {
+          if (el.regardless) {
+            el.regardless = 1
+          } else {
+            el.regardless = 0
           }
         })
         this.$localStorage.set('insurance', JSON.stringify(this.insurance))

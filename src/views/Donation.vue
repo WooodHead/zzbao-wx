@@ -14,7 +14,7 @@
         <x-input title="赠与积分" placeholder="请输入要赠与的积分数额" novalidate :show-clear="false" placeholder-align="right" text-align="right" v-model="form.score" type="number" :min="0"></x-input>
         <x-input title="支付密码" placeholder="请输入支付密码" novalidate :show-clear="false" placeholder-align="right" text-align="right" v-model="form.payPwd" type="password"></x-input>
       </group>
-      <p class="text" v-if="!hadPayPwd">您的支付密码还未设置，<router-link to="" class="c-red">立即设置</router-link></p>
+      <p class="text" v-if="!hadPayPwd">您的支付密码还未设置，<router-link to="/edit/passwordBypay" class="c-red">立即设置</router-link></p>
     </div>
     <div class="btn-area row w" style="border:none;">
       <div class="col v-m">
@@ -62,12 +62,28 @@
     },
     methods: {
       handleSubmit () {
-        if (!this.form.target) {
+        if (JSON.parse(this.$localStorage.get('userInfo')).hadPayPwd === false) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '115em',
+            position: 'bottom',
+            text: '您还未设置支付密码，请前往设置！',
+            time: '1000'
+          })
+        } else if (!this.form.target) {
           this.$vux.toast.show({
             type: 'text',
             width: '15em',
             position: 'bottom',
             text: '请填写获赠用户！',
+            time: '1000'
+          })
+        } else if (this.form.target === JSON.parse(this.$localStorage.get('userInfo')).userTel) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '转赠对象不能是自己！',
             time: '1000'
           })
         } else if (this.form.score <= 0 || !this.form.score) {
@@ -110,13 +126,26 @@
             const userInfo = JSON.parse(this.$localStorage.get('userInfo'))
             userInfo.userBalance = balance
             this.$localStorage.set('userInfo', JSON.stringify(userInfo))
-            this.$vux.toast.show({
-              type: 'text',
-              width: '20em',
-              position: 'bottom',
-              text: res.body.msg,
-              time: '1000'
-            })
+            if (res.body.status) {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '20em',
+                position: 'bottom',
+                text: '转赠成功！',
+                time: '1000'
+              })
+              setTimeout(() => {
+                this.$router.replace('/wallet/' + this.form.userId)
+              }, 1000)
+            } else {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '20em',
+                position: 'bottom',
+                text: res.body.msg,
+                time: '1000'
+              })
+            }
           })
         }
       }

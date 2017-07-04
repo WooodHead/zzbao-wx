@@ -1,12 +1,12 @@
 <template>
   <div class="page gray login form-panel">
     <group gutter="0">
-      <x-input placeholder="请输入原始密码！" ref="old" v-model="form.oldPwd">
+      <x-input placeholder="请输入原始密码！" ref="old" v-model="form.oldPwd" type="password">
         <span class="iconfont icon-mima" slot="label"></span>
       </x-input>
     </group>
     <group gutter="10px">
-      <x-input placeholder="请输入新密码！" ref="new1" v-model="form.newPwd">
+      <x-input placeholder="请输入新密码！" ref="new1" v-model="form.newPwd" type="password">
         <span class="iconfont icon-mima" slot="label"></span>
       </x-input>
     </group>
@@ -51,6 +51,8 @@
     },
     methods: {
       handleSubmit () {
+        const rxg = new RegExp('/^[0-9a-zA-Z]+$/')
+        console.log(rxg.test(this.form.newPwd))
         if (!this.form.oldPwd) {
           this.$vux.toast.show({
             type: 'text',
@@ -73,6 +75,14 @@
             width: '15em',
             position: 'bottom',
             text: '两次输入的密码不同！',
+            time: '1000'
+          })
+        } else if (!rxg.test(this.form.newPwd)) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '密码格式有误，请输入6-20位字母和数字的组合！',
             time: '1000'
           })
         } else {
