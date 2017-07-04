@@ -1,7 +1,7 @@
 <template>
   <div class="page h auto">
     <div class="safe-list">
-      <router-link :to="'/offer/' + item.id + '/' + userId" :class="item.recommend ? 'row w rec' : 'row w'" v-for="(item, index) in list" :key="index" @click.native="handleSaveData(item)">
+      <router-link :to="'/offer/' + item.id + '/' + userId" :class="item.isMarketing ? 'row w rec' : 'row w'" v-for="(item, index) in list" :key="index" @click.native="handleSaveData(item)">
           <span class="col v-m col-8 t-c ptb-10">
             <span class="img">
               <img v-lazy="{src: item.listPic, error: 'static/img/err1.png', loading: 'static/img/loading2.gif'}" alt=""/>
@@ -51,6 +51,7 @@ export default {
       })
       .then(res => {
         this.list = res.body.data.companyList
+        console.log(this.list)
       })
     },
     handleSaveData (item) {

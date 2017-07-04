@@ -98,8 +98,13 @@
           }
         })
         .then(res => {
-          // console.log(res)
+          console.log(res)
           this.company = res.body.data.company
+          this.$localStorage.set('orderCompany', JSON.stringify({
+            companyId: this.company.id,
+            banner: this.company.bigPic,
+            companyName: this.company.name
+          })) // 存储订单公司信息
         })
       },
       handleSubmit () {
