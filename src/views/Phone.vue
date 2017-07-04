@@ -72,6 +72,7 @@
         this.postSMS(this)
       },
       handleSubmit () {
+        this.loading = true
         this.$http({
           method: 'jsonp',
           url: phone,
@@ -84,7 +85,7 @@
           }
         })
         .then(res => {
-          console.log(res)
+          this.loading = false
           if (res.body.status) {
             this.$vux.toast.show({
               type: 'text',
@@ -93,6 +94,11 @@
               text: '手机号修改成功！',
               time: '1000'
             })
+            setTimeout(() => {
+              this.$localStorage.remove('userInfo')
+              this.$localStorage.set('logined', false)
+              this.$router.replace('/login')
+            }, 1000)
           } else {
             this.$vux.toast.show({
               type: 'text',

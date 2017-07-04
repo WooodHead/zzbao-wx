@@ -47,7 +47,7 @@
     },
     created () {
       this.form.orderId = this.$route.params.orderId
-      this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
+      this.form.userId = this.$route.params.userId
       this.getDetail()
     },
     methods: {

@@ -48,6 +48,7 @@
       return {
         edit: false,
         loading: false,
+        info: {},
         data: [],
         userId: 'da738f8b730b4b62be0333cec2b9dd1b',
         form: {
@@ -107,12 +108,15 @@
       handleSave () {
         this.edit = !this.edit
         if (!this.edit) {
-          this.form.customer.areaId = this.area
+          this.form.customer.areaId = this.area || this.info.areaId
           this.form.customer = JSON.stringify(this.form.customer)
           this.handleEdit()
         }
       },
       handleEdit () {
+        if (!this.form.areaId) {
+          this.form.areaId = this.info.areaId
+        }
         this.$http({
           method: 'jsonp',
           url: customerEdit,
@@ -121,6 +125,7 @@
           jsonpCallback: 'json'
         })
         .then(res => {
+          console.log(this.form)
           console.log(res)
           if (res.body.status) {
             this.form.customer = JSON.parse(this.form.customer)
@@ -154,6 +159,7 @@
           this.form.customer = res.body.data.customer
           this.form.customer.registTime = dateFormat(this.form.customer.registTime)
           this.form.customer.expireTime = dateFormat(this.form.customer.expireTime)
+          this.info = res.body.data.customer
           console.log(res.body.data.customer)
         })
       },
@@ -164,7 +170,7 @@
   }
 </script>
 <style>
-@import '../assets/css/style.css';
+.vux-datetime{color:#666 !important;}
 </style>
 <style scoped>
 input,select:focus{outline:none;}
