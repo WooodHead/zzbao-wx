@@ -65,18 +65,18 @@
     mounted () {
       this.height = document.querySelector('.vux-slider').clientHeight + 'px'
       console.log(this.$route.params.userId)
-      if (this.$route.params.userId) {
+    },
+    created () {
+      if (this.$route.params.userId !== 'null') {
         this.form.userId = this.$route.params.userId
         this.form.status = this.$route.params.id
         if (this.form.status === '-1') {
           this.getList(() => {}, 1)
         }
       } else {
-        // this.$router.replace('/login')
+        this.$router.replace('/login')
         console.log(0)
       }
-    },
-    created () {
       for (const i in this.bar) {
         if (this.bar[i].key === this.$route.params.id) {
           this.index = parseInt(i)

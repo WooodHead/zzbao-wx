@@ -170,7 +170,7 @@
           if (el.regardless) {
             el.regardless = 1
           } else {
-            el.regardless = 0
+            el.regardless = 2
           }
         })
         this.$localStorage.set('insurance', JSON.stringify(this.insurance))

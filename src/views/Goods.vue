@@ -25,12 +25,12 @@
       <div class="form-wrap">
         <h2>请填写收货地址</h2>
         <group gutter="10px" class="bor">
-          <x-input type="tel" label-width="5rem" style="text-align:right" placeholder="请输入姓名" required v-model="form.consignee">
+          <x-input is-type="china-name" ref="name" label-width="5rem" style="text-align:right" placeholder="请输入姓名" required v-model="form.consignee">
             <span slot="label" class="label">收货人</span>
           </x-input>
         </group>
         <group gutter="10px" class="bor">
-          <x-input type="tel" label-width="5rem" style="text-align:right" placeholder="请输入手机号码" required v-model="form.phone">
+          <x-input type="tel" is-type="china-mobile" label-width="5rem" ref="tel" style="text-align:right" placeholder="请输入手机号码" required v-model="form.phone">
             <span slot="label" class="label">手机号码</span>
           </x-input>
         </group>
@@ -38,7 +38,7 @@
           <city title="地址" class="bor address"></city>
         </group>
         <group gutter="10px" class="bor">
-          <x-input type="tel" label-width="5rem" style="text-align:right" placeholder="请输入街道等详细信息" required v-model="form.address">
+          <x-input type="text" label-width="5rem" ref="place" style="text-align:right" placeholder="请输入街道等详细信息" required v-model="form.address">
             <span slot="label" class="label">详细地址</span>
           </x-input>
         </group>
@@ -64,7 +64,7 @@
           </li>
         </ul>
         <group>
-          <x-button type="warn" @click.native="handleJump('/exchange')" :show-loading="loading">确定</x-button>
+          <x-button type="warn" @click.native="handleJump('/exchange/' + form.userId)" :show-loading="loading">确定</x-button>
         </group>
       </div>
     </x-dialog>
@@ -143,36 +143,63 @@
         }
       },
       handleSubmit () {
+        const reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/
         this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
         this.form.productId = this.$route.params.id
-        this.form.address = this.area + ',' + this.form.address
         console.log(exchange, this.form)
-        this.$http({
-          method: 'jsonp',
-          url: exchange,
-          jsonp: 'callback',
-          jsonpCallback: 'json',
-          params: this.form,
-          before: () => {
-            this.loading = true
-            this.order = false
-          }
-        })
-        .then(res => {
-          console.log(res)
-          this.loading = false
-          if (res.body.status) {
-            this.tips = true
-          } else {
-            this.$vux.toast.show({
-              type: 'text',
-              width: '15em',
-              position: 'bottom',
-              text: res.body.msg,
-              time: '1000'
-            })
-          }
-        })
+        if (!this.$refs.name.valid || !this.form.consignee || !reg.test(this.form.consignee)) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '请填写正确的收货人姓名！',
+            time: '1000'
+          })
+        } else if (!this.$refs.tel.valid || !this.form.phone) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '请填写正确的手机号码！',
+            time: '1000'
+          })
+        } else if (!this.area || !this.form.address) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '请填写收货地址！',
+            time: '1000'
+          })
+        } else {
+          this.form.address = this.area + ',' + this.form.address
+          this.$http({
+            method: 'jsonp',
+            url: exchange,
+            jsonp: 'callback',
+            jsonpCallback: 'json',
+            params: this.form,
+            before: () => {
+              this.loading = true
+              this.order = false
+            }
+          })
+          .then(res => {
+            console.log(res)
+            this.loading = false
+            if (res.body.status) {
+              this.tips = true
+            } else {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '15em',
+                position: 'bottom',
+                text: res.body.msg,
+                time: '1000'
+              })
+            }
+          })
+        }
       }
     }
   }

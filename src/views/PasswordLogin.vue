@@ -11,7 +11,7 @@
       </x-input>
     </group>
     <group gutter="10px">
-      <x-input placeholder="请再次输入新密码！" ref="new2" v-model="pwd">
+      <x-input placeholder="请再次输入新密码！" ref="new2" v-model="pwd" type="password">
         <span class="iconfont icon-mima" slot="label"></span>
       </x-input>
     </group>
@@ -51,8 +51,8 @@
     },
     methods: {
       handleSubmit () {
-        const rxg = new RegExp('/^[0-9a-zA-Z]+$/')
-        console.log(rxg.test(this.form.newPwd))
+        const reg = /^[0-9a-zA-Z]+$/
+        console.log(reg.test(this.form.newPwd))
         if (!this.form.oldPwd) {
           this.$vux.toast.show({
             type: 'text',
@@ -77,12 +77,12 @@
             text: '两次输入的密码不同！',
             time: '1000'
           })
-        } else if (!rxg.test(this.form.newPwd)) {
+        } else if (!reg.test(this.form.newPwd)) {
           this.$vux.toast.show({
             type: 'text',
-            width: '15em',
+            width: '20em',
             position: 'bottom',
-            text: '密码格式有误，请输入6-20位字母和数字的组合！',
+            text: '请输入6-20位字母和数字的组合！',
             time: '1000'
           })
         } else {
@@ -99,16 +99,28 @@
           .then(res => {
             this.loading = false
             console.log(res)
-            this.$vux.toast.show({
-              type: 'text',
-              width: '15em',
-              position: 'bottom',
-              text: res.body.msg,
-              time: '1000'
-            })
-            setTimeout(() => {
-              this.$router.replace('/login')
-            }, 1000)
+            if (res.body.status) {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '20em',
+                position: 'bottom',
+                text: '密码修改成功！',
+                time: '1000'
+              })
+              setTimeout(() => {
+                this.$router.replace('/login')
+              }, 1000)
+              this.$localStorage.set('logined', false)
+              this.$localStorage.remove('userInfo')
+            } else {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '15em',
+                position: 'bottom',
+                text: res.body.msg,
+                time: '1000'
+              })
+            }
           })
         }
       }

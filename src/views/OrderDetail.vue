@@ -27,7 +27,7 @@
             <router-link :to="'/track/'+ form.userId + '/' + form.orderId"><img style="width:2rem;vertical-align:middle" src="static/img/order.png" alt=""><span class="v-m">订单跟踪</span></router-link>
           </li>
           <li class="col v-m col-12 t-c">
-            <router-link to=""><img style="width:2rem;vertical-align:middle" src="static/img/kefu.png" alt=""><span class="v-m">联系客服</span></router-link>
+            <a :href="'http://wpa.qq.com/msgrd?v=3&uin=' + qq + '&site=qq&menu=yes'"><img style="width:2rem;vertical-align:middle" src="static/img/kefu.png" alt=""><span class="v-m">联系客服</span></a>
           </li>
         </ul>
       </cell>
@@ -53,7 +53,7 @@
 </template>
 <script>
   import {Group, Cell, XButton, Flexbox, FlexboxItem, Divider} from 'vux'
-  import {orderDetail, backOrder} from '../config'
+  import {orderDetail, backOrder, QQ} from '../config'
   export default {
     name: 'orderDetail',
     head: {
@@ -73,6 +73,7 @@
       return {
         id: 0,
         order: {},
+        qq: QQ,
         orderDetail: JSON.parse(this.$localStorage.get('orderDetail')),
         hasInsurance: false,
         hasForce: false,

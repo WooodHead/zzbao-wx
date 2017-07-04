@@ -96,7 +96,8 @@
         }
       },
       handleSubmit () {
-        if (this.form.score > this.balance / 10) {
+        console.log(this.form.score)
+        if (this.form.score > this.balance) {
           this.$vux.toast.show({
             type: 'text',
             width: '20em',
@@ -134,15 +135,23 @@
           .then(res => {
             console.log(res)
             this.loading = false
-            this.$vux.toast.show({
-              type: 'text',
-              width: '15em',
-              position: 'bottom',
-              text: res.body.msg,
-              time: '1000'
-            })
             if (res.body.status) {
-              this.$router.push('/record')
+              this.$vux.toast.show({
+                type: 'text',
+                width: '15em',
+                position: 'bottom',
+                text: '申请成功，已提交审核！',
+                time: '1000'
+              })
+              this.$router.replace('/record')
+            } else {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '15em',
+                position: 'bottom',
+                text: res.body.msg,
+                time: '1000'
+              })
             }
           })
         }

@@ -21,7 +21,7 @@
       </ul>
       <ul class="row w price">
         <li class="col v-m t-r">
-          <a :href="'http://wpa.qq.com/msgrd?v=3&uin=979741120&site=qq&menu=yes'" class="btn btn-light btn-small">联系客服</a>
+          <a :href="'http://wpa.qq.com/msgrd?v=3&uin=' + qq + '&site=qq&menu=yes'" class="btn btn-light btn-small">联系客服</a>
           <router-link :to="'/pay/' + userId + '/' + item.id" class="btn btn-danger btn-small" v-if="item.orderStatus === 3" @click.native="handleSaveData(item)">立刻付款</router-link>
         </li>
       </ul>
@@ -29,6 +29,8 @@
   </div>
 </template>
 <script>
+// mqqwpa://im/chat?chat_type=wpa&uin=123456789&version=1&src_type=web&web_src=oicqzone.com
+  import {QQ} from '../config'
   export default {
     name: 'orderItem',
     props: {
@@ -39,7 +41,8 @@
     },
     data () {
       return {
-        userId: ''
+        userId: '',
+        qq: QQ
       }
     },
     created () {

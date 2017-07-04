@@ -7,7 +7,7 @@
       <cell title="更换绑定手机" link="edit/phone" :value="tel"></cell>
     </group>
     <group :class="login ? 'mt10' : ''" gutter="0">
-      <cell title="客服热线" is-link value="4008 458 458" @click.native="handleCall('4008 458 458')"></cell>
+      <cell title="客服热线" is-link value="4006 128 070" @click.native="handleCall('4006 128 070')"></cell>
       <cell title="常见问题" link="/question"></cell>
       <cell title="意见反馈" link="/feedback"></cell>
       <cell title="关于我们" link="/aboutUs"></cell>
