@@ -23,7 +23,7 @@
               <option v-for="(item, index) in item.extra.split(',')" v-bind:value="item.split(':')[0]" :key="index">{{item.split(':')[1]}}</option>
             </select>
           </div>
-          <div class="checkbox circle right" slot="value" v-if="item.select">
+          <div class="checkbox circle right" slot="value" v-if="item.select && item.regardless !== 2">
             <input type="checkbox" checked name="basicReg" :id="'bg' + index" v-model="item.regardless">
             <span class="iconfont icon-dot"></span>
             <label :for="'bg' + index">不计免赔</label>
@@ -128,7 +128,9 @@
           //     el.regardless = false
           //   }
           // })
-          console.log(result)
+          result.forEach(el => {
+            console.log(el.regardless)
+          })
           result.forEach(item => {
             item.select = false
             item.value = item.extra.split(',')[0].split(':')[0]
@@ -170,7 +172,7 @@
           if (el.regardless) {
             el.regardless = 1
           } else {
-            el.regardless = 2
+            el.regardless = 0
           }
         })
         this.$localStorage.set('insurance', JSON.stringify(this.insurance))
@@ -182,6 +184,9 @@
         }
         console.log(this.form, submitOrder)
         this.$localStorage.set('order', JSON.stringify(this.form))
+        // this.form.orderInfo.insurance.forEach(el => {
+        //   console.log(el.name, el.regardless, el)
+        // })
         this.form.orderInfo = JSON.stringify(this.form.orderInfo)
         this.$http({
           method: 'jsonp',
