@@ -118,4 +118,7 @@
 </script>
 <style>
 .feedback .weui-cells{border-left:1px solid #eee;border-right:1px solid #eee;}
+.feedback .weui-cells__title{color:#2f2f2f;font-size:1.1rem;padding:0.2rem 0;}
+.feedback .weui-textarea,.feedback .weui-input{font-size:1.1rem;}
+.feedback .weui-cell{padding:0.7rem 1rem;}
 </style>

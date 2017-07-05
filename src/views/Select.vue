@@ -7,7 +7,7 @@
           <div class="checkbox full" slot="icon">
             <input type="checkbox" checked name="force" :value="'缴纳'" :id="'force' + index" v-model="item.select" v-on:change="handlepull">
             <span class="iconfont icon-right1"></span>
-            <label :for="'force' + index">{{forceName}}</label>
+            <label :for="'force' + index" class="hideletter">{{forceName}}</label>
           </div>
         </Cell>
       </group>
@@ -149,6 +149,7 @@
           this.force.forEach(item => {
             this.forceName += '+' + item.name
           })
+          this.forceName = this.forceName.substring(1, this.forceName.length)
           this.forceValue = this.force[0].value
         })
       },
@@ -224,4 +225,5 @@
 .pop-tip.has-btn{padding-bottom:5rem;}
 .pop-tip h1{text-align:center;font-size:1.2rem;color:#333;border-bottom:1px solid #eee;padding:0.7rem 1rem;}
 .pop-tip p{font-size:1rem;color:#666;line-height:1.8;padding:0 1rem;text-indent:2em;margin-top:1rem;}
+.hideletter:first-letter{color:#f00;}
 </style>

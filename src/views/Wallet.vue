@@ -6,7 +6,7 @@
           我的钱包
         </li>
         <li class="col v-m t-r">
-          <router-link to='/record'>提现记录</router-link>
+          <router-link to='/record'><span style="vertical-align:middle">提现记录</span><span class="iconfont icon-right" style="font-size:1.2rem;margin-left:0.2rem;vertical-align:middle;"></span></router-link>
         </li>
       </ul>
       <div class="row w light">
@@ -157,10 +157,11 @@
 .fix-banner .banner{background-color:#EB3D00;height:24vh;margin-top:-24vh;}
 .banner .col{padding:1rem;font-size:1.2rem;color:#fff;}
 .banner a{color:#fff;}
-.legend{font-size:1.2rem;line-height:2;color:#444;position:relative;}
+.legend{font-size:1rem;line-height:2;color:#444;position:relative;}
 .legend:before{content:"";display:inline-block;width:0.8rem;height:0.8rem;border-radius:50%;margin-right:0.5rem;}
 .legend.yellow:before{background-color:#FDC800;}
 .legend.blue:before{background-color:#43B5E4;}
 .light .num{font-size:1.6rem;color:#fff;}
 .light .text{font-size:1rem;color:rgba(255,255,255,0.8);text-indent:1rem;}
+.light .col:first-child:after{content:"";display:inline-block;width:1px;height:3rem;background:#fff;position:absolute;top:50%;right:0;transform:translateY(-50%);}
 </style>

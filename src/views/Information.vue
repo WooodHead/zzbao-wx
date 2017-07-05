@@ -2,7 +2,7 @@
   <div class="page gray row h w">
     <div class="col v-m t-c" style="padding:0 1rem;">
       <div class="face">
-        <img src="static/img/face.jpg" alt="">
+        <img src="static/img/face-default.jpg" alt="">
       </div>
       <group gutter="30px" class="information">
         <x-input v-model="form.userName" text-align="right">
@@ -91,7 +91,7 @@
 <style scoped>
 .form-panel{margin-top:2rem;}
 .form-panel .form{margin:0;margin-top:-1px;}
-.face{display:inline-block;width:7rem;height:7rem;border-radius:50%;overflow:hidden;border:2px solid #D9D9D9;}
+.face{display:inline-block;width:6rem;height:6rem;border-radius:50%;overflow:hidden;border:1px solid #D9D9D9;}
 .face img{width:100%;height:100%;}
 .form .iconfont,.weui-cells .iconfont{color:#959595;font-size:1.8rem;margin-right:1rem;}
 .form .icon-right{right:0;left:auto;font-size:1.4rem;transform:translate(0, -50%);}

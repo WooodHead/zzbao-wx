@@ -21,7 +21,7 @@
         <x-button type="warn" @click.native="handleOrder">立即兑换</x-button>
       </div>
     </div>
-    <x-dialog v-model="order" class="dialog-demo">
+    <x-dialog v-model="order" class="dialog-exchange">
       <div class="form-wrap">
         <h2>请填写收货地址</h2>
         <group gutter="10px" class="bor">
@@ -34,19 +34,17 @@
             <span slot="label" class="label">手机号码</span>
           </x-input>
         </group>
-        <group gutter="10px">
-          <city title="地址" class="bor address"></city>
-        </group>
+        <city title="地址" class="bor address exchange" style="margin-top:10px;"></city>
         <group gutter="10px" class="bor">
           <x-input type="text" label-width="5rem" ref="place" style="text-align:right" placeholder="请输入街道等详细信息" required v-model="form.address">
             <span slot="label" class="label">详细地址</span>
           </x-input>
         </group>
         <ul class="row w do">
-          <li class="col v-m col-12">
+          <li class="col v-m col-12" style="padding-left:0;">
             <x-button @click.native="order = false">取消</x-button>
           </li>
-          <li class="col v-m col-12">
+          <li class="col v-m col-12" style="padding-right:0;">
             <x-button type="warn" @click.native="handleSubmit">确认兑换</x-button>
           </li>
         </ul>
@@ -217,7 +215,7 @@
   .text img{width:100%;}
   /*.label{display:inline-block;width:5rem;padding-right:0.5rem;text-align:left;font-size:1rem;color:#666;}*/
   .do .col{padding:1rem 0.5rem;}
-  .form-wrap h2{font-size:1.4rem;color:#666;}
+  .form-wrap h2{font-size:1rem;color:#666;}
   .msg p{color:#999;font-size:1rem;}
   .msg h2{font-size:1.4rem;color:#666;}
 </style>
@@ -229,4 +227,10 @@
 .vux-popup-dialog{z-index:5001 !important;}
 .dialog-tip .weui-icon{font-size:3rem;}
 .text img{width:100%;}
+.exchange .vux-label{font-size:1rem;color:#444;}
+.dialog-exchange .label{color:#444;}
+.exchange .weui-cell__ft{font-size:1rem;}
+.dialog-exchange .weui-input{font-size:1rem;}
+.dialog-exchange .weui-input::-webkit-input-placeholder{font-size:1rem;}
+.dialog-exchange .weui-btn{font-size:1rem !important;height:3rem;}
 </style>

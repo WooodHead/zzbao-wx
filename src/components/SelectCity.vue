@@ -182,17 +182,18 @@ export default {
 .col{display:table-cell;}.v-m{vertical-align:middle;}
 .w-30{width:30%;}.w-70{width:70%;}.w{width:100%;}.bg-f{background:#fff;}
 
-.select{padding-top:44px;padding-bottom:50px;box-sizing:border-box;overflow:hidden;}
+.select{padding-top:44px;padding-bottom:60px;box-sizing:border-box;overflow:hidden;}
 .select-tab{margin-top:-44px;}
+.select-tab .vux-tab-item{font-size:1.2rem;}
 .select-list{height:100%;}
-.select-btn{margin:10px 0;}
+.select-btn{height:60px;}
 .select-btn button{display:inline-block;font-size:14px;}
 .select-btn .col:first-child{padding:0 5px 0 10px;}
 .select-btn .col:last-child{padding:0 10px 0 5px;}
 .select-btn .col:first-child button{background:#ddd;color:#333;}
 
-.list{padding:0 10px;}
-.list li{font-size:14px;color:#333;padding:15px 10px;border-bottom:1px solid #e9e9e9;}
+.list{padding:0 0 0 1.5rem;}
+.list li{font-size:1.2rem;color:#333;padding:15px 10px 15px 0;border-bottom:1px solid #e9e9e9;}
 </style>
 <style>
 .select-text{font-size:14px;}

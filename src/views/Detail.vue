@@ -124,5 +124,5 @@
 .banner p{font-size:1rem;color:rgba(255,255,255,0.8);}
 .title:before{display:none;}
 .title{padding:0.3rem 1rem;border-bottom:1px solid #ECECEC;margin-top:0;}
-.title .iconfont{font-size:1.4rem;margin-right:0.5rem;vertical-align:middle;}
+.title .iconfont{font-size:1.4rem;margin-right:0;vertical-align:middle;padding:0 0.5rem 0 0;}
 </style>

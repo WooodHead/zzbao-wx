@@ -1,6 +1,6 @@
 <template>
   <div class="page gray fix-blur">
-    <blur :blur-amount=20 :url="selectBlur()" class="head-bar">
+    <!--<blur :blur-amount=20 :url="selectBlur()" class="head-bar">
       <ul class="row w h" style="position:relative;z-index:1;">
         <li class="col v-b col-18">
           <img v-lazy="userInfo.userSex > 1 ? 'static/img/female.png' : 'static/img/male.png'" alt="" class="circle v-m" v-if="userInfo">
@@ -12,6 +12,22 @@
           <p>
             <router-link to="/setting" class="iconfont icon-shezhi v-m"></router-link>
             <router-link to="/message" class="iconfont icon-xiaoxi v-m" style="margin-left:0.5rem;"></router-link>
+          </p>
+        </li>
+      </ul>
+    </blur>-->
+    <blur class="head-bar" style="background:#EB3D00;">
+      <ul class="row w h" style="position:relative;z-index:1;">
+        <li class="col v-b col-18">
+          <img v-lazy="userInfo.userSex > 1 ? 'static/img/female.png' : 'static/img/male.png'" alt="" class="circle v-m" v-if="userInfo">
+          <img v-lazy="'static/img/face.png'" alt="" class="circle v-m" v-if="!userInfo">
+          <span style="display:inline-block;width:5em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" class="v-m" v-if="userInfo">{{userInfo.userName}}</span>
+          <router-link to="/login" v-if="!userInfo">登录/注册</router-link>
+        </li>
+        <li class="col v-t t-r col-6">
+          <p>
+            <router-link to="/setting" class="v-m"><img style="width:1.5rem;" src="static/img/setting.png" alt=""></router-link>
+            <router-link to="/message" class="v-m" style="margin-left:0.5rem;"><img style="width:1.5rem;" src="static/img/message.png" alt=""><img style="width:0.6rem;position:absolute;right:0.8 rem;top:0.8rem;" src="static/img/dot.png" alt=""></router-link>
           </p>
         </li>
       </ul>
@@ -49,19 +65,19 @@
       <group title="其他管理">
         <cell is-link :link="'/wallet/' + userId">
           <span class="iconfont icon-wallet c-yellow" slot="icon"></span>
-          <span slot="title">我的钱包</span>
+          <span slot="title" style="font-size:1rem;color:#2b2b2b;">我的钱包</span>
         </cell>
         <cell is-link :link="'/exchange/' + userId">
           <span class="iconfont icon-exchange c-blue" slot="icon"></span>
-          <span slot="title">兑换记录</span>
+          <span slot="title" style="font-size:1rem;color:#2b2b2b;">兑换记录</span>
         </cell>
       </group>
       <group gutter="10px" style="margin-bottom:10px;" v-if="userInfo">
         <x-button @click.native="logout = true" plain type='primary' style="border-left:none;border-right:none;border-radius:0;border-color:#ECECEC;color:#EB3D00;">注销/登录</x-button>
       </group>
     </div>
-    <confirm v-model="logout" @on-confirm="handleLogout">
-      <p class="confirm-text">确定要切换登录吗？</p>
+    <confirm class="logout" v-model="logout" @on-confirm="handleLogout">
+      <p class="confirm-text" style="padding:1.5rem 0;">确定要切换登录吗？</p>
     </confirm>
   </div>
 </template>
@@ -172,9 +188,12 @@
 .fix-blur .head-bar{margin-top:-200px;}
 .head-bar a{font-size:1.2rem;color:#fff;padding:0;}
 .default .num{color:#eb3d00;font-size:1.6rem;}
-.default .text{color:#3a3a3a;font-size:1.1rem;}
+.default .text{color:#3a3a3a;font-size:1rem;}
 .default a:first-child:after{content:"";display:inline-block;width:1px;height:40px;background:#E0E0E0;position:absolute;right:0;top:50%;transform:translateY(-50%)}
-.fix-info{position:fixed;top:150px;left:50%;width:90%;transform:translateX(-50%);border-radius:2rem;z-index:100;box-shadow:0 5px 20px #ccc;padding:0.8rem;}
+.fix-info{position:fixed;top:160px;left:50%;width:90%;transform:translateX(-50%);border-radius:1rem;z-index:100;box-shadow:0 5px 20px #ccc;padding:0.5rem 0.8rem;}
+.logout .weui-dialog__btn_primary{background:#EB3D00;color:#fff !important;border-radius:0.5rem;margin:0 2rem 2rem 1rem;height:3rem;line-height:3rem;font-size:1.2rem;}
+.logout .weui-dialog__btn_default{background:#fff;color:#989898 !important;border-radius:0.5rem;margin:0 1rem 2rem 2rem;height:3rem;line-height:3rem;font-size:1.2rem;border:1px solid #989898;}
+.logout .weui-dialog__ft:after{display:none;}
 </style>
 <style scoped>
 .red{background:#FF4C42;}

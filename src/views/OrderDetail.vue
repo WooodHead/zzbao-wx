@@ -4,9 +4,9 @@
       <cell :value="order.company.companyName" value-align="right">
         <p slot="title">{{order.user.ownerName}}-{{order.user.ownerLicense}}</p>
       </cell>
-      <cell>
+      <cell style="padding-bottom:0;">
         <div slot="title">
-          <h2 class="tip"><span :class="'iconfont ' + changeStatus(orderDetail.orderStatus).icon"></span>{{changeStatus(orderDetail.orderStatus).status}}</h2>
+          <h2 class="tip t-l"><span style="margin-right:0.5rem;" :class="'iconfont ' + changeStatus(orderDetail.orderStatus).icon"></span>{{changeStatus(orderDetail.orderStatus).status}}</h2>
           <p style="padding:0.5rem 0;font-size:1.2rem;color:#8B8B8B;margin-bottom:0.5rem;" v-html="changeStatus(orderDetail.orderStatus).text"></p>
           <flexbox slot="inline-desc">
             <flexbox-item>
@@ -32,19 +32,19 @@
         </ul>
       </cell>
     </group>
-    <group gutter="5px" v-if="order.user">
+    <group gutter="5px" v-if="order.user" class="orderDetail">
       <cell title="保单信息" value="查看详情" is-link :link="'/policy/' + form.userId + '/' + form.orderId"></cell>
       <cell title="商业险" v-if="hasInsurance"></cell>
       <cell v-if="hasForce">
         <p slot="title">交强险<span>（含车船税）</span></p>
       </cell>
     </group>
-    <group gutter="5px" v-if="order.user">
+    <group gutter="5px" v-if="order.user" class="orderDetail">
       <cell title="车辆信息"></cell>
       <cell title="车牌号" :value="order.user.ownerLicense"></cell>
       <cell title="车主姓名" :value="order.user.ownerName"></cell>
     </group>
-    <group gutter="5px" v-if="order.user">
+    <group gutter="5px" v-if="order.user" class="orderDetail">
       <cell title="订单信息"></cell>
       <cell title="订单号" :value="orderDetail.orderSn"></cell>
       <cell title="下单时间" :value="orderDetail.createTime"></cell>
@@ -186,7 +186,7 @@
 <style scoped>
 .num{font-size:1.6rem;}
 .tip{font-size:1.4rem;color:#333;}
-.tip .iconfont{font-size:2.2rem;margin-right:0.5rem;vertical-align: middle;color:#EB3D00;}
+.tip .iconfont{font-size:2.2rem;margin-right:0;vertical-align: middle;color:#EB3D00;}
 .vux-label-desc img{margin-right:0.5rem;}
 .vux-label-desc .row{margin-top:1rem;border-top:1px solid #ECECEC;}
 .vux-label-desc .row .col{padding:1rem 0;position:relative;}
@@ -194,3 +194,7 @@
 .vux-label-desc a{font-size:1.2rem;color:#2b2b2b;}
 .vux-label-desc a span{display:inline-block;}
 </style>
+<style>
+.orderDetail .weui-cells .weui-cell:first-child .vux-label{color:#2b2b2b;}
+</style>
+

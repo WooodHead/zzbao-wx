@@ -2,17 +2,17 @@
   <div class="page gray login form-panel">
     <group gutter="0">
       <x-input placeholder="请输入原始密码！" ref="old" v-model="form.oldPwd" type="password">
-        <span class="iconfont icon-mima" slot="label"></span>
+        <img style="width:2rem;margin:0.2rem 0;" src="static/img/key.png" slot="label" alt="">
       </x-input>
     </group>
     <group gutter="10px">
       <x-input placeholder="请输入新密码！" ref="new1" v-model="form.newPwd" type="password">
-        <span class="iconfont icon-mima" slot="label"></span>
+        <img style="width:2rem;margin:0.2rem 0;" src="static/img/pwd.png" slot="label" alt="">
       </x-input>
     </group>
     <group gutter="10px">
       <x-input placeholder="请再次输入新密码！" ref="new2" v-model="pwd" type="password">
-        <span class="iconfont icon-mima" slot="label"></span>
+        <img style="width:2rem;margin:0.2rem 0;" src="static/img/pwd.png" slot="label" alt="">
       </x-input>
     </group>
     <group gutter="10px">
@@ -130,4 +130,10 @@
 <style scoped>
 .form.has-btn .btn{padding:0.7rem 0;}
 .iconfont{font-size:1.8rem;color:#959595;}
+</style>
+<style>
+.form-panel .weui-cell__hd:before,.form-panel .weui-cell__hd:after{content:'';display:inline-block;width:1px;height:6rem;border-left:1px solid #D9D9D9;transform:scaleX(0.5);position:absolute;top:0;left:0;}
+.form-panel .weui-cell__hd:after{left:auto;right:0;}
+.form-panel .iconfont{padding:0;padding-right:0.5rem;}
+.form-panel .weui-cell{padding:0.3rem 0.3rem 0.3rem 1rem;}
 </style>

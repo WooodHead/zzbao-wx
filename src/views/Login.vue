@@ -5,12 +5,12 @@
       <div class="form-panel login">
         <group gutter="10px">
           <x-input placeholder="请输入手机号码" v-model="form.tel" type="tel" ref="tel" is-type="china-mobile" required @on-blur="handleCheckPhone">
-            <span class="iconfont icon-shouji" slot="label"></span>
+            <img style="width:2rem;margin:0.5rem 0;" src="static/img/phone.png" slot="label" alt="">
           </x-input>
         </group>
         <group gutter="10px">
           <x-input placeholder="请输入密码" ref="pwd" required v-model="form.pwd" type="password">
-            <span class="iconfont icon-mima" slot="label"></span>
+            <img style="width:2rem;margin:0.5rem 0;" src="static/img/pwd.png" slot="label" alt="">
           </x-input>
         </group>
         <group gutter="10px">

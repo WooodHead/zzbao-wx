@@ -2,12 +2,12 @@
   <div class="page h auto">
     <div class="safe-list">
       <router-link :to="'/offer/' + item.id + '/' + userId" :class="item.isMarketing ? 'row w rec' : 'row w'" v-for="(item, index) in list" :key="index" @click.native="handleSaveData(item)">
-          <span class="col v-m col-8 t-c ptb-10">
+          <span class="col v-m col-7 t-l ptb-10" style="padding-left:1rem;">
             <span class="img">
               <img v-lazy="{src: item.listPic, error: 'static/img/err1.png', loading: 'static/img/loading2.gif'}" alt=""/>
             </span>
           </span>
-          <span class="col v-m col-16">
+          <span class="col v-m col-17">
             <b class="name">{{item.name}}</b>
             <i>承保地区：{{item.insureArea}}</i>
             <i>承保车辆：{{item.insureCar}}</i>

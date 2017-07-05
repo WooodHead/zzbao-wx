@@ -8,7 +8,7 @@
         </div>
       </div>
     </div>
-    <h2 class="title"><span class="iconfont icon-jilu"></span>收支记录</h2>
+    <h2 class="title"><span class="iconfont icon-iconfont"></span>积分明细</h2>
     <v-scroll style="top:21vh;bottom:0;" :on-refresh="onRefresh" :on-infinite="onInfinite">
       <group gutter="0px" v-for="(item, index) in list" :key="index">
         <cell>
@@ -158,5 +158,5 @@
 .banner p{font-size:1rem;color:rgba(255,255,255,0.8);}
 .title:before{display:none;}
 .title{padding:0.3rem 1rem;border-bottom:1px solid #ECECEC;margin-top:0;}
-.title .iconfont{font-size:1.4rem;margin-right:0.5rem;vertical-align:middle;}
+.title .iconfont{font-size:1.4rem;margin-right:0;vertical-align:middle;padding:0 0.5rem 0 0;}
 </style>

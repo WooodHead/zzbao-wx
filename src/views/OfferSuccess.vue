@@ -84,7 +84,7 @@
 </script>
 <style scoped>
 .msg{margin-top:2rem;}
-.msg .iconfont{font-size:4rem;color:#49BC2E;margin-right:1rem;}
+.msg .iconfont{font-size:4rem;color:#49BC2E;margin-right:0.5rem;}
 .msg h2{font-size:1.2rem;color:#3B3B3B;}
 .msg p{font-size:1rem;color:#AEAEAE;}
 .tip{padding:2rem;}

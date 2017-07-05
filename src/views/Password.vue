@@ -5,27 +5,33 @@
         <div class="tips">请填写注册用的手机号码，验证码将发送到您的手机</div>
         <group gutter="10px">
           <XInput placeholder="请输入手机号" v-model="form.tel" ref="tel" is-type="china-number">
-            <span class="iconfont icon-shouji" slot="label"></span>
+            <img style="width:2rem;margin:0.2rem 0;" src="static/img/phone.png" slot="label" alt="">
           </XInput>
         </group>
-        <group gutter="10px" class="code">
-          <XInput placeholder="验证码" v-model="form.captcha" :show-clear="false">
-            <span class="iconfont icon-yzm" slot="label"></span>
-            <x-button class="code" slot="right" type="warn" :disabled="!form.tel" @click.native="handleSendSms" v-show="!show" :show-loading="getting">{{text}}</x-button>
-            <x-button v-show="show" slot="right" class="count" style="margin-top:0;" @click.native="handleTips">
-              <countdown v-model="time" @on-finish="handleTime" :start="start"></countdown>
-              秒重新获取
-            </x-button>
-          </XInput>
+        <group gutter="10px" class="getcode">
+          <ul class="row w">
+            <li class="col v-m col-14">
+              <XInput placeholder="验证码" v-model="form.captcha" :show-clear="false">
+              <img style="width:2rem;margin:0.2rem 0;" src="static/img/code.png" slot="label" alt="">
+            </XInput>
+            </li>
+            <li class="col v-m col-10" style="padding-left:0.5rem;background:#F7F7F7;">
+              <x-button class="code" slot="right" type="warn" @click.native="handleSendSms" v-show="!show" :show-loading="getting">{{text}}</x-button>
+              <x-button v-show="show" slot="right" class="count" style="margin-top:0;" @click.native="handleTips">
+                <countdown v-model="time" @on-finish="handleTime" :start="start"></countdown>
+                秒重新获取
+              </x-button>
+            </li>
+          </ul>
         </group>
         <group gutter="10px">
           <XInput placeholder="请输入新密码" v-model="form.pwd">
-            <span class="iconfont icon-mima" slot="label"></span>
+            <img style="width:2rem;margin:0.2rem 0;" src="static/img/pwd.png" slot="label" alt="">
           </XInput>
         </group>
         <group gutter="10px">
           <XInput placeholder="请再次输入密码" v-model="pwd">
-            <span class="iconfont icon-mima" slot="label"></span>
+            <img style="width:2rem;margin:0.2rem 0;" src="static/img/pwd.png" slot="label" alt="">
           </XInput>
         </group>
         <group gutter="10px">

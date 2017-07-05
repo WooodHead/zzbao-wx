@@ -4,33 +4,39 @@
       <p class="tips" v-if="isReg">该号码已经注册，请前往<router-link to="/login">登录</router-link></p>
       <group gutter="0px">
         <x-input placeholder="请输入真实手机号" v-model="form.tel" is-type="china-mobile" ref="tel">
-          <span class="iconfont icon-shouji" slot="label"></span>
+          <img style="width:2rem;margin:0.2rem 0;" src="static/img/phone.png" slot="label" alt="">
         </x-input>
       </group>
       <group gutter="10px">
         <x-input placeholder="请输入您的姓名" v-model="form.name">
-          <span class="iconfont icon-user" slot="label"></span>
+          <img style="width:2rem;margin:0.2rem 0;" src="static/img/user.png" slot="label" alt="">
         </x-input>
       </group>
       <group gutter="10px">
         <x-input placeholder="请输入登录密码" v-model="pwd" :min="6" ref="pwd" @on-blur="checkPwd" type="password">
-          <span class="iconfont icon-mima" slot="label"></span>
+          <img style="width:2rem;margin:0.2rem 0;" src="static/img/pwd.png" slot="label" alt="">
         </x-input>
       </group>
       <group gutter="10px">
         <x-input placeholder="请再次输入密码" v-model="form.pwd" :min="6" @on-blur="reCheckPwd" ref="pwd1" type="password">
-          <span class="iconfont icon-mima" slot="label"></span>
+          <img style="width:2rem;margin:0.2rem 0;" src="static/img/pwd.png" slot="label" alt="">
         </x-input>
       </group>
-      <group gutter="10px">
-        <x-input placeholder="请输入验证码" v-model="form.captcha" :show-clear="false">
-          <span class="iconfont icon-yzm" slot="label"></span>
-          <x-button :disabled="!form.tel" class="code" slot="right" type="warn" @click.native="handleSendSms" v-show="!show" :show-loading="getting">{{text}}</x-button>
-          <x-button v-show="show" slot="right" class="count" style="margin-top:0;" @click.native="handleTips">
-            <countdown v-model="time" @on-finish="handleTime" :start="start"></countdown>
-            秒重新获取
-          </x-button>
-        </x-input>
+      <group gutter="10px" class="getcode">
+        <ul class="row w">
+          <li class="col v-m col-14">
+            <x-input placeholder="请输入验证码" v-model="form.captcha" :show-clear="false">
+              <img style="width:2rem;margin:0.2rem 0;" src="static/img/code.png" slot="label" alt="">
+            </x-input>
+          </li>
+          <li class="col v-m col-10" style="padding-left:0.5rem;background:#F7F7F7;">
+            <x-button class="code" slot="right" type="warn" @click.native="handleSendSms" v-show="!show" :show-loading="getting">{{text}}</x-button>
+            <x-button v-show="show" slot="right" class="count" style="margin-top:0;" @click.native="handleTips">
+              <countdown v-model="time" @on-finish="handleTime" :start="start"></countdown>
+              秒重新获取
+            </x-button>
+          </li>
+        </ul>
       </group>
       <group gutter="10px">
         <x-button type="warn" :show-loading="loading" @click.native="handleRegister">注册</x-button>
@@ -134,6 +140,10 @@
 .weui-btn.code .weui-loading{position:absolute;left:0.5rem;top:50%;margin-top:-10px !important;}
 .weui-btn.code.weui-btn_loading{padding-left:2rem !important;}
 .form-panel .iconfont{color:#959595;font-size:1.8rem;padding-right:0.5rem;}
+.getcode .weui-cells .col:last-child:after{content:"";display:inline-block;width:100%;height:1px;background:#f7f7f7;position:absolute;left:0;bottom:0;z-index:1000;}
+.getcode .weui-btn_warn{background:#DDDDDD;border-radius:0;height:3rem;color:#414141;}
+.getcode .weui-btn_warn:active{background:#ccc !important;color:#666;}
+.getcode .weui-btn_warn:after{display:none;}
 </style>
 <style scoped>
 .tips{padding:0.5rem;}
