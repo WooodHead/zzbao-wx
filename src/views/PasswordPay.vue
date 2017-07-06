@@ -24,9 +24,9 @@
         </li>
         <li class="col v-m col-10" style="padding-left:0.5rem;background:#F7F7F7;">
           <x-button class="code" slot="right" type="warn" @click.native="handleSendSms" v-show="!show" :show-loading="getting">{{text}}</x-button>
-          <x-button v-show="show" slot="right" class="count" style="margin-top:0;" @click.native="handleTips">
+          <x-button v-show="show" slot="right" type="warn" class="code" style="margin-top:0;" @click.native="handleTips">
             <countdown v-model="time" @on-finish="handleTime" :start="start"></countdown>
-            秒重新获取
+            s获取
           </x-button>
         </li>
       </ul>

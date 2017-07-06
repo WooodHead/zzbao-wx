@@ -1,7 +1,7 @@
 <template>
   <div class="page gray has-btn">
     <div class="content h auto">
-      <img style="height:30vh" class="w" v-lazy="{src: goods.infoPic, error: 'static/img/err2.png', loading: 'static/img/loading1.gif'}">
+      <img style="height:30vh" class="w" v-lazy="{src: goods.infoPic, error: 'static/img/err2.png', loading: 'static/img/loading3.gif'}">
       <group class="info" gutter="0px">
         <h2>{{goods.name}}</h2>
         <p class="c-red"><span class="num">{{goods.score}}</span>积分</p>

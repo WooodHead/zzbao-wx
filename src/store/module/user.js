@@ -285,6 +285,7 @@ const mutations = {
             }
           })
           .then(res => {
+            console.log(res)
             if (res.body.status) {
               This.getting = false
               This.show = true
@@ -304,9 +305,9 @@ const mutations = {
             } else {
               This.$vux.toast.show({
                 type: 'text',
-                width: '20em',
+                width: '22em',
                 position: 'bottom',
-                text: '验证码获取失败，请稍后重试！',
+                text: res.body.msg,
                 time: '3000'
               })
             }
@@ -348,15 +349,23 @@ const mutations = {
         userInfo.userBirthday = This.form.birthday
         userInfo.userSex = This.form.userSex
         This.$localStorage.set('userInfo', JSON.stringify(userInfo))
+        This.$vux.toast.show({
+          type: 'text',
+          width: '20em',
+          position: 'bottom',
+          text: '资料修改成功！',
+          time: '1000'
+        })
+      } else {
+        This.$vux.toast.show({
+          type: 'text',
+          width: '20em',
+          position: 'bottom',
+          text: res.body.msg,
+          time: '1000'
+        })
       }
       This.loading = false
-      This.$vux.toast.show({
-        type: 'text',
-        width: '20em',
-        position: 'bottom',
-        text: res.body.msg,
-        time: '1000'
-      })
     })
   }
 }

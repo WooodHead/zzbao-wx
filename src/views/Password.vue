@@ -17,9 +17,9 @@
             </li>
             <li class="col v-m col-10" style="padding-left:0.5rem;background:#F7F7F7;">
               <x-button class="code" slot="right" type="warn" @click.native="handleSendSms" v-show="!show" :show-loading="getting">{{text}}</x-button>
-              <x-button v-show="show" slot="right" class="count" style="margin-top:0;" @click.native="handleTips">
+              <x-button v-show="show" slot="right" type="warn" class="code" style="margin-top:0;" @click.native="handleTips">
                 <countdown v-model="time" @on-finish="handleTime" :start="start"></countdown>
-                秒重新获取
+                s获取
               </x-button>
             </li>
           </ul>
@@ -76,6 +76,15 @@
       }
     },
     methods: {
+      handleTips () {
+        this.$vux.toast.show({
+          type: 'text',
+          width: '20em',
+          position: 'bottom',
+          text: this.time + '秒后才能重新获取！',
+          time: '1000'
+        })
+      },
       postSMS () {
         this.handleSms(this)
       },
@@ -104,6 +113,10 @@
 .weui-btn.code .weui-loading{position:absolute;left:0.5rem;top:50%;margin-top:-10px !important;}
 .weui-btn.code.weui-btn_loading{padding-left:2rem !important;}
 .code .weui-cell{padding-right:7rem !important;}
+.getcode .weui-cells .col:last-child:after{content:"";display:inline-block;width:100%;height:1px;background:#f7f7f7;position:absolute;left:0;bottom:0;z-index:1000;}
+.getcode .weui-btn_warn{background:#DDDDDD;border-radius:0;height:3rem;color:#414141;}
+.getcode .weui-btn_warn:active{background:#ccc !important;color:#666;}
+.getcode .weui-btn_warn:after{display:none;}
 </style>
 <style scoped>
 .iconfont{padding:0 0.5rem 0 0;}

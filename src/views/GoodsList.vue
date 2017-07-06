@@ -23,7 +23,8 @@
         </div>
       <!--</v-scroll>-->
       <Loading :show="showLoading">
-        <p slot="text">正在拉取商品列表！</p>
+        <span slot="icon" class="iconfont icon-shangpin"></span>
+        <p slot="text">正在加载商品列表！</p>
       </Loading>
     </div>
     <popup position="top" v-model="select" class="popUp">

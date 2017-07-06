@@ -192,3 +192,4 @@ img[lazy=loaded] {
 
 .weui-cell_access .weui-cell__ft:after{border-width:1px 1px 0 0 !important;}
 /*.num{font-family:'Capsuula';}*/
+.weui-cell__hd img{margin-right:0.5rem !important;}
