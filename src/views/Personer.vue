@@ -26,8 +26,8 @@
         </li>
         <li class="col v-t t-r col-6">
           <p>
-            <router-link to="/setting" class="iconfont icon-shezhi v-m"></router-link>
-            <router-link to="/message" class="iconfont icon-xiaoxi v-m" style="margin-left:0.5rem;"></router-link>
+            <router-link to="/setting" class="v-m"><img style="width:1.7rem;" src="static/img/setting.png" alt=""></router-link>
+            <router-link to="/message" class="v-m" style="margin-left:0.5rem;position:relative;"><img style="width:1.7rem;" src="static/img/message.png" alt=""><img src="static/img/dot.png" style="width:0.6rem;position:absolute;left:1.4rem;top:-0.5rem;" alt=""></router-link>
           </p>
         </li>
       </ul>
