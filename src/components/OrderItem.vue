@@ -51,34 +51,38 @@
     methods: {
       changeStatus (num) {
         switch (num) {
+          case -1:
+            return '已撤单'
           case 0:
-            return '待报价'
+            return '待保险公司报价'
           case 1:
-            return '已撤销'
+            return '核保中'
           case 2:
-            return '待承保'
-          case 3:
-            return '待付款'
-          case 4:
-            return '已承保'
-          case 5:
             return '核保失败'
+          case 3:
+            return '待支付'
+          case 4:
+            return '待承保'
+          case 5:
+            return '已承保'
         }
       },
       changePrice (item) {
         switch (item.orderStatus) {
+          case -1:
+            return '0.00'
           case 0:
             return '待报价'
           case 1:
             return '0.00'
           case 2:
-            return '￥' + item.maxFee
+            return '暂无保费'
           case 3:
             return '￥' + item.maxFee
           case 4:
             return '￥' + item.maxFee
           case 5:
-            return '暂无保费'
+            return '￥' + item.maxFee
         }
       },
       handleSaveData (item) {
