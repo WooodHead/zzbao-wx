@@ -128,9 +128,9 @@
           //     el.regardless = false
           //   }
           // })
-          result.forEach(el => {
-            console.log(el.regardless)
-          })
+          // result.forEach(el => {
+          //   console.log(el.regardless)
+          // })
           result.forEach(item => {
             item.select = false
             item.value = item.extra.split(',')[0].split(':')[0]
@@ -183,7 +183,6 @@
           card: JSON.parse(this.$localStorage.get('orderPic')),
           insurance: this.insurance
         }
-        console.log(this.form, submitOrder)
         this.$localStorage.set('order', JSON.stringify(this.form))
         // this.form.orderInfo.insurance.forEach(el => {
         //   console.log(el.name, el.regardless, el)
@@ -197,9 +196,8 @@
           params: this.form
         })
         .then(res => {
-          console.log(res)
           if (res.status) {
-            this.$router.replace('/offersuccess/' + res.body.data.orderId + '/' + this.form.userId)
+            this.$router.push('/offersuccess/' + res.body.data.orderId + '/' + this.form.userId)
           }
         })
       },

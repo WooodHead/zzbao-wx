@@ -102,7 +102,6 @@
         }
       },
       getList (done, status) {
-        console.log(this.form)
         const This = this
         this.$http({
           method: 'jsonp',
@@ -117,12 +116,10 @@
           }
         })
         .then(res => {
-          console.log(res)
           res.body.data.scoreList.forEach(el => {
             This.list.push(el)
           })
           if (res.body.data.scoreList.length < This.form.limit) {
-            console.log('这是最后一页')
             this.statusNoMore()
           } else {
             this.statusLoad()
@@ -141,7 +138,6 @@
             }
           })
           .then(res => {
-            console.log(res)
             this.balance = res.body.data.wallet.balance
           })
         })

@@ -60,7 +60,6 @@
           params: this.form
         })
         .then(res => {
-          console.log(res)
           this.order = res.body.data.order
           // this.order = res.body.data.order
           // this.$localStorage.set('order', JSON.stringify(this.order))
@@ -71,7 +70,7 @@
                 label: insurances[key].name,
                 value: insurances[key].value
               })
-              if (insurances[key].regardless) {
+              if (insurances[key].regardless === '1') {
                 this.regard.push({
                   label: '不计免赔(' + insurances[key].name + ')',
                   value: '投保'

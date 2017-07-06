@@ -82,7 +82,6 @@ const mutations = {
     })
     .then(res => {
       state.offerList = res.body.data.companyList
-      console.log(res.body.data.companyList)
     })
   },
   getOffer (state) {}

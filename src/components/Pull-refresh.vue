@@ -117,8 +117,7 @@
 					dy = this.startY - endY,
 					dx = endX - this.startX;
 				//如果滑动距离太短  
-				if (Math.abs(dx) < 2 && Math.abs(dy) < 2) {
-					console.log("滑动距离太短")
+				if (Math.abs(dx) < 2 && Math.abs(dy) < 2) 
 					return;
 				}
 				//--------end--------
@@ -130,7 +129,6 @@
 					scrollTop = this.$el.scrollTop,
 					ptrHeight = this.onRefresh ? this.$el.querySelector('.pull-refresh').clientHeight : 0,
 					bottom = innerHeight - outerHeight - scrollTop - ptrHeight;
-				console.log(bottom + " __ " + this.offset)
 				if (bottom <= this.offset && this.state === 0) {
 					this.downFlag = true;
 					this.infinite();

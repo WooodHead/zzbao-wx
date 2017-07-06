@@ -51,7 +51,6 @@ export default {
       })
       .then(res => {
         this.list = res.body.data.companyList
-        console.log(this.list)
       })
     },
     handleSaveData (item) {

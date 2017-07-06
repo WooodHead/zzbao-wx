@@ -44,19 +44,19 @@
         list: [],
         bar: [{
           text: '全部',
-          key: '-1'
+          key: '-100'
         }, {
           text: '待报价',
           key: '0'
         }, {
-          text: '待付款',
+          text: '待支付',
           key: '3'
         }, {
-          text: '待出单',
-          key: '2'
-        }, {
-          text: '已出单',
+          text: '待承保',
           key: '4'
+        }, {
+          text: '已承保',
+          key: '5'
         }],
         current: '全部',
         index: 0
@@ -64,18 +64,16 @@
     },
     mounted () {
       this.height = document.querySelector('.vux-slider').clientHeight + 'px'
-      console.log(this.$route.params.userId)
     },
     created () {
       if (this.$route.params.userId !== 'null') {
         this.form.userId = this.$route.params.userId
         this.form.status = this.$route.params.id
-        if (this.form.status === '-1') {
+        if (this.form.status === '-100') {
           this.getList(() => {}, 1)
         }
       } else {
         this.$router.replace('/login')
-        console.log(0)
       }
       for (const i in this.bar) {
         if (this.bar[i].key === this.$route.params.id) {
@@ -126,14 +124,12 @@
           }
         })
         .then(res => {
-          console.log(res)
           res.body.data.orderList.forEach(el => {
             This.list.push(el)
           })
           if (this.list.length < this.form.limit) {
             this.statusNull()
           } else if (res.body.data.orderList.length < This.form.limit) {
-            console.log('这是最后一页')
             this.statusNoMore()
           } else {
             this.statusLoad()

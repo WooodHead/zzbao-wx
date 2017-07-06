@@ -16,7 +16,6 @@ const getters = {
 const mutations = {
   // 修改用户密码
   postEditPassword (state, This) {
-    console.log(This.form)
     if (!This.form.tel) {
       This.$vux.toast.show({
         type: 'text',
@@ -71,7 +70,6 @@ const mutations = {
           }
         })
         .then(res => {
-          console.log(res)
           This.loading = false
           if (res.body.status) {
             This.$router.replace('/login')
@@ -140,7 +138,6 @@ const mutations = {
               time: '1000'
             })
             state.logined = true
-            console.log(res.body.data.userInfo)
             state.userInfo = res.body.data.userInfo
             This.$localStorage.set('userInfo', JSON.stringify(state.userInfo))
             This.$localStorage.set('time', Date.parse(new Date()))
@@ -227,7 +224,6 @@ const mutations = {
           }
         })
         .then(res => {
-          console.log(res)
           This.loading = false
           if (res.body.status) {
             This.$vux.toast.show({
@@ -286,11 +282,9 @@ const mutations = {
             },
             before: () => {
               This.getting = true
-              console.log(sms)
             }
           })
           .then(res => {
-            console.log(res)
             if (res.body.status) {
               This.getting = false
               This.show = true

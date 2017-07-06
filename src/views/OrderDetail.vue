@@ -168,7 +168,6 @@
           for (const i in this.order) {
             if (i === 'insurance') {
               this.order[i].forEach(el => {
-                console.log(el.type)
                 if (el.type === '0') {
                   this.hasForce = true
                 } else {

@@ -3,17 +3,17 @@
     <!--<view-box ref="viewBox">-->
       <router-view name="tab" class="content"></router-view>
       <tabbar>
-        <tabbar-item :selected="page === 'offer'" link="/offer">
+        <tabbar-item :selected="page === 'offer'" link="/offer" @on-item-click="clear">
           <img slot="icon" src="static/img/nav1.png"/>
           <img slot="icon-active" src="static/img/nav1-active.png"/>
           <span slot="label">车险报价</span>
         </tabbar-item>
-        <tabbar-item :selected="page === 'mall'" link="/mall">
+        <tabbar-item :selected="page === 'mall'" link="/mall" @on-item-click="clear">
           <img slot="icon" src="static/img/nav2.png"/>
           <img slot="icon-active" src="static/img/nav2-active.png"/>
           <span slot="label">积分商城</span>
         </tabbar-item>
-        <tabbar-item :selected="page === 'personer'" link="/personer">
+        <tabbar-item :selected="page === 'personer'" link="/personer" @on-item-click="clear">
           <img slot="icon" src="static/img/nav3.png"/>
           <img slot="icon-active" src="static/img/nav3-active.png"/>
           <span slot="label">我的</span>
@@ -33,6 +33,11 @@ export default {
   },
   created () {
     this.page = this.$route.path.split('/')[1]
+  },
+  methods: {
+    clear () {
+      // console.log(this.$route)
+    }
   },
   components: {
     Tabbar,

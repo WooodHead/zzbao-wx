@@ -92,7 +92,6 @@
           jsonpCallback: 'json'
         })
         .then(res => {
-          console.log(res)
           this.loading = false
           if (res.body.status) {
             this.$vux.toast.show({
@@ -125,8 +124,6 @@
           jsonpCallback: 'json'
         })
         .then(res => {
-          console.log(this.form)
-          console.log(res)
           if (res.body.status) {
             this.form.customer = JSON.parse(this.form.customer)
             this.$vux.toast.show({
@@ -160,7 +157,6 @@
           this.form.customer.registTime = dateFormat(this.form.customer.registTime)
           this.form.customer.expireTime = dateFormat(this.form.customer.expireTime)
           this.info = res.body.data.customer
-          console.log(res.body.data.customer)
         })
       },
       formatDate (date) {

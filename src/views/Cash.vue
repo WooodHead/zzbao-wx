@@ -73,14 +73,12 @@
         }
       })
       .then(res => {
-        console.log(res)
         if (res.body.data.bankCard) {
           this.form.cardId = res.body.data.bankCard.id
           this.form.bankName = res.body.data.bankCard.bankName
           this.form.cardNo = res.body.data.bankCard.cardNum
           this.form.cardUser = res.body.data.bankCard.userName
         }
-        console.log(this.form)
       })
     },
     mounted () {
@@ -96,7 +94,6 @@
         }
       },
       handleSubmit () {
-        console.log(this.form.score)
         if (this.form.score > this.balance) {
           this.$vux.toast.show({
             type: 'text',
@@ -133,7 +130,6 @@
             }
           })
           .then(res => {
-            console.log(res)
             this.loading = false
             if (res.body.status) {
               this.$vux.toast.show({

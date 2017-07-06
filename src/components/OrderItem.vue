@@ -47,7 +47,6 @@
     },
     created () {
       this.userId = this.$route.params.userId
-      console.log(this.userId)
     },
     methods: {
       changeStatus (num) {

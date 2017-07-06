@@ -52,7 +52,6 @@
     methods: {
       handleSubmit () {
         const reg = /^[0-9a-zA-Z]+$/
-        console.log(reg.test(this.form.newPwd))
         if (!this.form.oldPwd) {
           this.$vux.toast.show({
             type: 'text',
@@ -98,7 +97,6 @@
           })
           .then(res => {
             this.loading = false
-            console.log(res)
             if (res.body.status) {
               this.$vux.toast.show({
                 type: 'text',

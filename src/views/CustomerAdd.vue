@@ -90,7 +90,6 @@
             jsonpCallback: 'json'
           })
           .then(res => {
-            console.log(res)
             if (res.body.status) {
               this.$vux.toast.show({
                 type: 'text',

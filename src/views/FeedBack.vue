@@ -89,7 +89,6 @@
             }
           })
           .then(res => {
-            console.log(res)
             this.loading = false
             this.form.content = this.form.phone = ''
             if (res.body.status) {

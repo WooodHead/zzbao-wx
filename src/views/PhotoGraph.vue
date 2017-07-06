@@ -114,7 +114,6 @@
         this.type = type
       },
       handleFileChange (files, type) {
-        console.log(this.type)
         const This = this
         const file = files.target.files[0]
         const formData = new FormData()
@@ -148,7 +147,6 @@
       handleFileChange1 (file) {
         let files = file.target.files
         // const _this = this
-        console.log(file)
         this[file.target.name] = true
         lrz(files[0], {width: 750, height: 480, quality: 0.8}).then(rst => {
           // switch (file.target.name) {
@@ -166,7 +164,6 @@
         })
       },
       handleUpload (data, tag) {
-        console.log(this[tag])
         this[tag] = true
         const This = this
         const params = {
@@ -179,7 +176,6 @@
           data: params,
           dataType: 'json',
           before: function (req) {
-            console.log(req)
           },
           complete: function (data) {
           },
@@ -187,7 +183,6 @@
             This[tag] = false
             if (res.status) {
               This.form[tag] = res.imgUrl
-              console.log(This.form)
             }
           }
         })

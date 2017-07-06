@@ -60,7 +60,6 @@
     },
     created () {
       this.order = JSON.parse(this.$localStorage.get('order'))
-      console.log(this.order)
     },
     methods: {
       handleSubmit () {
@@ -76,7 +75,6 @@
         })
         .then(res => {
           this.order = res.orderInfo
-          console.log(res)
         })
       }
     }

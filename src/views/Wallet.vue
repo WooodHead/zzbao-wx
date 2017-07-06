@@ -105,11 +105,9 @@
         })
         .then(res => {
           this.data = res.body.data.wallet
-          console.log(typeof this.data)
           this.balance = res.body.data.wallet.balance
           this.cumulative = res.body.data.wallet.cumulative
           this.use = res.body.data.wallet.withdraw
-          console.log(res)
           this.bar.series[0].data = [{
             value: this.use,
             name: '已提现的的积分'
@@ -143,7 +141,6 @@
         this.$router.push(url)
       },
       handleSave (data) {
-        console.log(data)
         this.$localStorage.set('balance', data)
       }
     }

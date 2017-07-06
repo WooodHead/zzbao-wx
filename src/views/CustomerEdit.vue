@@ -108,7 +108,6 @@
     },
     created () {
       const This = this
-      console.log(this.$route.params)
       this.form.customerId = this.$route.params.customerId
       this.form.userId = this.$route.params.userId
       setTimeout(() => {
@@ -129,12 +128,10 @@
         .then(res => {
           this.form.customer = res.body.data.customer
           this.txt = res.body.data.customer.areaFullName
-          console.log(this.form.customer, this.txt)
         })
       },
       change () {
         this.form.customer = JSON.stringify(this.form.customer)
-        console.log(this.form)
         this.$http({
           method: 'jsonp',
           url: 'http://liuwbox.com/zzbao/app/customer/submit.htm',
@@ -143,7 +140,6 @@
           jsonpCallback: 'json'
         })
         .then(res => {
-          console.log(res)
         })
       },
       del () {
@@ -159,7 +155,6 @@
           jsonpCallback: 'json'
         })
         .then(res => {
-          console.log(res)
         })
       },
       formatDate (date) {

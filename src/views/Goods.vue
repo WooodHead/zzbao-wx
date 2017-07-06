@@ -144,7 +144,6 @@
         const reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/
         this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
         this.form.productId = this.$route.params.id
-        console.log(exchange, this.form)
         if (!this.$refs.name.valid || !this.form.consignee || !reg.test(this.form.consignee)) {
           this.$vux.toast.show({
             type: 'text',
@@ -183,7 +182,6 @@
             }
           })
           .then(res => {
-            console.log(res)
             this.loading = false
             if (res.body.status) {
               this.tips = true

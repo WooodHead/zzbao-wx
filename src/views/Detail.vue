@@ -86,7 +86,6 @@
           }
         })
         .then(res => {
-          console.log(res)
           res.body.data.scoreList.forEach(el => {
             This.list.push(el)
           })
@@ -107,7 +106,6 @@
             }
           })
           .then(res => {
-            console.log(res)
             this.balance = res.body.data.wallet.balance
           })
         })

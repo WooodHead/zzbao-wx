@@ -11,7 +11,7 @@
 </template>
 <script>
   import {Group, Cell, Badge, dateFormat} from 'vux'
-  import {message, messageStatus} from '../config'
+  import {message} from '../config' // messageStatus
   export default {
     name: 'message',
     components: {
@@ -30,9 +30,9 @@
       }
     },
     methods: {
-      handleChange () {
-        console.log(messageStatus)
-      },
+      // handleChange () {
+      //   console.log(messageStatus)
+      // },
       getList () {
         this.$http({
           method: 'jsonp',
@@ -47,7 +47,6 @@
           }
         })
         .then(res => {
-          console.log(res)
           res.body.data.messageList.forEach(el => {
             el.createTime = dateFormat(el.createTime)
           })

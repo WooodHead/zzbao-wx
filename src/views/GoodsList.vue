@@ -122,7 +122,6 @@
       for (const i in this.options) {
         if (this.options[i].id === this.product.type) {
           this.option = this.options[i].name
-          console.log(i)
         }
       }
       this.getProduct(this)
@@ -143,12 +142,10 @@
               break
             case 2:
               if (!this.bar[this.index].sort) {
-                console.log('降序')
                 this.product.timeOrder = 2
                 this.product.priceOrder = 0
                 this.product.defaultOrder = 0
               } else {
-                console.log('升序')
                 this.product.timeOrder = 1
                 this.product.priceOrder = 0
                 this.product.defaultOrder = 0
@@ -158,12 +155,10 @@
               break
             case 3:
               if (!this.bar[this.index].sort) {
-                console.log('降序')
                 this.product.timeOrder = 0
                 this.product.priceOrder = 2
                 this.product.defaultOrder = 0
               } else {
-                console.log('升序')
                 this.product.timeOrder = 0
                 this.product.priceOrder = 1
                 this.product.defaultOrder = 0

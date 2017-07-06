@@ -65,7 +65,6 @@
     },
     created () {
       const user = JSON.parse(this.$localStorage.get('userInfo'))
-      console.log(user)
       this.form.userId = user.userId
       this.form.userName = user.userName
       this.form.birthday = dateFormat(user.userBirthday).substr(0, 10)

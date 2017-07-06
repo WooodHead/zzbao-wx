@@ -44,7 +44,6 @@
       })
       .then(res => {
         this.list = res.body.data.qaList
-        console.log(this.list)
       })
     },
     methods: {

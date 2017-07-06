@@ -35,7 +35,6 @@
     },
     mounted () {
       this.info = JSON.parse(this.$localStorage.get('record'))
-      console.log(this.info)
     },
     methods: {
       select (num) {

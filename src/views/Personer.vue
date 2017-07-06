@@ -1,6 +1,6 @@
 <template>
   <div class="page gray fix-blur">
-    <!--<blur :blur-amount=20 :url="selectBlur()" class="head-bar">
+    <!--<blur :blur-amount=0 :url="selectBlur()" class="head-bar">
       <ul class="row w h" style="position:relative;z-index:1;">
         <li class="col v-b col-18">
           <img v-lazy="userInfo.userSex > 1 ? 'static/img/female.png' : 'static/img/male.png'" alt="" class="circle v-m" v-if="userInfo">
@@ -16,7 +16,7 @@
         </li>
       </ul>
     </blur>-->
-    <blur class="head-bar" style="background:#EB3D00;">
+    <div class="head-bar" style="background:#EB3D00;height:200px;">
       <ul class="row w h" style="position:relative;z-index:1;">
         <li class="col v-b col-18">
           <img v-lazy="userInfo.userSex > 1 ? 'static/img/female.png' : 'static/img/male.png'" alt="" class="circle v-m" v-if="userInfo">
@@ -26,12 +26,12 @@
         </li>
         <li class="col v-t t-r col-6">
           <p>
-            <router-link to="/setting" class="v-m"><img style="width:1.5rem;" src="static/img/setting.png" alt=""></router-link>
-            <router-link to="/message" class="v-m" style="margin-left:0.5rem;"><img style="width:1.5rem;" src="static/img/message.png" alt=""><img style="width:0.6rem;position:absolute;right:0.8 rem;top:0.8rem;" src="static/img/dot.png" alt=""></router-link>
+            <router-link to="/setting" class="iconfont icon-shezhi v-m"></router-link>
+            <router-link to="/message" class="iconfont icon-xiaoxi v-m" style="margin-left:0.5rem;"></router-link>
           </p>
         </li>
       </ul>
-    </blur>
+    </div>
     <div class="p-1 white sub-line fix-info">
       <div class="row w default">
         <router-link :to="'/detail/' + userId" class="col v-m col-12 t-c">
@@ -49,14 +49,14 @@
         <div class="row w order">
           <router-link :to="'/order/3/' + userId" class="col v-m col-8">
             <span class="iconfont icon-money red"></span>
-            <b>待付款</b>
+            <b>待支付</b>
             <i v-if="false" class="num">2</i>
           </router-link>
-          <router-link :to="'/order/4/' + userId" class="col v-m col-8">
+          <router-link :to="'/order/5/' + userId" class="col v-m col-8">
             <span class="iconfont icon-finish yellow"></span>
             <b>已承保</b>
           </router-link>
-          <router-link :to="'/order/-1/' + userId" class="col v-m col-8">
+          <router-link :to="'/order/-100/' + userId" class="col v-m col-8">
             <span class="iconfont icon-order blue"></span>
             <b>我的订单</b>
           </router-link>
@@ -151,7 +151,6 @@
     methods: {
       checkAuthor () {
         if (this.userId === 'null') {
-          console.log('jj')
         }
       },
       selectBlur () {

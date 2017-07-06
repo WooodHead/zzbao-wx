@@ -121,7 +121,6 @@
             }
           })
           .then(res => {
-            console.log(res)
             let balance = this.balance - this.form.score
             const userInfo = JSON.parse(this.$localStorage.get('userInfo'))
             userInfo.userBalance = balance

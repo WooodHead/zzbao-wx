@@ -46,7 +46,6 @@ const mutations = {
           }
         })
         .then(res => {
-          console.log(res)
           This.recommend = res.body.data.aderList
           This.$http({
             method: 'jsonp',
@@ -58,7 +57,6 @@ const mutations = {
             }
           })
           .then(res => {
-            console.log(res)
             This.advert = res.body.data.aderList
             if (This.$localStorage.get('logined') === 'true') {
               This.$http({

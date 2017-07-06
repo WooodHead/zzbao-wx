@@ -129,7 +129,6 @@
           }
         })
         .then(res => {
-          console.log(res)
           this.company = res.body.data.company
           this.$localStorage.set('orderCompany', JSON.stringify({
             companyId: this.company.id,

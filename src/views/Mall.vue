@@ -47,7 +47,7 @@
 <script>
   import {Swiper, SwiperItem, XImg} from 'vux'
   import {mapGetters, mapMutations} from 'vuex'
-  import {adver} from '../config'
+  // import {adver} from '../config'
   export default {
     name: 'mall',
     head: {
@@ -84,25 +84,23 @@
       })
     },
     methods: {
-      getrecommend () {
-        this.$http({
-          method: 'jsonp',
-          url: adver,
-          jsonp: 'callback',
-          jsonpCallback: 'json',
-          params: {
-            position: 1
-          }
-        })
-        .then(res => {
-          console.log(res)
-        })
-      },
+      // getrecommend () {
+      //   this.$http({
+      //     method: 'jsonp',
+      //     url: adver,
+      //     jsonp: 'callback',
+      //     jsonpCallback: 'json',
+      //     params: {
+      //       position: 1
+      //     }
+      //   })
+      //   .then(res => {
+      //   })
+      // },
       ...mapMutations({
         getProduct: 'getProduct'
       }),
       handleSaveData (item) {
-        console.log(item)
         this.$localStorage.set('goods', JSON.stringify(item))
       }
     },

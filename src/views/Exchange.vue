@@ -105,12 +105,10 @@
           }
         })
         .then(res => {
-          console.log(res.body.data)
           res.body.data.productList.forEach(el => {
             This.list.push(el)
           })
           if (res.body.data.productList.length < This.form.limit) {
-            console.log('这是最后一页')
             this.statusNoMore()
           } else {
             this.statusLoad()

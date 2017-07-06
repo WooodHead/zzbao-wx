@@ -11,7 +11,7 @@
           <p slot="value">应付总额：<span class="num c-red">￥4832.00</span></p>
         </cell>
       </group>
-      <group title="支付方式">
+      <group title="支付方式" class="pay">
         <radio :options="pay" v-model="paymodel"></radio>
       </group>
     </div>
@@ -68,4 +68,5 @@
 </script>
 <style>
 .num{font-size:1.8rem;}
+.weui-cells_radio .weui-check:checked + .weui-icon-checked:before{content:"\e63f" !important;color:#fff !important;display:inline-block;width:2rem;height:2rem;line-height:2rem;text-align:center;background:#EB3D00;border-radius:50%;font-family:"iconfont"}
 </style>
