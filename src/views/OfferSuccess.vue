@@ -12,7 +12,7 @@
         </div>
         <div class="col v-m col-17">
           <h2>订单已提交！</h2>
-          <p>至尊保正在与保险公司确定价格中……</p>
+          <p>至尊惠保正在与保险公司确定价格中……</p>
         </div>
       </div>
       <group class="tip" gutter="0px">

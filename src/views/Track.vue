@@ -3,14 +3,15 @@
     <timeline style="background:#fff;padding:1rem 1rem 0 2rem;">
       <timeline-item v-for="(item, index) in list" :key="index">
           <div class="row w">
-            <span class="col v-m col-12">{{item.text}}</span><span class="col v-m t-r col-12">{{item.time}}</span>
+            <span class="col v-m col-12">{{item.text}}</span><span class="col v-m t-r col-12">{{item.createTime}}</span>
           </div>
       </timeline-item>
     </timeline>
   </div>
 </template>
 <script>
-  import {Timeline, TimelineItem} from 'vux'
+  import {Timeline, TimelineItem, dateFormat} from 'vux'
+  import {track, status} from '../config'
   export default {
     name: 'track',
     head: {
@@ -54,6 +55,29 @@
     },
     created () {
       this.list = this.list.reverse()
+      this.getList()
+    },
+    methods: {
+      getList () {
+        this.$http({
+          method: 'jsonp',
+          url: track,
+          jsonp: 'callback',
+          jsonpCallback: 'json',
+          params: {
+            userId: this.$route.params.userId,
+            orderId: this.$route.params.orderId
+          }
+        })
+        .then(res => {
+          console.log(res)
+          this.list = res.body.data.logList
+          this.list.forEach(el => {
+            el.text = status[el.status]
+            el.createTime = dateFormat(el.createTime)
+          })
+        })
+      }
     }
   }
 </script>

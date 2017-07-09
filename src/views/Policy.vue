@@ -60,6 +60,7 @@
           params: this.form
         })
         .then(res => {
+          console.log(res)
           this.order = res.body.data.order
           // this.order = res.body.data.order
           // this.$localStorage.set('order', JSON.stringify(this.order))
@@ -77,10 +78,17 @@
                 })
               }
             } else {
-              this.force.push({
-                label: insurances[key].name,
-                value: insurances[key].value
-              })
+              if (insurances[key].name === '车船险') {
+                this.force.push({
+                  label: insurances[key].name,
+                  value: '缴纳' // insurances[key].value
+                })
+              } else {
+                this.force.push({
+                  label: insurances[key].name,
+                  value: '投保' // insurances[key].value
+                })
+              }
             }
             // switch (parseInt(insurances[key].type)) {
             //   case 0:

@@ -36,6 +36,7 @@ export const customer = server + '/app/customer/detail.htm' // 客户详情
 export const customerEdit = server + '/app/customer/submit.htm' // 编辑客户
 export const customerDel = server + '/app/customer/del.htm' // 删除客户
 export const phone = server + '/app/user/resetPhone.htm' // 更改绑定手机号
+export const track = server + '/app/order/detail/log.htm' // 订单跟踪
 export const noMore = '我也是有底线的！'
 // export const tokenUrl = server + 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential'
 // export const ticketUrl = server + 'https://api.weixin.qq.com/cgi-bin/ticket/getticket'
@@ -43,3 +44,4 @@ export const noMore = '我也是有底线的！'
 // export const appSecret = server + '4e5337cb2cff85f21385ff8673e1c07a'
 export const time = 60 // 获取验证码时间间隔单位：秒
 export const QQ = '979741120'
+export const status = ['待报价', '已撤销', '待承保', '待付款', '已承保', '核保失败']

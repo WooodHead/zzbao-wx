@@ -132,6 +132,9 @@
               let userInfo = JSON.parse(this.$localStorage.get('userInfo'))
               userInfo.hadPayPwd = true
               this.$localStorage.set('userInfo', JSON.stringify(userInfo))
+              setTimeout(() => {
+                this.$router.replace('/personer')
+              }, 1000)
             } else {
               this.$vux.toast.show({
                 type: 'text',
@@ -141,9 +144,6 @@
                 time: '1000'
               })
             }
-            setTimeout(() => {
-              this.$router.replace('/personer')
-            }, 1000)
           })
         }
       },

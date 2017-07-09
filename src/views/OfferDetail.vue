@@ -138,6 +138,8 @@
         })
       },
       handleSubmit () {
+        const reg = /^[\u4e00-\u9fa5]*$/
+        console.log(reg.test(this.orderUser.name))
         this.loading = true
         if (this.$route.params.userId === 'null') {
           this.$vux.toast.show({
@@ -147,7 +149,6 @@
             text: '请登录！',
             time: '1000'
           })
-          this.loading = false
         } else if (!this.InsuranceArea) {
           this.$vux.toast.show({
             type: 'text',
@@ -156,18 +157,31 @@
             text: '请填写所在地区！',
             time: '1000'
           })
-          this.loading = false
-        } else if (!this.$refs.license.valid || !this.$refs.name.valid || !this.$refs.tel.valid) {
+        } else if (!this.$refs.license.valid) {
           this.$vux.toast.show({
             type: 'text',
             width: '18em',
             position: 'bottom',
-            text: '填写信息有误，请检查！',
+            text: '填写车牌号有误！',
             time: '1000'
           })
-          this.loading = false
+        } else if (!reg.test(this.orderUser.name)) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '18em',
+            position: 'bottom',
+            text: '姓名必须为中文且不能为空！',
+            time: '1000'
+          })
+        } else if (!this.$refs.tel.valid) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '18em',
+            position: 'bottom',
+            text: '手机号码填写有误！',
+            time: '1000'
+          })
         } else if (!this.agree) {
-          this.loading = false
           this.$vux.toast.show({
             type: 'text',
             width: '18em',
@@ -183,9 +197,9 @@
             ownerLicense: this.orderUser.license,
             ownerTel: this.orderUser.tel
           }))
-          this.loading = false
           this.$router.push('/offer/photograph/' + this.$route.params.id + '/' + this.$route.params.userId)
         }
+        this.loading = false
       }
     }
   }
