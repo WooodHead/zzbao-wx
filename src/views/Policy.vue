@@ -139,3 +139,7 @@
 <style scoped>
 .c-9{color:#999;font-size:1rem;}
 </style>
+<style>
+.weui-form-preview__value{color:#333;}
+</style>
+

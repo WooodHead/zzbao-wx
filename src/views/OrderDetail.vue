@@ -164,6 +164,7 @@
           params: this.form
         })
         .then(res => {
+          console.log(res)
           this.order = res.body.data.order
           for (const i in this.order) {
             if (i === 'insurance') {
