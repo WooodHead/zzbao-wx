@@ -92,7 +92,8 @@
       }
     },
     created () {
-      if (this.$localStorage.get('logined') === 'true') {
+      console.log(this.$route)
+      if (this.$route.params.userId) {
         this.userId = this.$route.params.userId
         this.$http({
           method: 'jsonp',

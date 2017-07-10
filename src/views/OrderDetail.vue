@@ -108,7 +108,7 @@
             })
           }
           setTimeout(() => {
-            this.$router.replace('/order/-1/' + this.form.userId)
+            this.$router.replace('/order/-100/' + this.form.userId)
           }, 1000)
         })
       },

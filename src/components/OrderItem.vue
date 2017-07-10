@@ -17,7 +17,7 @@
         </span>
       </router-link>
       <ul class="row w price">
-        <li class="col v-m t-r">合计保费：<span class="num">{{changePrice(item)}}</span></li>
+        <li class="col v-m t-r">合计保费：<span class="num">{{changePrice(item) || '￥0.00'}}</span></li>
       </ul>
       <ul class="row w price">
         <li class="col v-m t-r">

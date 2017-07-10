@@ -37,7 +37,7 @@ img{border:none;vertical-align: top;}
 .top-line{border-top:1px solid #E9E9E9;}
 .link{border:none;background:none;}
 /*logo*/
-.logo{margin-bottom:4rem;width:auto !important;height:auto !important;}
+.logo{margin-bottom:4rem;width:12rem !important;height:auto !important;}
 /*input*/
 .form-panel .form{margin-bottom:1rem;}
 .form-panel{padding:1rem;}

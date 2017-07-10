@@ -2,8 +2,8 @@
   <div class="page gray auto">
     <group gutter="0px" v-if="order.user">
       <cell>
-        <p slot="title">保单城市：</p>
-        <p slot="default">{{order.user.insuranceArea}}</p>
+        <p slot="title">保单城市：{{order.user.insuranceArea}}</p>
+        <p slot="default" style="color:#999;">{{order.company.companyName}}</p>
       </cell>
     </group>
     <group gutter="10px" v-if="insurance.length > 0">

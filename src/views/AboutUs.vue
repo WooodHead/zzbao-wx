@@ -2,7 +2,7 @@
   <div class="page gray about">
     <div class="row w">
       <div class="col v-m t-c logo">
-        <img src="static/img/logo.png" alt="">
+        <img src="static/img/logo.png" alt="" style="width:12rem;">
       </div>
     </div>
     <group gutter="0px" style="margin-bottom:20px;">
