@@ -2,7 +2,7 @@
   <div class="page gray">
     <group gutter="0">
       <cell title="投保公司" value="太平洋保险"></cell>
-      <cell title="保单信息" value="保单详情" is-link :link="'/policy/' + id"></cell>
+      <cell title="保单信息" value="保单详情" is-link :link="'/policy/' + form.userId + '/' + form.orderId"></cell>
       <cell title="商业险" value="￥2837.50"></cell>
       <cell title="交强险" value="￥760.00"></cell>
       <cell title="车船税" value="￥360.00"></cell>
@@ -24,6 +24,14 @@
     components: {
       Group,
       Cell
+    },
+    data () {
+      return {
+        form: {
+          userId: this.$route.params.userId,
+          orderId: this.$route.params.orderId
+        }
+      }
     }
   }
 </script>

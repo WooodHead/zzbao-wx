@@ -273,7 +273,7 @@ const router = new Router({
         require(['@/views/PaySuccess'], resolve)
       }
     }, {
-      path: '/pay/info/:id',
+      path: '/payinfo/:userId/:orderId',
       name: 'payInfo',
       component: (resolve) => {
         require(['@/views/PayInfo'], resolve)
