@@ -38,6 +38,7 @@ export const customerDel = server + '/app/customer/del.htm' // 删除客户
 export const phone = server + '/app/user/resetPhone.htm' // 更改绑定手机号
 export const track = server + '/app/order/detail/log.htm' // 订单跟踪
 export const pay = server + '/app/order/pay.htm' // 订单支付
+export const orderInfo = server + '/app/order/info.htm' // 订单详情
 export const noMore = '我也是有底线的！'
 // export const tokenUrl = server + 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential'
 // export const ticketUrl = server + 'https://api.weixin.qq.com/cgi-bin/ticket/getticket'

@@ -1,20 +1,20 @@
 <template>
   <div class="page gray auto">
-    <group gutter="0" v-if="order.user">
-      <cell :value="order.company.companyName" value-align="right">
-        <p slot="title">{{order.user.ownerName}}-{{order.user.ownerLicense}}</p>
+    <group gutter="0" v-if="order">
+      <cell :value="order.companyName" value-align="right">
+        <p slot="title">{{order.carNum}}-{{order.policyholder}}</p>
       </cell>
       <cell style="padding-bottom:0;">
-        <div slot="title">
-          <h2 class="tip t-l"><span style="margin-right:0.5rem;" :class="'iconfont ' + changeStatus(orderDetail.orderStatus).icon"></span>{{changeStatus(orderDetail.orderStatus).status}}</h2>
-          <p style="padding:0.5rem 0;font-size:1.2rem;color:#8B8B8B;margin-bottom:0.5rem;" v-html="changeStatus(orderDetail.orderStatus).text"></p>
+        <div slot="title" v-if="order">
+          <h2 class="tip t-l"><span style="margin-right:0.5rem;" :class="'iconfont ' + changeStatus(order.orderStatus).icon"></span>{{changeStatus(order.orderStatus).status}}</h2>
+          <p style="padding:0.5rem 0;font-size:1.2rem;color:#8B8B8B;margin-bottom:0.5rem;" v-html="changeStatus(order.orderStatus).text"></p>
           <flexbox slot="inline-desc">
             <flexbox-item>
-              <x-button v-if="orderDetail.orderStatus === 0" type="warn" @click.native="handleBack">撤销报价</x-button>
-              <x-button v-if="orderDetail.orderStatus === 2" type="warn" @click.native="jump('/payinfo/' + form.userId + '/' + form.orderId)">支付详情</x-button>
-              <x-button v-if="orderDetail.orderStatus === 3" type="warn" @click.native="jump('/pay/' + form.userId + '/' + form.orderId)">立即付款</x-button>
-              <x-button v-if="orderDetail.orderStatus === 5 || orderDetail.orderStatus === 1" type="warn" @click.native="jump('/offer')">重新下单</x-button>
-              <x-button v-if="orderDetail.orderStatus === 4" type="warn" @click.native="jump('/payinfo/' + form.userId + '/' + form.orderId)">支付详情</x-button>
+              <x-button v-if="order.orderStatus === 0" type="warn" @click.native="handleBack">撤销报价</x-button>
+              <x-button v-if="order.orderStatus === 2" type="warn" @click.native="jump('/payinfo/' + form.userId + '/' + form.orderId)">支付详情</x-button>
+              <x-button v-if="order.orderStatus === 3" type="warn" @click.native="jump('/pay/' + form.userId + '/' + form.orderId)">立即付款</x-button>
+              <x-button v-if="order.orderStatus === 5 || order.orderStatus === 1" type="warn" @click.native="jump('/offer')">重新下单</x-button>
+              <x-button v-if="order.orderStatus === 4" type="warn" @click.native="jump('/payinfo/' + form.userId + '/' + form.orderId)">支付详情</x-button>
             </flexbox-item>
             <flexbox-item>
             </flexbox-item>
@@ -32,28 +32,28 @@
         </ul>
       </cell>
     </group>
-    <group gutter="5px" v-if="order.user" class="orderDetail">
+    <group gutter="5px" v-if="order" class="orderDetail">
       <cell title="保单信息" value="查看详情" is-link :link="'/policy/' + form.userId + '/' + form.orderId"></cell>
-      <cell title="商业险" v-if="hasInsurance"></cell>
-      <cell v-if="hasForce">
+      <cell title="商业险"  v-if="order.extraAmount"></cell>
+      <cell v-if="order.baseAmount">
         <p slot="title">交强险<span>（含车船税）</span></p>
       </cell>
     </group>
-    <group gutter="5px" v-if="order.user" class="orderDetail">
+    <group gutter="5px" v-if="order" class="orderDetail">
       <cell title="车辆信息"></cell>
-      <cell title="车牌号" :value="order.user.ownerLicense"></cell>
-      <cell title="车主姓名" :value="order.user.ownerName"></cell>
+      <cell title="车牌号" :value="order.carNum"></cell>
+      <cell title="车主姓名" :value="order.policyholder"></cell>
     </group>
-    <group gutter="5px" v-if="order.user" class="orderDetail">
+    <group gutter="5px" v-if="order" class="orderDetail">
       <cell title="订单信息"></cell>
-      <cell title="订单号" :value="orderDetail.orderSn"></cell>
-      <cell title="下单时间" :value="orderDetail.createTime"></cell>
+      <cell title="订单号" :value="order.orderSn"></cell>
+      <cell title="下单时间" :value="order.createTime"></cell>
     </group>
   </div>
 </template>
 <script>
-  import {Group, Cell, XButton, Flexbox, FlexboxItem, Divider} from 'vux'
-  import {orderDetail, backOrder, QQ} from '../config'
+  import {Group, Cell, XButton, Flexbox, FlexboxItem, Divider, dateFormat} from 'vux'
+  import {orderInfo, backOrder, QQ} from '../config'
   export default {
     name: 'orderDetail',
     head: {
@@ -72,9 +72,8 @@
     data () {
       return {
         id: 0,
-        order: {},
+        order: null,
         qq: QQ,
-        orderDetail: JSON.parse(this.$localStorage.get('orderDetail')),
         hasInsurance: false,
         hasForce: false,
         form: {
@@ -158,7 +157,7 @@
       getDetail () {
         this.$http({
           method: 'jsonp',
-          url: orderDetail,
+          url: orderInfo,
           jsonp: 'callback',
           jsonpCallback: 'json',
           params: this.form
@@ -166,7 +165,9 @@
         .then(res => {
           console.log(res)
           this.order = res.body.data.order
+          this.order.createTime = dateFormat(this.order.createTime)
           for (const i in this.order) {
+            console.log(this.order[i])
             if (i === 'insurance') {
               this.order[i].forEach(el => {
                 if (el.type === '0') {
@@ -177,7 +178,6 @@
               })
             }
           }
-          this.$localStorage.set('order', JSON.stringify(this.order))
         })
       }
     }
