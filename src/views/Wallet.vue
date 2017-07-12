@@ -154,7 +154,9 @@
 .has-double-btn .btn-area{height:20vh;}
 .fix-banner .banner{background-color:#EB3D00;height:24vh;margin-top:-24vh;}
 .banner .col{padding:1rem;font-size:1.2rem;color:#fff;}
-.banner a{color:#fff;}
+.banner a{color:#fff;vertical-align:middle;}
+.banner a span{display:inline-block;}
+.banner a span:before{position:relative;top:-2px;}
 .legend{font-size:1rem;line-height:2;color:#444;position:relative;}
 .legend:before{content:"";display:inline-block;width:0.8rem;height:0.8rem;border-radius:50%;margin-right:0.5rem;}
 .legend.yellow:before{background-color:#FDC800;}
