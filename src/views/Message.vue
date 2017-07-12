@@ -1,7 +1,7 @@
 <template>
   <div class="page gray">
     <group gutter="0px" v-if="list.length > 0">
-      <cell value-align="left" v-for="(item, index) in list" :key="index" @click.native="handleRead">
+      <cell value-align="left" v-for="(item, index) in list" :key="index" @click.native="handleRead(item.id)">
         <h2 class="time">{{item.createTime}}<badge v-if="!item.status"></badge></h2>
         <p class="text">{{item.title}}</p>
       </cell>
@@ -11,7 +11,7 @@
 </template>
 <script>
   import {Group, Cell, Badge, dateFormat} from 'vux'
-  import {message} from '../config' // messageStatus
+  import {message, messageStatus} from '../config' // messageStatus
   export default {
     name: 'message',
     components: {
@@ -33,7 +33,39 @@
       // handleChange () {
       //   console.log(messageStatus)
       // },
-      handleRead () {},
+      handleRead (id) {
+        this.$http({
+          method: 'jsonp',
+          url: messageStatus,
+          jsonp: 'callback',
+          jsonpCallback: 'json',
+          params: {
+            userId: JSON.parse(this.$localStorage.get('userInfo')).userId,
+            messageId: id
+          }
+        })
+        .then(res => {
+          console.log(res)
+          if (res.body.status) {
+            this.$vux.toast.show({
+              type: 'text',
+              width: '10em',
+              position: 'bottom',
+              text: '消息已读',
+              time: '1000'
+            })
+            this.getList()
+          } else {
+            this.$vux.toast.show({
+              type: 'text',
+              width: '10em',
+              position: 'bottom',
+              text: res.body.msg,
+              time: '1000'
+            })
+          }
+        })
+      },
       getList () {
         this.$http({
           method: 'jsonp',
@@ -48,7 +80,6 @@
           }
         })
         .then(res => {
-          console.log(res)
           res.body.data.messageList.forEach(el => {
             el.createTime = dateFormat(el.createTime)
           })

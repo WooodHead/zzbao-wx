@@ -27,7 +27,7 @@
         <li class="col v-t t-r col-6">
           <p>
             <router-link to="/setting" class="v-m"><img style="width:1.7rem;" src="static/img/setting.png" alt=""></router-link>
-            <router-link to="/message" class="v-m" style="margin-left:0.5rem;position:relative;"><img style="width:1.7rem;" src="static/img/message.png" alt=""><img src="static/img/dot.png" style="width:0.6rem;position:absolute;left:1.3rem;top:-0.4rem;" alt=""></router-link>
+            <router-link to="/message" class="v-m" style="margin-left:0.5rem;position:relative;"><img style="width:1.7rem;" src="static/img/message.png" alt=""><img v-if="message.length" src="static/img/dot.png" style="width:0.6rem;position:absolute;left:1.3rem;top:-0.4rem;" alt=""></router-link>
           </p>
         </li>
       </ul>
@@ -85,7 +85,7 @@
   import {Blur, XImg, Group, Cell, XButton, Confirm} from 'vux'
   import ScoreItem from '@/components/ScoreItem'
   import {mapGetters, mapMutations} from 'vuex'
-  import {wallet} from '../config'
+  import {wallet, message} from '../config'
   export default {
     name: 'personer',
     head: {
@@ -95,6 +95,7 @@
     },
     data () {
       return {
+        message: [],
         logout: false,
         balance: 0,
         cumulative: 0,
@@ -122,6 +123,24 @@
           }
         })
         .then(res => {
+          this.$http({
+            method: 'jsonp',
+            url: message,
+            jsonp: 'callback',
+            jsonpCallback: 'json',
+            params: {
+              userId: JSON.parse(this.$localStorage.get('userInfo')).userId,
+              limit: 10,
+              pageIndex: 0
+            }
+          })
+          .then(res => {
+            res.body.data.messageList.forEach(el => {
+              if (!el.status) {
+                this.message.push(el)
+              }
+            })
+          })
           if (res.body.status) {
             this.balance = res.body.data.wallet.balance
             this.cumulative = res.body.data.wallet.cumulative
