@@ -25,31 +25,7 @@
     },
     data () {
       return {
-        list: [{
-          status: 0,
-          text: '提交报价',
-          time: '2017-06-12 12:40:32'
-        }, {
-          status: 1,
-          text: '报价成功',
-          time: '2017-06-12 12:40:32'
-        }, {
-          status: 1,
-          text: '待付款',
-          time: '2017-06-12 12:40:32'
-        }, {
-          status: 1,
-          text: '已付款',
-          time: '2017-06-12 12:40:32'
-        }, {
-          status: 1,
-          text: '待出单',
-          time: '2017-06-12 12:40:32'
-        }, {
-          status: 1,
-          text: '已出单',
-          time: '2017-06-12 12:40:32'
-        }],
+        list: [],
         status: JSON.parse(this.$localStorage.get('orderDetail')).orderStatus
       }
     },

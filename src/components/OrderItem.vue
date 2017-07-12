@@ -86,7 +86,7 @@
         }
       },
       handleSaveData (item) {
-        this.$localStorage.set('orderDetail', JSON.stringify(item))
+        this.$router.push('/orderdetail/' + this.$route.params.userId + '/' + item.id)
       }
     }
   }

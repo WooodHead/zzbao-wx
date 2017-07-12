@@ -166,6 +166,7 @@
           console.log(res)
           this.order = res.body.data.order
           this.order.createTime = dateFormat(this.order.createTime)
+          this.$localStorage.set('orderDetail', JSON.stringify(this.order))
           for (const i in this.order) {
             console.log(this.order[i])
             if (i === 'insurance') {

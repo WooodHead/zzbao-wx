@@ -14,14 +14,15 @@
       </div>
     </group>
     <group gutter="10px">
-      <cell title="订单号：" value="faw452452145214" value-align="left"></cell>
-      <cell title="支付方式：" value="支付宝" value-align="left"></cell>
-      <cell title="支付金额：" value="￥2545.00" value-align="left"></cell>
+      <cell title="订单号：" :value="info.orderSn" value-align="left"></cell>
+      <cell title="支付方式：" value="微信" value-align="left"></cell>
+      <cell title="支付金额：" :value="'￥' + info.amount" value-align="left"></cell>
     </group>
   </div>
 </template>
 <script>
   import {Group, Cell, XButton} from 'vux'
+  import {orderInfo} from '../config'
   export default {
     name: 'paySuccess',
     components: {
@@ -32,15 +33,35 @@
     data () {
       return {
         userId: this.$route.params.userId,
-        orderId: this.$route.params.orderId
+        orderId: this.$route.params.orderId,
+        info: {}
       }
     },
     mounted () {
       this.id = this.$route.params.id
     },
+    created () {
+      this.getDetail()
+    },
     methods: {
       jump (url) {
         this.$router.push(url)
+      },
+      getDetail () {
+        this.$http({
+          method: 'jsonp',
+          url: orderInfo,
+          jsonp: 'callback',
+          jsonpCallback: 'json',
+          params: {
+            userId: this.userId,
+            orderId: this.orderId
+          }
+        })
+        .then(res => {
+          console.log(res)
+          this.info = res.body.data.order
+        })
       }
     }
   }

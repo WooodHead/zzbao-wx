@@ -3,13 +3,12 @@
     </loading>
     <div class="content h auto">
       <group title="订单信息">
-        <cell title="投保公司" value="太平洋保险"></cell>
+        <cell title="投保公司" :value="info.companyName"></cell>
         <cell title="保单信息" value="保单详情" is-link :link="'/policy/' + userId + '/' + orderId"></cell>
-        <cell title="商业险" value="￥2837.50"></cell>
-        <cell title="交强险" value="￥760.00"></cell>
-        <cell title="车船税" value="￥360.00"></cell>
+        <cell title="商业险" :value="'￥' + info.extraAmount"></cell>
+        <cell title="交强险（车船税）" :value="'￥' + info.baseAmount"></cell>
         <cell>
-          <p slot="value">应付总额：<span class="num c-red">￥4832.00</span></p>
+          <p slot="value">应付总额：<span class="num c-red">￥{{info.amount}}</span></p>
         </cell>
       </group>
       <group title="支付方式" class="pay">
@@ -43,6 +42,7 @@
     data () {
       return {
         paying: true,
+        info: {},
         userId: this.$route.params.userId,
         orderId: this.$route.params.orderId,
         loading: false,
@@ -63,6 +63,10 @@
           value: '微信'
         }]
       }
+    },
+    created () {
+      this.info = JSON.parse(this.$localStorage.get('orderDetail'))
+      console.log(this.info)
     },
     methods: {
       handlePay () {

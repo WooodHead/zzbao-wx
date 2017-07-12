@@ -12,6 +12,7 @@
             <i>承保地区：{{item.insureArea}}</i>
             <i>承保车辆：{{item.insureCar}}</i>
           </span>
+          <img class="mark" src="static/img/rec.png" alt="">
         </router-link>
     </div>
   </div>
@@ -50,6 +51,7 @@ export default {
         }
       })
       .then(res => {
+        console.log(res)
         this.list = res.body.data.companyList
       })
     },

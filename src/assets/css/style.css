@@ -117,7 +117,8 @@ img{border:none;vertical-align: top;}
 .safe-list .img img{vertical-align:middle;width:100%;height:100%;}
 .safe-list .name{font-size:1.2rem;color:#0c0c0c;display:block;margin-bottom:0.6rem;}
 .safe-list i{font-style:normal;font-size:1rem;color:#757575;display:block;}
-.safe-list .rec:after{content:"";display:inline-block;width:5rem;height:5rem;position:absolute;right:0;top:0;background:url(../img/rec.png) no-repeat right top;background-size:4rem;}
+.safe-list .mark{display:none;}
+.safe-list .rec .mark{display:inline-block;width:4rem;height:4rem;position:absolute;right:0;top:0;}
 .safe-list .row:active{background:rgba(0,0,0,0.1);}
 .safe-list .c-red{font-size:1.4rem;}
 .safe-list .num{font-size:1.6rem;margin-right:0.2rem;}
