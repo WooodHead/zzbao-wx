@@ -1,7 +1,7 @@
 <template>
   <div class="page gray">
     <group gutter="0px" v-if="list.length > 0">
-      <cell value-align="left" v-for="(item, index) in list" :key="index">
+      <cell value-align="left" v-for="(item, index) in list" :key="index" @click.native="handleRead">
         <h2 class="time">{{item.createTime}}<badge v-if="!item.status"></badge></h2>
         <p class="text">{{item.title}}</p>
       </cell>
@@ -33,6 +33,7 @@
       // handleChange () {
       //   console.log(messageStatus)
       // },
+      handleRead () {},
       getList () {
         this.$http({
           method: 'jsonp',
@@ -47,6 +48,7 @@
           }
         })
         .then(res => {
+          console.log(res)
           res.body.data.messageList.forEach(el => {
             el.createTime = dateFormat(el.createTime)
           })

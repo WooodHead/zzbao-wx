@@ -2,7 +2,7 @@
   <div class="page gray">
     <group gutter="0">
       <div style="padding:2rem 0;">
-        <h2 class="tip"><span class="iconfont icon-correct"></span>订单提交成功</h2>
+        <h2 class="tip"><span class="iconfont icon-correct"></span>订单支付成功</h2>
         <ul class="row w" style="margin-top:1rem;">
           <li class="col v-m col-12" style="padding:0 0.5rem 0 4rem;">
             <x-button plain type="primary" class="custom-primary-red" @click.native="jump('/orderdetail/' + userId + '/' + orderId)">查看订单</x-button>

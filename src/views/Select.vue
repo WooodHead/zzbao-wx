@@ -188,6 +188,7 @@
         //   console.log(el.name, el.regardless, el)
         // })
         this.form.orderInfo = JSON.stringify(this.form.orderInfo)
+        console.log(this.form)
         this.$http({
           method: 'jsonp',
           url: submitOrder,
@@ -196,8 +197,17 @@
           params: this.form
         })
         .then(res => {
-          if (res.status) {
+          console.log(res)
+          if (res.status === 1) {
             this.$router.push('/offersuccess/' + res.body.data.orderId + '/' + this.form.userId)
+          } else {
+            this.$vux.toast.show({
+              type: 'text',
+              width: '22em',
+              position: 'bottom',
+              text: res.body.msg,
+              time: '3000'
+            })
           }
         })
       },
