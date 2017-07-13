@@ -56,15 +56,15 @@
           case 0:
             return '待保险公司报价'
           case 1:
-            return '已撤销'
+            return '核保中'
           case 2:
-            return '待承保'
+            return '核保失败'
           case 3:
             return '待付款'
           case 4:
-            return '已承保'
+            return '待承保'
           case 5:
-            return '核保失败'
+            return '已承保'
         }
       },
       changePrice (item) {
@@ -74,7 +74,7 @@
           case 0:
             return '待报价'
           case 1:
-            return '0.00'
+            return '暂无保费'
           case 2:
             return '暂无保费'
           case 3:
