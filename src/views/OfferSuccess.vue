@@ -4,7 +4,7 @@
       <group gutter="0px" v-if="order">
         <cell :title="order.orderInfo.user.ownerName" :value="order.orderInfo.user.ownerLicense"></cell>
         <cell title="保险公司" :value="order.orderInfo.company.companyName"></cell>
-        <cell title="订单号" :value="'201707145878'"></cell>
+        <cell title="订单号" :value="orderSn"></cell>
       </group>
       <div class="row w msg">
         <div class="col v-m col-7 t-r">
@@ -47,6 +47,7 @@
           orderId: this.$route.params.orderId,
           userId: this.$route.params.userId
         },
+        orderSn: '',
         order: {
           user: {
             ownerName: '',
@@ -76,7 +77,7 @@
         })
         .then(res => {
           console.log(this.order)
-          this.order = res.orderInfo
+          this.orderSn = res.body.data.orderSn
         })
       }
     }
