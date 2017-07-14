@@ -105,10 +105,10 @@
       Popup
     },
     mounted () {
-      this.form.userId = this.$route.params.userId
-      this.handleInsurance()
     },
     created () {
+      this.form.userId = this.$route.params.userId
+      this.handleInsurance()
     },
     methods: {
       handleInsurance () {
