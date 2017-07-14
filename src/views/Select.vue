@@ -198,7 +198,7 @@
         })
         .then(res => {
           console.log(res)
-          if (res.body.status) {
+          if (res.body.status === '1') {
             this.$router.push('/offersuccess/' + res.body.data.orderId + '/' + this.form.userId)
           } else {
             this.$vux.toast.show({
