@@ -1,38 +1,72 @@
 <template>
   <div class="page gray">
-    <group gutter="0px" v-if="list.length > 0">
-      <cell value-align="left" v-for="(item, index) in list" :key="index" @click.native="handleRead(item.id)">
-        <h2 class="time">{{item.createTime}}<badge v-if="!item.status"></badge></h2>
-        <p class="text">{{item.title}}</p>
-      </cell>
-    </group>
+    <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
+      <group gutter="0px" v-if="list.length > 0">
+        <cell value-align="left" v-for="(item, index) in list" :key="index" @click.native="handleRead(item.id)">
+          <h2 class="time">{{item.createTime}}<badge v-if="!item.status"></badge></h2>
+          <p class="text">{{item.title}}</p>
+        </cell>
+      </group>
+    </v-scroll>
     <h2 class="tip" v-if="list.length === 0">您暂时没有任何消息！</h2>
   </div>
 </template>
 <script>
   import {Group, Cell, Badge, dateFormat} from 'vux'
+  import VScroll from '../components/VScroll'
   import {message, messageStatus} from '../config' // messageStatus
   export default {
     name: 'message',
     components: {
       Group,
       Cell,
-      Badge
+      Badge,
+      VScroll
     },
     data () {
       return {
-        list: []
+        list: [],
+        form: {
+          userId: JSON.parse(this.$localStorage.get('userInfo')).userId,
+          // userId: '0e9236d6b4474f259cfd1d2f9bf8f3b0',
+          limit: 10,
+          pageIndex: 0
+        }
       }
     },
     created () {
       if (this.$localStorage.get('logined') !== 'false') {
-        this.getList()
+        this.getList(() => {}, null)
       }
     },
     methods: {
       // handleChange () {
       //   console.log(messageStatus)
       // },
+      statusNoMore () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'none'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'block'
+        })
+      },
+      statusLoad () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'block'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'none'
+        })
+      },
+      statusInit () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'none'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'none'
+        })
+      },
       handleRead (id) {
         this.$http({
           method: 'jsonp',
@@ -66,25 +100,26 @@
           }
         })
       },
-      getList () {
+      getList (done, status) {
+        const This = this
         this.$http({
           method: 'jsonp',
           url: message,
           jsonp: 'callback',
           jsonpCallback: 'json',
-          params: {
-            userId: JSON.parse(this.$localStorage.get('userInfo')).userId,
-            // userId: '0e9236d6b4474f259cfd1d2f9bf8f3b0',
-            limit: 10,
-            pageIndex: 0
+          params: this.form,
+          before: () => {
+            if (status) {
+              this.list = []
+            }
           }
         })
         .then(res => {
+          console.log(res)
           res.body.data.messageList.forEach(el => {
             el.createTime = dateFormat(el.createTime)
           })
           if (res.body.status) {
-            this.list = res.body.data.messageList
           } else {
             this.$vux.toast.show({
               type: 'text',
@@ -94,7 +129,32 @@
               time: '1000'
             })
           }
+          res.body.data.messageList.forEach(el => {
+            This.list.push(el)
+          })
+          if (res.body.data.messageList.length < This.form.limit) {
+            this.statusNoMore()
+          } else {
+            this.statusLoad()
+          }
+          done()
         })
+      },
+      onRefresh (done) {
+        this.form.pageIndex = 0
+        this.statusInit()
+        this.getList(done, 1)
+      },
+      onInfinite (done) {
+        this.form.pageIndex ++
+        if (this.list.length % this.form.limit) {
+          this.statusNoMore()
+        } else {
+          this.$el.querySelectorAll('.load').forEach(el => {
+            el.style.display = 'block'
+          })
+          this.getList(done, 0)
+        }
       }
     }
   }

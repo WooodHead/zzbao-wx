@@ -4,7 +4,7 @@
       <group gutter="0px" v-if="order">
         <cell :title="order.orderInfo.user.ownerName" :value="order.orderInfo.user.ownerLicense"></cell>
         <cell title="保险公司" :value="order.orderInfo.company.companyName"></cell>
-        <cell title="订单号" :value="'46416313544'"></cell>
+        <cell title="订单号" :value="'201707145878'"></cell>
       </group>
       <div class="row w msg">
         <div class="col v-m col-7 t-r">
@@ -16,7 +16,7 @@
         </div>
       </div>
       <group class="tip" gutter="0px">
-        <p><b>注意：</b>1.工作时间内，30分钟为您提供报价；2.非工作时间内，下个工作时间开始后的30分钟内为您提供报价；3.我们将为您提最优惠的价格。</p>
+        <p><b>提示：</b>1.工作时间内，30分钟为您提供报价；2.非工作时间内，下个工作时间开始后的30分钟内为您提供报价；3.我们将为您提最优惠的价格。</p>
       </group>
     </div>
     <div class="btn-area row w">
@@ -60,6 +60,7 @@
     },
     created () {
       this.order = JSON.parse(this.$localStorage.get('order'))
+      // this.getOrder()
     },
     methods: {
       handleSubmit () {
@@ -74,6 +75,7 @@
           params: this.form
         })
         .then(res => {
+          console.log(this.order)
           this.order = res.orderInfo
         })
       }

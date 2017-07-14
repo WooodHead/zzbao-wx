@@ -134,18 +134,21 @@ export default {
       }
     },
     getData (areaId, text, index) {
-      this.$http({
-        method: 'jsonp',
-        url: area,
-        jsonp: 'callback',
-        jsonpCallback: 'json',
-        params: {
-          id: areaId
-        }
-      })
-      .then(res => {
-        this.areaList = res.body.data.areaList
-      })
+      const This = this
+      setTimeout(function () {
+        This.$http({
+          method: 'jsonp',
+          url: area,
+          jsonp: 'callback',
+          jsonpCallback: 'json',
+          params: {
+            id: areaId
+          }
+        })
+        .then(res => {
+          This.areaList = res.body.data.areaList
+        })
+      }, 100)
     },
     handleOpen () {
       if (!this.readonly) {

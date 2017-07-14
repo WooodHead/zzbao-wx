@@ -2,11 +2,11 @@
   <div class="page gray auto">
     <group gutter="0" v-if="order">
       <cell :value="order.companyName" value-align="right">
-        <p slot="title">{{order.carNum}}-{{order.policyholder}}</p>
+        <p slot="title" style="color:#2b2b2b;">{{order.carNum}}-{{order.policyholder}}</p>
       </cell>
       <cell style="padding-bottom:0;">
         <div slot="title" v-if="order">
-          <h2 class="tip t-l"><span style="margin-right:0.5rem;" :class="'iconfont ' + changeStatus(order.orderStatus).icon"></span>{{changeStatus(order.orderStatus).status}}</h2>
+          <h2 class="tip t-l"><span style="margin-right:0;padding-left:0;padding-right:0.5rem;" :class="'iconfont ' + changeStatus(order.orderStatus).icon"></span>{{changeStatus(order.orderStatus).status}}</h2>
           <p style="padding:0.5rem 0;font-size:1.2rem;color:#8B8B8B;margin-bottom:0.5rem;" v-html="changeStatus(order.orderStatus).text"></p>
           <flexbox slot="inline-desc">
             <flexbox-item>

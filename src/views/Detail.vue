@@ -3,8 +3,8 @@
     <div class="banner">
       <div class="row w h">
         <div class="col v-m t-c">
-          <h2>{{balance}}</h2>
-          <p>现有积分（分）</p>
+          <h2>+{{balance}}</h2>
+          <p>累计积分收入（分）</p>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
     name: 'detail',
     head: {
       title: {
-        inner: '累计积分'
+        inner: '累计收入明细'
       }
     },
     components: {
@@ -86,6 +86,7 @@
           }
         })
         .then(res => {
+          console.log(res)
           res.body.data.scoreList.forEach(el => {
             This.list.push(el)
           })
@@ -106,7 +107,8 @@
             }
           })
           .then(res => {
-            this.balance = res.body.data.wallet.balance
+            console.log(res)
+            this.balance = res.body.data.wallet.cumulative
           })
         })
       }

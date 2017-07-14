@@ -35,11 +35,11 @@
     <div class="p-1 white sub-line fix-info">
       <div class="row w default">
         <router-link :to="'/detail/' + userId" class="col v-m col-12 t-c">
-          <h2 class="num">{{cumulative}}分</h2>
+          <h2 class="num">{{cumulative}}<span style="font-size:1.2rem;margin-left:0.2rem;">分</span></h2>
           <p class="text">累计积分收入</p>
         </router-link>
         <router-link :to="'/balanceDetail/' + userId" class="col v-m col-12 t-c">
-          <h2 class="num">{{balance}}分</h2>
+          <h2 class="num">{{balance}}<span style="font-size:1.2rem;margin-left:0.2rem;">分</span></h2>
           <p class="text">积分余额</p>
         </router-link>
       </div>
@@ -123,6 +123,7 @@
           }
         })
         .then(res => {
+          console.log(res)
           this.$http({
             method: 'jsonp',
             url: message,
@@ -205,7 +206,7 @@
 .fix-blur{padding-top:200px;}
 .fix-blur .head-bar{margin-top:-200px;}
 .head-bar a{font-size:1.2rem;color:#fff;padding:0;}
-.default .num{color:#eb3d00;font-size:1.6rem;}
+.default .num{color:#eb3d00;font-size:1.4rem;}
 .default .text{color:#3a3a3a;font-size:1rem;}
 .default a:first-child:after{content:"";display:inline-block;width:1px;height:40px;background:#E0E0E0;position:absolute;right:0;top:50%;transform:translateY(-50%)}
 .fix-info{position:fixed;top:160px;left:50%;width:90%;transform:translateX(-50%);border-radius:1rem;z-index:100;box-shadow:0 5px 20px #ccc;padding:0.5rem 0.8rem;}

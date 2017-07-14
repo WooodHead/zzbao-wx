@@ -6,7 +6,7 @@
           我的钱包
         </li>
         <li class="col v-m t-r">
-          <router-link to='/record'><span style="vertical-align:middle">提现记录</span><span class="iconfont icon-right" style="font-size:1.2rem;margin-left:0.2rem;vertical-align:middle;"></span></router-link>
+          <router-link to='/record'><span style="vertical-align:middle">提现记录</span><span class="iconfont icon-right" style="font-size:1.2rem;vertical-align:middle;padding:0 0 0 0.5rem"></span></router-link>
         </li>
       </ul>
       <div class="row w light">

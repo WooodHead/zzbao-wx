@@ -4,7 +4,7 @@
       <div class="row w h">
         <div class="col v-m t-c">
           <h2>{{balance}}</h2>
-          <p>现有积分（分）</p>
+          <p>账户积分余额（分）</p>
         </div>
       </div>
     </div>
@@ -16,7 +16,7 @@
             <li class="col v-m col-4 t-l " :class="item.type === 1 ? 'green' : ''" style="font-size:1.6rem;">{{item.type === 1 ? '+' : '-'}}{{item.score}}</li>
             <li class="col v-m col-20">
               <p class="time">{{item.createTime}}</p>
-              <p class="text">{{item.source.split(':')[0]}}</p>
+              <p class="text t-r">{{item.source.split(':')[0]}}</p>
             </li>
           </ul>
         </cell>
@@ -32,7 +32,7 @@
     name: 'balanceDetail',
     head: {
       title: {
-        inner: '积分余额'
+        inner: '账户余额明细'
       }
     },
     components: {

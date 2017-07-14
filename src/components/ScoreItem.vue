@@ -24,7 +24,7 @@
   }
 </script>
 <style scoped>
-.default .num{color:#444;font-size:1.6rem;}
+.default .num{color:#444;font-size:1.4rem;}
 .default .text{color:#999;text-indent:1rem;}
 .light .num{font-size:1.6rem;color:#fff;}
 .light .text{font-size:1rem;color:rgba(255,255,255,0.8);text-indent:1rem;}

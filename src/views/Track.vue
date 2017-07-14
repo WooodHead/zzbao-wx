@@ -3,7 +3,7 @@
     <timeline style="background:#fff;padding:1rem 1rem 0 2rem;">
       <timeline-item v-for="(item, index) in list" :key="index">
           <div class="row w">
-            <span class="col v-m col-12">{{item.text}}</span><span class="col v-m t-r col-12">{{item.createTime}}</span>
+            <span class="col v-m col-12">{{item.text}}</span><span class="col v-m t-r col-12" style="">{{item.createTime}}</span>
           </div>
       </timeline-item>
     </timeline>
@@ -59,7 +59,7 @@
 </script>
 <style>
 .vux-timeline-item .vux-timeline-item-content{padding-top:0.5rem !important;}
-.vux-timeline-item-content{padding:0 1rem 3rem 2rem !important;}
+.vux-timeline-item-content{padding:0 0.5rem 3rem 2rem !important;}
 .vux-timeline-item-content .col{font-size:1rem;color:#707070;}
 .vux-timeline-item-content .col:first-child{color:#333;}
 .vux-timeline-item-tail{background:#E6E6E6 !important;}

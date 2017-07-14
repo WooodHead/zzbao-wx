@@ -6,9 +6,9 @@
       </div>
     </div>
     <group gutter="0px" style="margin-bottom:20px;">
-      <cell title="官方网站：" value="http://www.zhizunbao.com" value-align="left"></cell>
+      <cell title="官方网站：" value="http://www.zhizunhuibao.com" value-align="left"></cell>
       <cell title="新浪微博：" value="至尊惠保" value-align="left"></cell>
-      <cell title="微信账号：" value="至尊惠保微信网" value-align="left"></cell>
+      <cell title="微信账号：" value="至尊惠保微官网" value-align="left"></cell>
     </group>
     <p class="text">联系我们</p>
     <p class="text">客服电话：4006 128 070</p>
