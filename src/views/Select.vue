@@ -198,14 +198,22 @@
         })
         .then(res => {
           console.log(res)
-          if (res.body.status === '1') {
+          if (res.body.status === 1) {
             this.$router.push('/offersuccess/' + res.body.data.orderId + '/' + this.form.userId)
+          } else if (res.body.status === 3) {
+            this.$vux.toast.show({
+              type: 'text',
+              width: '18em',
+              position: 'bottom',
+              text: '服务器出错，请稍后重试！',
+              time: '3000'
+            })
           } else {
             this.$vux.toast.show({
               type: 'text',
-              width: '22em',
+              width: '18em',
               position: 'bottom',
-              text: res.body.msg,
+              text: '您尚未选择任何保障！',
               time: '3000'
             })
           }
