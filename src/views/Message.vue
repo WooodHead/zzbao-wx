@@ -94,7 +94,7 @@
               text: '消息已读',
               time: '1000'
             })
-            this.getList()
+            this.getList(() => {}, null)
           } else {
             this.$vux.toast.show({
               type: 'text',
