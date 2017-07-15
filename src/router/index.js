@@ -80,7 +80,7 @@ const router = new Router({
         }
       }
     }, {
-      path: '/offersuccess/:orderId/:userId',
+      path: '/offersuccess/:orderId/:userId/:orderSn',
       components: {
         default: (resolve) => {
           require(['@/views/OfferSuccess'], resolve)

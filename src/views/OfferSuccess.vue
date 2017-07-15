@@ -62,6 +62,7 @@
     },
     created () {
       this.order = JSON.parse(this.$localStorage.get('order'))
+      this.orderSn = this.$route.params.orderSn
       // this.getOrder()
     },
     methods: {
@@ -79,6 +80,7 @@
         .then(res => {
           console.log(this.order)
           this.orderSn = res.body.data.orderSn
+          console.log(this.orderSn)
         })
       }
     }

@@ -200,7 +200,7 @@
         .then(res => {
           console.log(res)
           if (res.body.status === 1) {
-            this.$router.push('/offersuccess/' + res.body.data.orderId + '/' + this.form.userId)
+            this.$router.push('/offersuccess/' + res.body.data.orderId + '/' + this.form.userId + '/' + res.body.data.orderSn)
           } else if (res.body.status === 3) {
             this.$vux.toast.show({
               type: 'text',

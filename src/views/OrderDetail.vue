@@ -113,6 +113,7 @@
         })
       },
       changeStatus (num) {
+        console.log(num)
         switch (num) {
           case 0:
             return {
@@ -120,17 +121,23 @@
               status: '待报价',
               text: '报价结果将在<span style="color:#EB3D00;padding:0 5px;">1</span>个工作日之内反馈'
             }
-          case 1:
+          case -1:
             return {
               icon: 'icon-faild',
               status: '已撤销',
               text: '您已主动撤销订单，给您带来不便敬请谅解'
             }
-          case 2:
+          case 1:
             return {
               icon: 'icon-time',
-              status: '待承保',
+              status: '核保中',
               text: '付款成功，请耐心等待保险出单'
+            }
+          case 2:
+            return {
+              icon: 'icon-faild',
+              status: '核保失败',
+              text: '您的保单信息未通过审核，请核对信息后重试'
             }
           case 3:
             return {
@@ -140,15 +147,15 @@
             }
           case 4:
             return {
-              icon: 'icon-success',
-              status: '已承保',
-              text: '车险投保成功！'
+              icon: 'icon-time',
+              status: '待承保',
+              text: '付款成功，请耐心等待保险出单！'
             }
           case 5:
             return {
-              icon: 'icon-faild',
-              status: '核保失败',
-              text: '您的保单信息未通过审核，请核对信息后重试'
+              icon: 'icon-success',
+              status: '已承保',
+              text: '车险投保成功！'
             }
         }
       },
@@ -169,7 +176,6 @@
           this.order.createTime = dateFormat(this.order.createTime)
           this.$localStorage.set('orderDetail', JSON.stringify(this.order))
           for (const i in this.order) {
-            console.log(this.order[i])
             if (i === 'insurance') {
               this.order[i].forEach(el => {
                 if (el.type === '0') {
