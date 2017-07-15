@@ -24,7 +24,8 @@
     name: 'record',
     head: {
       title: {
-        inner: '提现记录'
+        inner: '提现记录',
+        separator: ' '
       }
     },
     data () {

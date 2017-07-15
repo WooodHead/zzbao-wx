@@ -88,7 +88,8 @@
     name: 'photoGraph',
     head: {
       title: {
-        inner: '完善信息'
+        inner: '完善信息',
+        separator: ' '
       }
     },
     data () {

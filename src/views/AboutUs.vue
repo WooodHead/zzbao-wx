@@ -21,7 +21,8 @@
     name: 'aboutUs',
     head: {
       title: {
-        inner: '关于我们'
+        inner: '关于我们',
+        separator: ' '
       }
     },
     components: {

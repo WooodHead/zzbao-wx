@@ -36,7 +36,8 @@
     name: 'phone',
     head: {
       title: {
-        inner: '修改手机号码'
+        inner: '修改手机号码',
+        separator: ' '
       }
     },
     data () {

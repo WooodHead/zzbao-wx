@@ -17,6 +17,12 @@
   import {message, messageStatus} from '../config' // messageStatus
   export default {
     name: 'message',
+    head: {
+      title: {
+        inner: '消息',
+        separator: ' '
+      }
+    },
     components: {
       Group,
       Cell,

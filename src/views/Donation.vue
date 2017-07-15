@@ -30,7 +30,8 @@
     name: 'donation',
     head: {
       title: {
-        inner: '积分转赠'
+        inner: '积分转赠',
+        separator: ' '
       }
     },
     components: {

@@ -32,7 +32,8 @@
     name: 'balanceDetail',
     head: {
       title: {
-        inner: '账户余额明细'
+        inner: '账户余额明细',
+        separator: ' '
       }
     },
     components: {

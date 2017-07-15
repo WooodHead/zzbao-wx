@@ -49,7 +49,8 @@
     name: 'password',
     head: {
       title: {
-        inner: '忘记密码'
+        inner: '忘记密码',
+        separator: ' '
       }
     },
     components: {

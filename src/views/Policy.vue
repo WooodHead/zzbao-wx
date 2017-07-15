@@ -25,7 +25,8 @@
     name: 'policy',
     head: {
       title: {
-        inner: '保单信息'
+        inner: '保单信息',
+        separator: ' '
       }
     },
     components: {

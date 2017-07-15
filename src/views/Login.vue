@@ -35,7 +35,8 @@
     name: 'login',
     head: {
       title: {
-        inner: '用户登录'
+        inner: '用户登录',
+        separator: ' '
       }
     },
     data () {

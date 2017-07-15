@@ -20,7 +20,8 @@
     name: 'setting',
     head: {
       title: {
-        inner: '设置'
+        inner: '设置',
+        separator: ' '
       }
     },
     components: {

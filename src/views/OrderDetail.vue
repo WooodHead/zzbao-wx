@@ -58,7 +58,8 @@
     name: 'orderDetail',
     head: {
       title: {
-        inner: '订单详情'
+        inner: '订单详情',
+        separator: ' '
       }
     },
     components: {

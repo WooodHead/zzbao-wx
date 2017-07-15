@@ -27,7 +27,8 @@
     name: 'passwordLogin',
     head: {
       title: {
-        inner: '修改登录密码'
+        inner: '修改登录密码',
+        separator: ' '
       }
     },
     data () {

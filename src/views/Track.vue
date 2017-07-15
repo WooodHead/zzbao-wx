@@ -16,7 +16,8 @@
     name: 'track',
     head: {
       title: {
-        inner: '订单跟踪'
+        inner: '订单跟踪',
+        separator: ' '
       }
     },
     components: {

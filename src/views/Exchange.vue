@@ -37,7 +37,8 @@
     name: 'exchange',
     head: {
       title: {
-        inner: '兑换记录'
+        inner: '兑换记录',
+        separator: ' '
       }
     },
     data () {

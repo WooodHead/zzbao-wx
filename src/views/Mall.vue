@@ -52,7 +52,8 @@
     name: 'mall',
     head: {
       title: {
-        inner: '积分商城'
+        inner: '积分商城',
+        separator: ' '
       }
     },
     data () {

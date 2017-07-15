@@ -16,7 +16,8 @@
     name: 'question',
     head: {
       title: {
-        inner: '常见问题'
+        inner: '常见问题',
+        separator: ' '
       }
     },
     components: {

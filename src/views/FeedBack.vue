@@ -18,7 +18,8 @@
     name: 'feedback',
     head: {
       title: {
-        inner: '意见反馈'
+        inner: '意见反馈',
+        separator: ' '
       }
     },
     components: {

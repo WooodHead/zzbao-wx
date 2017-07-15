@@ -21,6 +21,12 @@
   import {orderInfo} from '../config'
   export default {
     name: 'payInfo',
+    head: {
+      title: {
+        inner: '支付详情',
+        separator: ' '
+      }
+    },
     components: {
       Group,
       Cell

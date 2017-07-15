@@ -50,7 +50,8 @@
     name: 'wallet',
     head: {
       title: {
-        inner: '我的钱包'
+        inner: '我的钱包',
+        separator: ' '
       }
     },
     components: {

@@ -34,7 +34,8 @@
     name: 'detail',
     head: {
       title: {
-        inner: '累计收入明细'
+        inner: '累计收入明细',
+        separator: ' '
       }
     },
     components: {

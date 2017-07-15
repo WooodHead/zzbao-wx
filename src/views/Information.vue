@@ -47,7 +47,8 @@
     name: 'information',
     head: {
       title: {
-        inner: '我的资料'
+        inner: '我的资料',
+        separator: ' '
       }
     },
     data () {

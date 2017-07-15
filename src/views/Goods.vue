@@ -78,7 +78,8 @@
     name: 'goods',
     head: {
       title: {
-        inner: '商品详情'
+        inner: '商品详情',
+        separator: ' '
       }
     },
     components: {

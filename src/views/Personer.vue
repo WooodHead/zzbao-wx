@@ -90,7 +90,8 @@
     name: 'personer',
     head: {
       title: {
-        inner: '个人中心'
+        inner: '个人中心',
+        separator: ' '
       }
     },
     data () {

@@ -33,7 +33,8 @@
     name: 'offerSuccess',
     head: {
       title: {
-        inner: '报价结果'
+        inner: '报价结果',
+        separator: ' '
       }
     },
     components: {

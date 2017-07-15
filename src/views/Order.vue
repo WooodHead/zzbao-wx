@@ -28,7 +28,8 @@
     name: 'order',
     head: {
       title: {
-        inner: '我的订单'
+        inner: '我的订单',
+        separator: ' '
       }
     },
     data () {

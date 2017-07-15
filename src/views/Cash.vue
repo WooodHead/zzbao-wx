@@ -30,7 +30,8 @@
     name: 'cash',
     head: {
       title: {
-        inner: '提现'
+        inner: '提现',
+        separator: ' '
       }
     },
     components: {

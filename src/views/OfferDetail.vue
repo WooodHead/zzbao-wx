@@ -54,7 +54,8 @@
     name: 'offerDetail',
     head: {
       title: {
-        inner: '填写投保信息'
+        inner: '填写投保信息',
+        separator: ' '
       }
     },
     data () {

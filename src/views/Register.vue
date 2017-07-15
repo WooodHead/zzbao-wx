@@ -52,7 +52,8 @@
     name: 'register',
     head: {
       title: {
-        inner: '用户注册'
+        inner: '用户注册',
+        separator: ' '
       }
     },
     data () {

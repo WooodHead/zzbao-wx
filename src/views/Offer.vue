@@ -26,7 +26,8 @@ export default {
   name: 'offer',
   head: {
     title: {
-      inner: '车险报价'
+      inner: '车险报价',
+      separator: ' '
     }
   },
   components: {

@@ -24,6 +24,12 @@
   import {Group, Cell, XButton} from 'vux'
   import {orderInfo} from '../config'
   export default {
+    head: {
+      title: {
+        inner: '个人中心',
+        separator: ' '
+      }
+    },
     name: 'paySuccess',
     components: {
       Group,

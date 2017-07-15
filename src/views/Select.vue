@@ -80,7 +80,8 @@
     name: 'select',
     head: {
       title: {
-        inner: '选择保障'
+        inner: '选择保障',
+        separator: ' '
       }
     },
     data () {

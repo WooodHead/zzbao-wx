@@ -44,7 +44,8 @@
     name: 'passwordPay',
     head: {
       title: {
-        inner: '修改支付密码'
+        inner: '修改支付密码',
+        separator: ' '
       }
     },
     data () {
