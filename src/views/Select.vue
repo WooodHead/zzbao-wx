@@ -42,7 +42,7 @@
               <option v-for="(item, index) in item.extra.split(',')" v-bind:value="item.split(':')[0]" :key="index">{{item.split(':')[1]}}</option>
             </select>
           </div>
-          <div class="checkbox circle right" slot="value" v-if="item.select">
+          <div class="checkbox circle right" slot="value" v-if="item.select && item.regardless !== 2">
             <input type="checkbox" checked name="basicReg" :id="'ag' + index" v-model="item.regardless">
             <span class="iconfont icon-dot"></span>
             <label :for="'ag' + index">不计免赔</label>
@@ -120,6 +120,7 @@
           jsonpCallback: 'json'
         })
         .then(res => {
+          console.log(res)
           const result = res.body.data.insuranceList
           // result.forEach(el => {
           //   console.log(el)
@@ -133,6 +134,7 @@
           //   console.log(el.regardless)
           // })
           result.forEach(item => {
+            console.log(item.regardless)
             item.select = false
             item.value = item.extra.split(',')[0].split(':')[0]
             switch (item.type) {

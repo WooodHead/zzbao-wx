@@ -2,7 +2,7 @@
   <div class="page gray">
     <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
       <group gutter="0px" v-if="list.length > 0">
-        <cell value-align="left" v-for="(item, index) in list" :key="index" @click.native="handleRead(item.id)">
+        <cell value-align="left" v-for="(item, index) in list" :key="index" @click.native="handleRead(item)">
           <h2 class="time">{{item.createTime}}<badge v-if="!item.status"></badge></h2>
           <p class="text">{{item.title}}</p>
         </cell>
@@ -73,38 +73,44 @@
           el.style.display = 'none'
         })
       },
-      handleRead (id) {
-        this.$http({
-          method: 'jsonp',
-          url: messageStatus,
-          jsonp: 'callback',
-          jsonpCallback: 'json',
-          params: {
-            userId: JSON.parse(this.$localStorage.get('userInfo')).userId,
-            messageId: id
-          }
-        })
-        .then(res => {
-          console.log(res)
-          if (res.body.status) {
-            this.$vux.toast.show({
-              type: 'text',
-              width: '10em',
-              position: 'bottom',
-              text: '消息已读',
-              time: '1000'
-            })
-            this.getList(() => {}, null)
-          } else {
-            this.$vux.toast.show({
-              type: 'text',
-              width: '10em',
-              position: 'bottom',
-              text: res.body.msg,
-              time: '1000'
-            })
-          }
-        })
+      handleRead (item) {
+        if (!item.status) {
+          this.$http({
+            method: 'jsonp',
+            url: messageStatus,
+            jsonp: 'callback',
+            jsonpCallback: 'json',
+            params: {
+              userId: JSON.parse(this.$localStorage.get('userInfo')).userId,
+              messageId: item.id
+            }
+          })
+          .then(res => {
+            console.log(res)
+            if (res.body.status) {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '10em',
+                position: 'bottom',
+                text: '消息已读',
+                time: '1000'
+              })
+              this.list.forEach(el => {
+                if (el.id === item.id) {
+                  el.status = !el.status
+                }
+              })
+            } else {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '10em',
+                position: 'bottom',
+                text: res.body.msg,
+                time: '1000'
+              })
+            }
+          })
+        }
       },
       getList (done, status) {
         const This = this
