@@ -40,7 +40,7 @@
         </router-link>
         <router-link :to="'/balanceDetail/' + userId" class="col v-m col-12 t-c">
           <h2 class="num">{{balance}}<span style="font-size:1.2rem;margin-left:0.2rem;">分</span></h2>
-          <p class="text">积分余额</p>
+          <p class="text">账户积分余额</p>
         </router-link>
       </div>
     </div>

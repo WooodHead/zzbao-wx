@@ -12,7 +12,7 @@
         </Cell>
       </group>
       <group title="基本险" class="select" v-if="basic">
-        <Cell v-for="(item, index) in basic" :key="index">
+        <Cell v-for="(item, index) in basic" :key="index" :class="item.extra === ''?'long': ''">
           <div class="checkbox circle left" slot="icon">
             <input type="checkbox" name="basic" v-model="item.select" :id="'b' + index">
             <span class="iconfont icon-dot"></span>
@@ -31,7 +31,7 @@
         </Cell>
       </group>
       <group title="附加险" class="select" v-if="additional">
-        <Cell v-for="(item, index) in additional" :key="index">
+        <Cell v-for="(item, index) in additional" :key="index" :class="item.extra === ''?'long': ''">
           <div class="checkbox circle left" slot="icon">
             <input type="checkbox" name="basic" v-model="item.select" :id="'a' + index">
             <span class="iconfont icon-dot"></span>

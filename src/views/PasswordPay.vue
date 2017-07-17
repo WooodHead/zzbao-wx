@@ -85,6 +85,14 @@
             text: '请输入支付密码！',
             time: '1000'
           })
+        } else if (!parseInt(this.form.payPwd)) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '20em',
+            position: 'bottom',
+            text: '请输入6位数字密码！',
+            time: '1000'
+          })
         } else if (this.form.payPwd !== this.payPwd) {
           this.$vux.toast.show({
             type: 'text',
@@ -99,14 +107,6 @@
             width: '20em',
             position: 'bottom',
             text: '请先获取验证码！',
-            time: '1000'
-          })
-        } else if (!parseInt(this.form.payPwd)) {
-          this.$vux.toast.show({
-            type: 'text',
-            width: '20em',
-            position: 'bottom',
-            text: '请输入6位数字密码！',
             time: '1000'
           })
         } else {
