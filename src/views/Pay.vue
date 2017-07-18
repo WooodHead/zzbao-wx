@@ -25,6 +25,7 @@
 <script>
   import {Group, Cell, XButton, Radio, Loading} from 'vux'
   import {pay} from '../config'
+  import $ from 'jquery'
   export default {
     name: 'pay',
     head: {
@@ -79,40 +80,79 @@
           this.loading = false
           this.$vux.loading.hide()
           console.log(pay)
-          this.$http({
-            method: 'jsonp',
+          $.ajax({
+            type: 'post',
             url: pay,
-            jsonp: 'callback',
-            jsonpCallback: 'json',
-            params: {
+            crossDomain: true,
+            async: false,
+            data: {
               userId: this.userId,
               orderId: this.orderId,
               payType: this.paymodel
+            },
+            dataType: 'json',
+            before: function (req) {
+            },
+            complete: function (data) {
+            },
+            success: function (res) {
+              this.loading = false
+              if (res.body.status) {
+                this.$vux.toast.show({
+                  type: 'text',
+                  width: '22em',
+                  position: 'bottom',
+                  text: '恭喜，支付成功！',
+                  time: '3000'
+                })
+                setTimeout(() => {
+                  this.$router.replace('/paysuccess/' + this.userId + '/' + this.orderId)
+                }, 1000)
+              } else {
+                this.$vux.toast.show({
+                  type: 'text',
+                  width: '22em',
+                  position: 'bottom',
+                  text: res.body.msg,
+                  time: '3000'
+                })
+              }
             }
           })
-          .then(res => {
-            this.loading = false
-            if (res.body.status) {
-              this.$vux.toast.show({
-                type: 'text',
-                width: '22em',
-                position: 'bottom',
-                text: '恭喜，支付成功！',
-                time: '3000'
-              })
-              setTimeout(() => {
-                this.$router.replace('/paysuccess/' + this.userId + '/' + this.orderId)
-              }, 1000)
-            } else {
-              this.$vux.toast.show({
-                type: 'text',
-                width: '22em',
-                position: 'bottom',
-                text: res.body.msg,
-                time: '3000'
-              })
-            }
-          })
+          // this.$http({
+          //   method: 'jsonp',
+          //   url: pay,
+          //   jsonp: 'callback',
+          //   jsonpCallback: 'json',
+          //   params: {
+          //     userId: this.userId,
+          //     orderId: this.orderId,
+          //     payType: this.paymodel
+          //   }
+          // })
+          // .then(res => {
+          //   this.loading = false
+          //   if (res.body.status) {
+          //     this.$vux.toast.show({
+          //       type: 'text',
+          //       width: '22em',
+          //       position: 'bottom',
+          //       text: '恭喜，支付成功！',
+          //       time: '3000'
+          //     })
+          //     setTimeout(() => {
+          //       this.$router.replace('/paysuccess/' + this.userId + '/' + this.orderId)
+          //     }, 1000)
+          //   } else {
+          //     this.$vux.toast.show({
+          //       type: 'text',
+          //       width: '22em',
+          //       position: 'bottom',
+          //       text: res.body.msg,
+          //       time: '3000'
+          //     })
+          //   }
+          // })
         }, 2000)
       }
     }
