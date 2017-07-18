@@ -20,6 +20,7 @@ const mutations = {
       jsonpCallback: 'json'
     })
     .then(res => {
+      console.log(res)
       state.mallNav = res.body.data.typeList
       This.$localStorage.set('goodsType', JSON.stringify(state.mallNav))
       This.$http({

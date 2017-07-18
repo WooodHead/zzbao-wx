@@ -86,13 +86,7 @@
       // this.company = JSON.parse(this.$localStorage.get('orderCompany'))
       this.getInfo()
       if (this.$route.params.userId === 'null') {
-        this.$vux.toast.show({
-          type: 'text',
-          width: '20em',
-          position: 'bottom',
-          text: '无法继续操作，请返回登录！',
-          time: '1000'
-        })
+        this.$router.replace('/login')
       }
       // if (this.$localStorage.get('logined') !== 'true') {
       //   this.$vux.toast.show({

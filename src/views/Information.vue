@@ -65,11 +65,15 @@
       }
     },
     created () {
-      const user = JSON.parse(this.$localStorage.get('userInfo'))
-      this.form.userId = user.userId
-      this.form.userName = user.userName
-      this.form.birthday = dateFormat(user.userBirthday).substr(0, 10)
-      this.form.userSex = user.userSex
+      if (JSON.parse(this.$localStorage.get('userInfo'))) {
+        const user = JSON.parse(this.$localStorage.get('userInfo'))
+        this.form.userId = user.userId
+        this.form.userName = user.userName
+        this.form.birthday = dateFormat(user.userBirthday).substr(0, 10)
+        this.form.userSex = user.userSex
+      } else {
+        this.$router.replace('/login')
+      }
     },
     methods: {
       handleSubmit () {

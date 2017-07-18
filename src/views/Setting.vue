@@ -1,12 +1,12 @@
 <template>
   <div class="page gray">
-    <group class="mt0" v-if="login">
+    <group class="mt0">
       <cell title="我的资料" link="/information"></cell>
       <cell title="修改支付密码" link="edit/passwordBypay"></cell>
       <cell title="修改登录密码" link="edit/passwordBylogin"></cell>
       <cell title="更换绑定手机" link="edit/phone" :value="tel"></cell>
     </group>
-    <group :class="login ? 'mt10' : ''" gutter="0">
+    <group gutter="10px">
       <cell title="客服热线" is-link value="4006 128 070" @click.native="handleCall('4006 128 070')"></cell>
       <cell title="常见问题" link="/question"></cell>
       <cell title="意见反馈" link="/feedback"></cell>

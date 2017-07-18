@@ -93,8 +93,8 @@
       }
     },
     created () {
-      console.log(this.$route)
-      if (this.$route.params.userId) {
+      console.log(this.$route.params.userId)
+      if (this.$route.params.userId !== 'null') {
         this.userId = this.$route.params.userId
         this.$http({
           method: 'jsonp',
@@ -119,7 +119,7 @@
           }]
         })
       } else {
-        this.$router.push('/login')
+        this.$router.replace('/login')
       }
     },
     computed: {

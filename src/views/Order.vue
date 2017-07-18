@@ -116,8 +116,22 @@
           method: 'jsonp',
           url: orderList,
           jsonp: 'callback',
+          _timeout: 5000,
+          timeout: 5000,
           jsonpCallback: 'json',
           params: this.form,
+          onTimeout: request => {
+            this.statusInit()
+            // this.$router.push('/net')
+            This.$vux.toast.show({
+              type: 'text',
+              width: '20em',
+              position: 'bottom',
+              text: '网络连接失败，请稍后重试！',
+              time: '3000'
+            })
+            console.log('timeout')
+          },
           before: () => {
             if (status) {
               this.list = []

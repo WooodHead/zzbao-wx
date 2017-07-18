@@ -171,11 +171,13 @@
             this.insurance.push(el)
           }
         })
-        // this.insurance.forEach(el => {
-        //   if (el.regardless === 2) {
-        //     el.regardless = 0
-        //   }
-        // })
+        this.insurance.forEach(el => {
+          if (el.regardless === true) {
+            el.regardless = 1
+          } else if (el.regardless === false) {
+            el.regardless = 0
+          }
+        })
         console.log(this.insurance)
         this.$localStorage.set('insurance', JSON.stringify(this.insurance))
         this.form.orderInfo = {
@@ -188,8 +190,15 @@
         // this.form.orderInfo.insurance.forEach(el => {
         //   console.log(el.name, el.regardless, el)
         // })
-        console.log(this.form)
         this.form.orderInfo = JSON.stringify(this.form.orderInfo)
+        this.$vux.loading.show({
+          type: 'text',
+          width: '24em',
+          position: 'bottom',
+          text: '提交中！',
+          time: '3000'
+        })
+        console.log(submitOrder)
         this.$http({
           method: 'jsonp',
           url: submitOrder,
@@ -199,6 +208,7 @@
         })
         .then(res => {
           console.log(res)
+          this.$vux.loading.hide()
           if (res.body.status === 1) {
             this.$router.replace('/offersuccess/' + res.body.data.orderId + '/' + this.form.userId + '/' + res.body.data.orderSn)
           } else if (res.body.status === 3) {

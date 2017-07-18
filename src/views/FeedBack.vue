@@ -43,13 +43,7 @@
       if (this.$localStorage.get('logined') !== 'false') {
         this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
       } else {
-        this.$vux.toast.show({
-          type: 'text',
-          width: '20em',
-          position: 'bottom',
-          text: '该功能仅对登录用户提供！',
-          time: '1000'
-        })
+        this.$router.replace('/login')
       }
     },
     methods: {

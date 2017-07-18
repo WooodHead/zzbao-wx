@@ -130,13 +130,7 @@
       },
       handleOrder () {
         if (this.$localStorage.get('logined') === 'false') {
-          this.$vux.toast.show({
-            type: 'text',
-            width: '20em',
-            position: 'bottom',
-            text: '当前未登录，无法进行兑换！',
-            time: '1000'
-          })
+          this.$router.replace('/login')
         } else {
           this.order = true
         }

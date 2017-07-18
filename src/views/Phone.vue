@@ -53,7 +53,7 @@
         pwd: '',
         form: {
           tel: '',
-          userId: JSON.parse(this.$localStorage.get('userInfo')).userId,
+          userId: '',
           captcha: ''
         }
       }
@@ -64,6 +64,13 @@
       XInput,
       XButton,
       Countdown
+    },
+    created () {
+      if (JSON.parse(this.$localStorage.get('userInfo'))) {
+        this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
+      } else {
+        this.$router.replace('/login')
+      }
     },
     methods: {
       handleTips () {

@@ -23,6 +23,18 @@ Vue.use(VueResource)
 Vue.use(VueHead)
 Vue.use(ToastPlugin)
 Vue.use(VueLazyload)
+Vue.http.interceptors.push((request, next) => {
+  var timeout
+  if (request._timeout) {
+    timeout = setTimeout(() => {
+      if (request.onTimeout) request.onTimeout(request)
+      request.abort()
+    }, request._timeout)
+  }
+  next((response) => {
+    clearTimeout(timeout)
+  })
+})
 /* eslint-disable no-new */
 new Vue({
   router,

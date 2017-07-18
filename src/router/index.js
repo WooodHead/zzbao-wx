@@ -320,6 +320,12 @@ const router = new Router({
       component: (resolve) => {
         require(['@/views/CustomerEdit'], resolve)
       }
+    }, {
+      path: '/net',
+      name: 'net',
+      component: (resolve) => {
+        require(['@/views/Net'], resolve)
+      }
     }
   ]
 })

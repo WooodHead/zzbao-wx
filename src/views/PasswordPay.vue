@@ -67,7 +67,11 @@
       }
     },
     created () {
-      this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
+      if (JSON.parse(this.$localStorage.get('userInfo'))) {
+        this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
+      } else {
+        this.$router.replace('/login')
+      }
     },
     components: {
       Group,
