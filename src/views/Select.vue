@@ -134,7 +134,6 @@
           //   console.log(el.regardless)
           // })
           result.forEach(item => {
-            console.log(item.regardless)
             item.select = false
             item.value = item.extra.split(',')[0].split(':')[0]
             switch (item.type) {
@@ -172,13 +171,12 @@
             this.insurance.push(el)
           }
         })
-        this.insurance.forEach(el => {
-          if (el.regardless) {
-            el.regardless = 1
-          } else {
-            el.regardless = 0
-          }
-        })
+        // this.insurance.forEach(el => {
+        //   if (el.regardless === 2) {
+        //     el.regardless = 0
+        //   }
+        // })
+        console.log(this.insurance)
         this.$localStorage.set('insurance', JSON.stringify(this.insurance))
         this.form.orderInfo = {
           company: JSON.parse(this.$localStorage.get('orderCompany')),
@@ -190,8 +188,8 @@
         // this.form.orderInfo.insurance.forEach(el => {
         //   console.log(el.name, el.regardless, el)
         // })
-        this.form.orderInfo = JSON.stringify(this.form.orderInfo)
         console.log(this.form)
+        this.form.orderInfo = JSON.stringify(this.form.orderInfo)
         this.$http({
           method: 'jsonp',
           url: submitOrder,

@@ -46,7 +46,7 @@
     name: 'goodsList',
     head: {
       title: {
-        inner: '商品分类',
+        inner: '商品列表',
         separator: ' '
       }
     },
