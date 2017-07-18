@@ -72,6 +72,9 @@
     },
     methods: {
       handlePay () {
+        window.location.href = pay + '?userId=' + this.userId + '&orderId=' + this.orderId
+      },
+      handlePay1 () {
         this.$vux.loading.show({
           text: '支付中！'
         })
@@ -90,7 +93,7 @@
               orderId: this.orderId,
               payType: this.paymodel
             },
-            dataType: 'json',
+            dataType: 'html',
             before: function (req) {
             },
             complete: function (data) {
