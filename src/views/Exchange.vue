@@ -21,10 +21,10 @@
       </v-scroll>
     </div>
     <div class="row w h tip" v-if="list.length === 0">
-      <div class="col v-m t-c">
-        <img v-lazy="'static/img/sorry.png'" alt="">
-        <p>没有兑换奖品记录哦！</p>
-      </div>
+      <none>
+        <img slot="img" src="static/img/sorry.png" alt="">
+        <p slot="text">没有兑换奖品记录哦！</p>
+      </none>
     </div>
   </div>
 </template>
@@ -33,6 +33,7 @@
   import {XImg} from 'vux'
   import {exchangeLog} from '../config'
   import VScroll from '../components/VScroll'
+  import none from '@/components/None'
   export default {
     name: 'exchange',
     head: {
@@ -56,7 +57,8 @@
     },
     components: {
       XImg,
-      VScroll
+      VScroll,
+      none
     },
     mounted () {
       if (this.$route.params.userId === 'null') {
@@ -114,6 +116,9 @@
           } else {
             this.statusLoad()
           }
+          if (this.list.length < this.form.limit) {
+            this.statusInit()
+          }
           done()
         })
       },
@@ -137,6 +142,6 @@
   }
 </script>
 <style>
-.tip img{width:8rem;}
-.tip p{font-size:1.2rem;color:#3c3c3c;margin-top:2rem;}
+.tip img{width:6rem;}
+.tip p{font-size:1rem;color:#999;margin-top:1rem;}
 </style>

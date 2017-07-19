@@ -65,10 +65,10 @@
         advert: [],
         product: {
           type: 0,
-          timeOrder: 0,
+          timeOrder: 1,
           priceOrder: 0,
           defaultOrder: 0,
-          limit: 8,
+          limit: 10,
           pageIndex: 0
         }
       }

@@ -22,12 +22,19 @@
         </cell>
       </group>
     </v-scroll>
+    <div class="row w h tip" v-if="list.length === 0">
+      <none>
+        <img slot="img" src="static/img/sorry.png" alt="">
+        <p slot="text">没有积分记录哦！</p>
+      </none>
+    </div>
   </div>
 </template>
 <script>
   import {Group, Cell, dateFormat} from 'vux'
   import {detail, wallet} from '../config'
   import VScroll from '../components/VScroll'
+  import none from '@/components/None'
   export default {
     name: 'balanceDetail',
     head: {
@@ -39,7 +46,8 @@
     components: {
       Group,
       VScroll,
-      Cell
+      Cell,
+      none
     },
     data () {
       return {
@@ -124,6 +132,9 @@
             this.statusNoMore()
           } else {
             this.statusLoad()
+          }
+          if (this.list.length < this.form.limit) {
+            this.statusInit()
           }
           done()
           for (const i in this.list) {

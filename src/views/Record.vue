@@ -1,25 +1,34 @@
 <template>
-  <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
-    <group gutter="0">
-      <cell is-link class="score-list" v-for="(item, index) in list" :key="index" :link="'/record/' + item.id" @click.native="handleSave(item)">
-        <li class="row w">
-          <span class="col v-m col-11 t-l">
-            <b class="price">-{{item.money / 10}}元</b>
-            <i class="score">积分余额：{{item.balance}}分</i>
-          </span>
-          <span class="col v-m col-13 t-r">
-            <i class="score">{{item.createTime}}</i>
-            <i :class="'status ' + {'success': item.status === 1, 'error': item.status === 2}">{{item.note}}</i>
-          </span>
-        </li>
-      </cell>
-    </group>
-  </v-scroll>
+  <div>
+    <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
+      <group gutter="0">
+        <cell is-link class="score-list" v-for="(item, index) in list" :key="index" :link="'/record/' + item.id" @click.native="handleSave(item)">
+          <li class="row w">
+            <span class="col v-m col-11 t-l">
+              <b class="price">-{{item.money / 10}}元</b>
+              <i class="score">积分余额：{{item.balance}}分</i>
+            </span>
+            <span class="col v-m col-13 t-r">
+              <i class="score">{{item.createTime}}</i>
+              <i :class="'status ' + {'success': item.status === 1, 'error': item.status === 2}">{{item.note}}</i>
+            </span>
+          </li>
+        </cell>
+      </group>
+    </v-scroll>
+    <div class="row w h tip" v-if="list.length === 0">
+      <none>
+        <img slot="img" src="static/img/sorry.png" alt="">
+        <p slot="text">没有提现记录哦！</p>
+      </none>
+    </div>
+  </div>
 </template>
 <script>
   import {Cell, dateFormat, Group} from 'vux'
   import {withdrawlog} from '../config'
   import VScroll from '../components/VScroll'
+  import none from '@/components/None'
   export default {
     name: 'record',
     head: {
@@ -43,7 +52,8 @@
       Cell,
       dateFormat,
       Group,
-      VScroll
+      VScroll,
+      none
     },
     created () {
       this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
@@ -114,6 +124,9 @@
             this.statusNoMore()
           } else {
             this.statusLoad()
+          }
+          if (this.list.length < this.form.limit) {
+            this.statusInit()
           }
           done()
           for (const i in this.list) {

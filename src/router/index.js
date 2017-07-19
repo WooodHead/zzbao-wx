@@ -87,8 +87,14 @@ const router = new Router({
         }
       }
     }, {
-      path: '/login/:openId',
+      path: '/login/',
       name: 'Login',
+      component: (resolve) => {
+        require(['@/views/Login'], resolve)
+      }
+    }, {
+      path: '/login/:openId',
+      name: 'Loginid',
       component: (resolve) => {
         require(['@/views/Login'], resolve)
       }

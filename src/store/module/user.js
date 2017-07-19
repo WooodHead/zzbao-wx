@@ -121,7 +121,8 @@ const mutations = {
           jsonpCallback: 'json',
           params: {
             tel: This.form.tel,
-            pwd: This.form.pwd
+            pwd: This.form.pwd,
+            openId: This.form.openId
           },
           before: () => {
             This.loading = true

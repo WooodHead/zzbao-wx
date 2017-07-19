@@ -23,6 +23,12 @@
           </cell>
         </group>
       </v-scroll>
+      <div class="row w h tip" v-if="list.length === 0">
+        <none>
+          <img slot="img" src="static/img/sorry.png" alt="">
+          <p slot="text">没有积分记录哦！</p>
+        </none>
+      </div>
     </div>
   </div>
 </template>
@@ -30,6 +36,7 @@
   import {Group, Cell, dateFormat} from 'vux'
   import {detail, wallet} from '../config'
   import VScroll from '../components/VScroll'
+  import none from '@/components/None'
   export default {
     name: 'detail',
     head: {
@@ -41,7 +48,8 @@
     components: {
       Group,
       Cell,
-      VScroll
+      VScroll,
+      none
     },
     data () {
       return {
@@ -64,6 +72,30 @@
       }
     },
     methods: {
+      statusNoMore () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'none'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'block'
+        })
+      },
+      statusLoad () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'block'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'none'
+        })
+      },
+      statusInit () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'none'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'none'
+        })
+      },
       onRefresh (done) {
         this.form.pageIndex = 0
         this.getList(done, 1)
@@ -92,7 +124,12 @@
             This.list.push(el)
           })
           if (res.body.data.scoreList.length < This.form.limit) {
-            this.$el.querySelector('.load-more').innerHTML = '我是有底线的！'
+            this.statusNoMore()
+          } else {
+            this.statusLoad()
+          }
+          if (this.list.length < this.form.limit) {
+            this.statusInit()
           }
           done()
           for (const i in this.list) {
