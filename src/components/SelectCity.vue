@@ -1,78 +1,59 @@
 <template>
   <div>
     <group gutter="0">
-      <cell :title="title" is-link @click.native="handleOpen" class="address">
-        <p><span v-if="!selected">{{value}}<span v-if="!value">请选择</span></span><span v-if="selected">{{selected}}</span></p>
+      <cell :title="title" is-link class="address" @click.native="showPop">
       </cell>
     </group>
-    <div v-transfer-dom>
-      <popup v-model="show" position="bottom" height="60%" class="bg-f select">
-        <tab active-color='#EB3D00' v-model="index" class="select-tab">
-          <tab-item :selected="index === active" v-for="(item, index) in tab" :key="index" @click.native="handleClick(index)">{{item.text}}</tab-item>
-        </tab>
-        <swiper v-model="active" class="select-list" :loop="false" :show-dots="false" height="100%" :threshold="100" @on-index-change="handleChange">
-          <swiper-item v-for="(item, idx) in tab" :key="idx">
-            <ul class="list" id="list">
-              <li v-for="(item, index) in areaList" :key="index" @click="handleSwiper(item.id, item.text, idx)">{{item.text}}</li>
-            </ul>
-          </swiper-item>
-        </swiper>
-        <div class="row w pd-10 select-btn">
-          <div class="col v-m w-30">
-            <x-button @click.native="show = false" type="primary">取消</x-button>
-          </div>
-          <div class="col v-m w-70">
-            <x-button @click.native="submit()" type="warn">确定</x-button>
-          </div>
+    <popup v-model="popShow" position="bottom" height="60%" class="bg-f select">
+      <tab active-color='#EB3D00' class="select-tab" v-model="index">
+        <tab-item v-for="(item, index) in area" :key="index" @click.native="_tabClick(index)">{{item.name}}</tab-item>
+      </tab>
+      <swiper v-model="index" class="select-list" :loop="false" :show-dots="false" height="100%" :threshold="100">
+        <swiper-item v-for="(item, index) in area" :key="index">
+          <ul class="list" id="list">
+            <li v-for="(item, index) in areaList" :key="index" @click="_select(item)">{{item.text}}</li>
+          </ul>
+        </swiper-item>
+      </swiper>
+      <div class="row w pd-10 select-btn">
+        <div class="col v-m w-30">
+          <x-button type="primary">取消</x-button>
         </div>
-      </popup>
-    </div>
+        <div class="col v-m w-70">
+          <x-button type="warn">确定</x-button>
+        </div>
+      </div>
+    </popup>
   </div>
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
-import {Group, Popup, Tab, TabItem, XButton, Swiper, Cell, SwiperItem, TransferDom, XSwitch} from 'vux'
+import {Group, Popup, Tab, TabItem, XButton, Swiper, Cell, SwiperItem, XSwitch} from 'vux'
 import {area} from '../config'
 export default {
   name: 'city',
-  data () {
-    return {
-      tab: [{
-        text: '省',
-        id: 0
-      }, {
-        text: '市',
-        id: 0
-      }, {
-        text: '区',
-        id: 0
-      }],
-      selected: '',
-      areaId: [],
-      show: false,
-      showName: '',
-      index: 0,
-      active: 0,
-      areaList: []
-    }
-  },
   props: {
     title: {
       type: String,
-      default: ''
-    },
-    value: {
-      type: String,
       default: '请选择'
-    },
-    readonly: {
-      type: Boolean,
-      default: false
     }
   },
-  directives: {
-    TransferDom
+  data () {
+    return {
+      popShow: false,
+      index: 0,
+      area: [{
+        name: '省',
+        id: 0
+      }, {
+        name: '市',
+        id: 0
+      }, {
+        name: '区',
+        id: 0
+      }],
+      areaList: []
+    }
   },
   components: {
     Group,
@@ -85,100 +66,43 @@ export default {
     SwiperItem,
     XSwitch
   },
+  created () {
+  },
   methods: {
-    submit () {
-      let area = ''
-      this.tab.forEach(el => {
-        if (el.id !== 0) {
-          area += el.text
+    showPop () {
+      this.popShow = true
+      this._fetch(0, 0, 0)
+    },
+    _tabClick (index) {
+      this.index = index
+    },
+    _select (item) {
+      if (this.index < this.area.length - 1) {
+        this._fetch(item.id, this.index, 1)
+      }
+    },
+    _fetch (id, swiper, status) {
+      this.$http({
+        method: 'jsonp',
+        url: area,
+        jsonp: 'callback',
+        jsonpCallback: 'json',
+        params: {
+          id: id
+        },
+        before: () => {
+          this.areaList = []
+          this.index = swiper
         }
       })
-      this.selected = area
-      this.show = false
-      this.init()
-    },
-    handleSwiper (areaId, text, index) {
-      this.tab[index] = {
-        id: areaId,
-        text: text
-      }
-      this.areaId[index] = areaId
-      console.log(index)
-      if (this.index < 2) {
-        this.index = this.active = index + 1
-      } else {
-        // let id = []
-        // this.tab.forEach(el => {
-        //   id.push(el.id)
-        // })
-        this.setAreaId(areaId)
-        this.index = this.active = index
-        let area = ''
-        this.tab.forEach(el => {
-          area += el.text
-        })
-        this.selected = area
-        this.show = false
-        this.init()
-      }
-      this.getData(areaId, text, index)
-    },
-    handleClick (index) {
-      this.index = this.active = index
-    },
-    handleChange (index) {
-      this.index = this.active = index
-      if (index === 0) {
-        this.getData(0, '请选择', 0)
-      } else {
-        this.getData(this.tab[index - 1].id, this.tab[index - 1].text, index)
-      }
-    },
-    getData (areaId, text, index) {
-      const This = this
-      setTimeout(function () {
-        This.$http({
-          method: 'jsonp',
-          url: area,
-          jsonp: 'callback',
-          jsonpCallback: 'json',
-          params: {
-            id: areaId
-          },
-          before: () => {
-            This.areaList = []
-          }
-        })
-        .then(res => {
-          This.areaList = res.body.data.areaList
-        })
-      }, 100)
-    },
-    handleOpen () {
-      if (!this.readonly) {
-        this.show = true
-        this.getData(this.tab[0].id, this.tab[0].text, 0)
-      }
-    },
-    init () {
-      this.index = this.active = 0
-      this.tab = [{
-        text: '省',
-        id: 0
-      }, {
-        text: '市',
-        id: 0
-      }, {
-        text: '区',
-        id: 0
-      }]
-    },
-    ...mapMutations({
-      setAreaId: 'getInsuranceArea'
-    })
-  },
-  created () {
-    this.showName = this.value
+      .then(res => {
+        console.log(res, swiper)
+        if (status && swiper < this.area.length - 1) {
+          this.index = swiper + 1
+        }
+        this.areaList = res.body.data.areaList
+      })
+    }
   }
 }
 </script>
