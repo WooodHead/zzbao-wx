@@ -12,7 +12,7 @@
         <x-input title="车主姓名" placeholder="请填写车主姓名" placeholder-align="right" text-align="right" v-model="orderUser.name" required ref="name"></x-input>
       </group>
       <group gutter="0">
-        <x-input title="手机号" type="tel" is-type="china-mobile" placeholder="请填写真实手机号" placeholder-align="right" text-align="right" v-model="orderUser.tel" required ref="tel"></x-input>
+        <x-input title="手机号" type="tel" is-type="china-mobile" placeholder="请填写真实手机号" placeholder-align="right" text-align="right" v-model="orderUser.tel" required ref="tel" :min="11" :max="11"></x-input>
       </group>
     </div>
     <div class="footer row w">

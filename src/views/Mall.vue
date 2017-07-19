@@ -19,7 +19,6 @@
       </div>
     </div>
     <div class="grid t-l white mt-5 click top-line sub-line quick">
-      {{nav}}
       <router-link :to="'/mall/' + item.id" class="col col-6 t-c" v-for="(item, index) in nav" :key="index">
         <img class="icon" v-lazy="'static/img/index1.png'" alt=""/>
         <b class="block fs-1 c-n">{{item.name}}</b>
@@ -85,6 +84,16 @@
       })
     },
     methods: {
+      // handleUrl (item) {
+      //   console.log(item)
+      //   switch (item.name) {
+      //     case '新品上市':
+      //       this.$localStorage.set('sort', 'timeOrder')
+      //       return '/mall/' + 0
+      //     default:
+      //       return '/mall/' + item.id
+      //   }
+      // },
       // getrecommend () {
       //   this.$http({
       //     method: 'jsonp',

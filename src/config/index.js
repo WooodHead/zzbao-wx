@@ -46,4 +46,4 @@ export const noMore = '我也是有底线的！'
 // export const appSecret = server + '4e5337cb2cff85f21385ff8673e1c07a'
 export const time = 60 // 获取验证码时间间隔单位：秒
 export const QQ = '979741120'
-export const status = ['待报价', '已撤销', '待承保', '待付款', '已承保', '核保失败']
+export const status = ['待报价', '核保中', '核保失败', '待支付', '待承保', '已承保']

@@ -116,7 +116,7 @@
     },
     created () {
       this.options = JSON.parse(this.$localStorage.get('goodsType'))
-      this.options.push({
+      this.options.unshift({
         id: 0,
         name: '全部'
       })

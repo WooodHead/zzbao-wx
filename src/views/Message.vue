@@ -19,7 +19,7 @@
     name: 'message',
     head: {
       title: {
-        inner: '消息',
+        inner: '消息中心',
         separator: ' '
       }
     },
@@ -148,6 +148,9 @@
             this.statusNoMore()
           } else {
             this.statusLoad()
+          }
+          if (this.list.length < this.form.limit) {
+            this.statusInit()
           }
           done()
         })

@@ -107,7 +107,7 @@ img{border:none;vertical-align: top;}
 .goods-list .col{padding:0.3rem;}
 .goods{background:#fff;display:block;padding:0.5rem;}
 .goods .cover{display:inline-block;width:100%;text-align:center;background:#fff;}
-.goods .cover img{width:100%;height:100%;}
+.goods .cover img{width:100%;height:10rem;}
 .goods .name{display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;font-size:1.1rem;color:#424242;padding:0.5rem 0;}
 /*车险报价*/
 .safe-list > .row{border-bottom:1px solid #EBEBEB;position:relative;}

@@ -3,7 +3,7 @@
     <timeline style="background:#fff;padding:1rem 1rem 0 2rem;">
       <timeline-item v-for="(item, index) in list" :key="index">
           <div class="row w">
-            <span class="col v-m col-12">{{item.text}}</span><span class="col v-m t-r col-12" style="">{{item.createTime}}</span>
+            <span class="col v-m col-12">{{status[item.status]}}</span><span class="col v-m t-r col-12" style="">{{item.createTime}}</span>
           </div>
       </timeline-item>
     </timeline>
@@ -27,7 +27,7 @@
     data () {
       return {
         list: [],
-        status: JSON.parse(this.$localStorage.get('orderDetail')).orderStatus
+        status: status
       }
     },
     created () {

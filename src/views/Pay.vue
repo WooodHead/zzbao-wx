@@ -30,7 +30,7 @@
     name: 'pay',
     head: {
       title: {
-        inner: '支付',
+        inner: '支付订单',
         separator: ' '
       }
     },
