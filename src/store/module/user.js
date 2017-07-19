@@ -122,7 +122,7 @@ const mutations = {
           params: {
             tel: This.form.tel,
             pwd: This.form.pwd,
-            openId: This.form.openId
+            openId: This.openId
           },
           before: () => {
             This.loading = true

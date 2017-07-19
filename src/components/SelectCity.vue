@@ -103,7 +103,8 @@ export default {
         text: text
       }
       this.areaId[index] = areaId
-      if (index < 2) {
+      console.log(index)
+      if (this.index < 2) {
         this.index = this.active = index + 1
       } else {
         // let id = []
@@ -143,6 +144,9 @@ export default {
           jsonpCallback: 'json',
           params: {
             id: areaId
+          },
+          before: () => {
+            This.areaList = []
           }
         })
         .then(res => {
