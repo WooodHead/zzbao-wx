@@ -19,7 +19,7 @@
       </div>
       <ul class="row w devision">
         <li class="col v-m item t-r">
-          <router-link to="/register" class="link c-n">立即注册</router-link>
+          <router-link :to="'/register/' + openId" class="link c-n">立即注册</router-link>
         </li>
         <li class="col v-m item t-l">
           <router-link to="password" class="link c-n">忘记密码？</router-link>
@@ -42,6 +42,7 @@
     data () {
       return {
         loading: false,
+        openId: this.$route.params.openId,
         form: {
           tel: '', // 13164620282
           pwd: ''

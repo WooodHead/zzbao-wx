@@ -178,6 +178,7 @@ const mutations = {
   },
   // 用户注册
   postRegister (state, This) {
+    console.log(This.form)
     if (!This.form.tel || !This.$refs.tel.valid) {
       This.$vux.toast.show({
         type: 'text',

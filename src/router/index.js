@@ -87,7 +87,7 @@ const router = new Router({
         }
       }
     }, {
-      path: '/login',
+      path: '/login/:openId',
       name: 'Login',
       component: (resolve) => {
         require(['@/views/Login'], resolve)
@@ -249,7 +249,7 @@ const router = new Router({
         require(['@/views/GoodsList'], resolve)
       }
     }, {
-      path: '/register',
+      path: '/register/:openId',
       name: 'register',
       component: (resolve) => {
         require(['@/views/Register'], resolve)

@@ -71,7 +71,8 @@
           tel: '',
           name: '',
           captcha: '',
-          pwd: ''
+          pwd: '',
+          openId: this.$route.params.openId
         }
       }
     },
