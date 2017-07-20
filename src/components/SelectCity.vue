@@ -99,6 +99,7 @@ export default {
     showPop () {
       if (!this.readonly) {
         this.popShow = true
+        this.select = ''
         this._fetch(0)
       }
     },
