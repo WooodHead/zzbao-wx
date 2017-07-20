@@ -9,7 +9,7 @@
         <x-input title="车牌号码" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="orderUser.license" required ref="license"></x-input>
       </group>
       <group gutter="0">
-        <x-input title="车主姓名" placeholder="请填写车主姓名" placeholder-align="right" text-align="right" v-model="orderUser.name" required ref="name"></x-input>
+        <x-input title="车主姓名" placeholder="请填写车主姓名" placeholder-align="right" text-align="right" v-model="orderUser.name" required ref="name" :min="2"></x-input>
       </group>
       <group gutter="0">
         <x-input title="手机号" type="tel" is-type="china-mobile" placeholder="请填写真实手机号" placeholder-align="right" text-align="right" v-model="orderUser.tel" required ref="tel" :min="11" :max="11"></x-input>
@@ -165,7 +165,15 @@
             type: 'text',
             width: '18em',
             position: 'bottom',
-            text: '姓名必须为中文且不能为空！',
+            text: '姓名必须为中文！',
+            time: '1000'
+          })
+        } else if (!this.$refs.name.valid) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '18em',
+            position: 'bottom',
+            text: '姓名格式不正确！',
             time: '1000'
           })
         } else if (!this.$refs.tel.valid) {
