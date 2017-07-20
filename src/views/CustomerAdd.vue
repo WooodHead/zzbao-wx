@@ -27,6 +27,7 @@
   import { Group, Cell, XInput, XButton, XTextarea, Datetime } from 'vux'
   import selectCity from '@/components/SelectCity'
   import {mapGetters} from 'vuex'
+  import {customerEdit} from '../config'
   export default {
     name: 'customerAdd',
     components: {
@@ -45,7 +46,7 @@
           customer: {
             name: '',
             phone: '',
-            areaFullName: '',
+            areaFullName: '请选择',
             carNo: '',
             vin: '',
             engine: '',
@@ -84,12 +85,13 @@
           // console.log(this.form.customer)
           this.$http({
             method: 'jsonp',
-            url: 'http://liuwbox.com/zzbao/app/customer/submit.htm',
+            url: customerEdit,
             jsonp: 'callback',
             params: this.form,
             jsonpCallback: 'json'
           })
           .then(res => {
+            console.log(res)
             if (res.body.status) {
               this.$vux.toast.show({
                 type: 'text',

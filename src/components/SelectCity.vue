@@ -2,56 +2,70 @@
   <div>
     <group gutter="0">
       <cell :title="title" is-link class="address" @click.native="showPop">
-        <p slot="value">{{index}}</p>
+        <p><span v-if="!select">{{value}}<span v-if="!value">请选择</span></span><span v-if="select">{{select}}</span></p>
       </cell>
     </group>
-    <popup v-model="popShow" position="bottom" height="60%" class="bg-f select">
-      <tab active-color='#EB3D00' class="select-tab" v-model="index">
-        <tab-item v-for="(item, index) in area" :key="index" @click.native="_tabClick(index)">{{item.name}}</tab-item>
-      </tab>
-      <swiper v-model="index" class="select-list" :loop="false" :show-dots="false" height="100%" :threshold="100" @on-index-change="_swiperChange">
-        <swiper-item v-for="(item, idx) in area" :key="idx">
-          <ul class="list" id="list" v-if="areaList.length > 0">
-            <li v-for="(item, index) in areaList" :key="index" @click="_select(item, idx)">{{item.text}}</li>
-          </ul>
-          <div class="addressNull" v-if="loading">
-            <img style="width:3rem;" src="static/img/pageload.svg" alt="">
-            <p>数据加载中！</p>
+    <div v-transfer-dom>
+      <popup v-model="popShow" position="bottom" height="60%" class="bg-f select">
+        <tab active-color='#EB3D00' class="select-tab" v-model="index">
+          <tab-item v-for="(item, index) in area" :key="index" @click.native="_tabClick(index)">{{item.name}}</tab-item>
+        </tab>
+        <swiper v-model="index" class="select-list" :loop="false" :show-dots="false" height="100%" :threshold="100" @on-index-change="_swiperChange">
+          <swiper-item v-for="(item, idx) in area" :key="idx">
+            <ul class="list" id="list" v-if="areaList.length > 0">
+              <li v-for="(item, index) in areaList" :id="item.id" :key="item.id" @click="_select(item, idx, index)" :class="current[idx] === index ? 'active' : ''">{{item.text}}</li>
+            </ul>
+            <div class="addressNull" v-if="loading">
+              <img style="width:3rem;" src="static/img/pageload.svg" alt="">
+              <p>正在努力的获取地址信息！</p>
+            </div>
+            <div class="addressNull" v-if="areaList.length === 0 && !loading">
+              <img src="static/img/address.svg" alt="">
+              <p>请先选择上一级地区</p>
+            </div>
+          </swiper-item>
+        </swiper>
+        <div class="row w pd-10 select-btn">
+          <div class="col v-m w-30">
+            <x-button type="primary" @click.native="_cancel">取消</x-button>
           </div>
-          <div class="addressNull" v-if="areaList.length === 0 && !loading">
-            <img src="static/img/address.svg" alt="">
-            <p>请先选择上一级地区</p>
+          <div class="col v-m w-70">
+            <x-button type="warn" @click.native="_setData">确定</x-button>
           </div>
-        </swiper-item>
-      </swiper>
-      <div class="row w pd-10 select-btn">
-        <div class="col v-m w-30">
-          <x-button type="primary">取消</x-button>
         </div>
-        <div class="col v-m w-70">
-          <x-button type="warn">确定</x-button>
-        </div>
-      </div>
-    </popup>
+      </popup>
+    </div>
   </div>
 </template>
 
 <script>
-import {Group, Popup, Tab, TabItem, XButton, Swiper, Cell, SwiperItem, XSwitch} from 'vux'
+import {Group, Popup, Tab, TabItem, XButton, Swiper, Cell, SwiperItem, XSwitch, TransferDom} from 'vux'
 import {area} from '../config'
+import {mapMutations} from 'vuex'
 export default {
   name: 'city',
   props: {
     title: {
       type: String,
       default: '请选择'
+    },
+    value: {
+      type: String,
+      default: ''
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
       popShow: false,
       loading: false,
+      current: [null, null, null], // 选中的
+      finish: false,
       index: 0,
+      select: '',
       area: [{
         name: '省',
         id: 0
@@ -76,12 +90,17 @@ export default {
     SwiperItem,
     XSwitch
   },
+  directives: {
+    TransferDom
+  },
   created () {
   },
   methods: {
     showPop () {
-      this.popShow = true
-      this._fetch(0)
+      if (!this.readonly) {
+        this.popShow = true
+        this._fetch(0)
+      }
     },
     _swiperChange (index) {
       if (index > 0) {
@@ -98,29 +117,55 @@ export default {
     },
     _tabClick (index) {
     },
-    _select (item, index) {
+    _select (item, index, row) {
       this.area[this.index].name = item.text
       this.area[this.index].id = item.id
+      this.current[index] = row
       if (index < this.area.length - 1) {
         this.index = index + 1
         this._fetch(item.id)
       } else {
         console.log('区')
       }
-      // if (this.index < this.area.length - 1) {
-      //   this._fetch(item.id, this.index, 1)
-      // } else {
-      //   console.log(item.text, item.id)
-      // }
     },
     _clear (index) {
       const text = ['省', '市', '区']
       for (let i = index + 1; i < this.area.length; i++) {
         this.area[i].name = text[i]
         this.area[i].id = 0
+        this.current[i] = null
       }
     },
-    _setData () {},
+    _setData () {
+      this.current.forEach(el => {
+        if (el === null) {
+          this.finish = false
+        } else {
+          this.finish = true
+        }
+      })
+      if (this.finish) {
+        this.setAreaId(this.area[this.area.length - 1].id)
+        this.area.forEach(el => {
+          this.select += el.name
+        })
+        this._cancel()
+      } else {
+        this.$vux.toast.show({
+          type: 'text',
+          width: '15em',
+          position: 'bottom',
+          text: '请选择完整的地区！',
+          time: '1000'
+        })
+      }
+    },
+    _cancel () {
+      this.popShow = false
+      this._clear(-1)
+      this.index = 0
+      this.current = [null, null, null]
+    },
     _fetch (id) {
       this.$http({
         method: 'jsonp',
@@ -139,7 +184,10 @@ export default {
         this.areaList = res.body.data.areaList
         this.loading = false
       })
-    }
+    },
+    ...mapMutations({
+      setAreaId: 'getInsuranceArea'
+    })
   }
 }
 </script>
@@ -164,6 +212,7 @@ export default {
 
 .list{padding:0 0 0 1.5rem;}
 .list li{font-size:1.2rem;color:#333;padding:15px 10px 15px 0;border-bottom:1px solid #e9e9e9;}
+.list .active{color:#EB3D00;}
 </style>
 <style>
 .select-text{font-size:14px;}

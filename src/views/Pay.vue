@@ -5,8 +5,8 @@
       <group title="订单信息">
         <cell title="投保公司" :value="info.companyName"></cell>
         <cell title="保单信息" value="保单详情" is-link :link="'/policy/' + userId + '/' + orderId"></cell>
-        <cell title="商业险" :value="'￥' + info.extraAmount"></cell>
-        <cell title="交强险（车船税）" :value="'￥' + info.baseAmount"></cell>
+        <cell title="商业险" :value="'￥' + info.samount"></cell>
+        <cell title="交强险（车船税）" :value="'￥' + info.jqamount"></cell>
         <cell>
           <p slot="value">应付总额：<span class="num c-red">￥{{info.amount}}</span></p>
         </cell>
@@ -69,6 +69,7 @@
     created () {
       this.info = JSON.parse(this.$localStorage.get('orderDetail'))
       console.log(this.info)
+      this.info.jqamount = parseFloat(this.info.jamount) + parseFloat(this.info.camount)
     },
     methods: {
       handlePay () {

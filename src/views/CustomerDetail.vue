@@ -13,8 +13,8 @@
         <city :readonly="!edit" title="城市" :value="form.customer.areaFullName"></city>
         <x-input :readonly="!edit" title="车辆识别代号" text-align="right" v-model="form.customer.vin"></x-input>
         <x-input :readonly="!edit" title="发动机号" text-align="right" v-model="form.customer.engine"></x-input>
-        <datetime :readonly="!edit" title="注册登记日期" text-align="right" v-model="form.customer.registTime" :display-format="formatValueFunction"></datetime>
-        <datetime :readonly="!edit" title="保险到期日期" text-align="right" v-model="form.customer.expireTime" :display-format="formatValueFunction"></datetime>
+        <datetime :readonly="!edit" title="注册登记日期" text-align="right" v-model="form.customer.registTime" :display-format="formatValueFunction" confirm-text="确认" cancel-text="取消"></datetime>
+        <datetime :readonly="'true'" title="保险到期日期" text-align="right" v-model="form.customer.expireTime" :display-format="formatValueFunction" confirm-text="确认" cancel-text="取消"></datetime>
         <x-textarea :readonly="!edit" title="备注" text-align="right" v-model="form.customer.note"></x-textarea>
       </group>
       {{area}}
@@ -107,9 +107,20 @@
       handleSave () {
         this.edit = !this.edit
         if (!this.edit) {
-          this.form.customer.areaId = this.area || this.info.areaId
-          this.form.customer = JSON.stringify(this.form.customer)
-          this.handleEdit()
+          if (this.form.customer.areaFullName && this.form.customer.carNo && this.form.customer.name && this.form.customer.note && this.form.customer.phone && this.form.customer.registTime && this.form.customer.vin && this.form.customer.expireTime && this.form.customer.engine) {
+            this.form.customer.areaId = this.area || this.info.areaId
+            this.form.customer = JSON.stringify(this.form.customer)
+            this.handleEdit()
+          } else {
+            this.edit = true
+            this.$vux.toast.show({
+              type: 'text',
+              width: '15em',
+              position: 'bottom',
+              text: '以上信息为必填项！',
+              time: '3000'
+            })
+          }
         }
       },
       handleEdit () {
@@ -121,9 +132,13 @@
           url: customerEdit,
           jsonp: 'callback',
           params: this.form,
-          jsonpCallback: 'json'
+          jsonpCallback: 'json',
+          before: (req) => {
+            console.log(req)
+          }
         })
         .then(res => {
+          console.log(res)
           if (res.body.status) {
             this.form.customer = JSON.parse(this.form.customer)
             this.$vux.toast.show({
@@ -153,6 +168,7 @@
           jsonpCallback: 'json'
         })
         .then(res => {
+          console.log(res)
           this.form.customer = res.body.data.customer
           this.form.customer.registTime = dateFormat(this.form.customer.registTime)
           this.form.customer.expireTime = dateFormat(this.form.customer.expireTime)

@@ -1,4 +1,4 @@
-import {login, sms, register, editPwd, information, time} from '../../config'
+import {login, sms, register, editPwd, information, time, loginUrl} from '../../config'
 const state = {
   logined: false,
   userInfo: {}
@@ -90,7 +90,8 @@ const mutations = {
   postLogout (state, This) {
     This.$localStorage.remove('userInfo')
     This.$localStorage.set('logined', false)
-    This.$router.replace('/login')
+    // This.$router.replace('/login')
+    window.location.href = loginUrl
     state.logined = false
     state.userInfo = {}
   },

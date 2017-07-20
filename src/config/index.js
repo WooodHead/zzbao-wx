@@ -39,7 +39,9 @@ export const phone = server + '/app/user/resetPhone.htm' // 更改绑定手机�
 export const track = server + '/app/order/detail/log.htm' // 订单跟踪
 export const pay = 'https://zzhb.cyht.com.cn/app/order/pay/wechatWapPay.htm' // 订单支付
 export const orderInfo = server + '/app/order/info.htm' // 订单详情
+export const loginUrl = 'https://zzhb.cyht.com.cn/get-weixin-code.html?appid=wxede00c47ca454a02&scope=snsapi_base&state=hello-world&redirect_uri=https%3A%2F%2Fzzhb.cyht.com.cn%2Fwap%2Fwechat%2Flogin.htm'
 export const noMore = '我也是有底线的！'
+export const timeout = 5000
 // export const tokenUrl = server + 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential'
 // export const ticketUrl = server + 'https://api.weixin.qq.com/cgi-bin/ticket/getticket'
 // export const appId = server + 'wxabf1c20c98f9cf4c'

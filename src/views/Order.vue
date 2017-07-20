@@ -116,10 +116,10 @@
           method: 'jsonp',
           url: orderList,
           jsonp: 'callback',
-          _timeout: 5000,
-          timeout: 5000,
           jsonpCallback: 'json',
           params: this.form,
+          _timeout: 5000,
+          timeout: 5000,
           onTimeout: request => {
             this.statusInit()
             // this.$router.push('/net')

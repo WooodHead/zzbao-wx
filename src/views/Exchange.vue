@@ -31,7 +31,7 @@
 
 <script>
   import {XImg} from 'vux'
-  import {exchangeLog} from '../config'
+  import {exchangeLog, timeout} from '../config'
   import VScroll from '../components/VScroll'
   import none from '@/components/None'
   export default {
@@ -46,6 +46,8 @@
       return {
         height: '',
         loading: false,
+        timeout: timeout,
+        request: true,
         form: {
           userId: 0,
           limit: 5,
@@ -101,6 +103,22 @@
           jsonp: 'callback',
           jsonpCallback: 'json',
           params: this.form,
+          _timeout: timeout,
+          timeout: timeout,
+          onTimeout: request => {
+            // this.$router.push('/net')
+            this.statusInit()
+            this.request = false
+            this.loading = false
+            this.$vux.toast.show({
+              type: 'text',
+              width: '20em',
+              position: 'bottom',
+              text: '网络连接失败，请稍后重试！',
+              time: '3000'
+            })
+            console.log('timeout')
+          },
           before: () => {
             if (status) {
               this.list = []
