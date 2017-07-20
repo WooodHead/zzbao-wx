@@ -124,11 +124,13 @@ const mutations = {
             pwd: This.form.pwd,
             openId: This.openId
           },
-          before: () => {
+          before: (req) => {
+            console.log(req)
             This.loading = true
           }
         })
         .then(res => {
+          console.log(res)
           if (res.body.data) {
             This.loading = false
             This.$vux.toast.show({

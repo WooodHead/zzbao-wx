@@ -13,7 +13,7 @@
               <x-button v-if="order.orderStatus === 0" type="warn" @click.native="handleBack">撤销报价</x-button>
               <x-button v-if="order.orderStatus === 2" type="warn" @click.native="jump('/payinfo/' + form.userId + '/' + form.orderId)">支付详情</x-button>
               <x-button v-if="order.orderStatus === 3" type="warn" @click.native="jump('/pay/' + form.userId + '/' + form.orderId)">立即付款</x-button>
-              <x-button v-if="order.orderStatus === 5 || order.orderStatus === 1" type="warn" @click.native="jump('/offer')">重新下单</x-button>
+              <x-button v-if="order.orderStatus === 5" type="warn" @click.native="jump('/offer')">重新下单</x-button>
               <x-button v-if="order.orderStatus === 4" type="warn" @click.native="jump('/payinfo/' + form.userId + '/' + form.orderId)">支付详情</x-button>
             </flexbox-item>
             <flexbox-item>
@@ -131,7 +131,7 @@
             return {
               icon: 'icon-time',
               status: '核保中',
-              text: '付款成功，请耐心等待保险出单'
+              text: '您的保单已提交申请，请耐心等待审核通过！'
             }
           case 2:
             return {

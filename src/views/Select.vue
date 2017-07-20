@@ -20,7 +20,7 @@
           </div>
           <div class="form select" slot="title" v-if="item.extra">
             <select v-model="item.value">
-              <option v-for="(item, index) in item.extra.split(',')" v-bind:value="item.split(':')[0]" :key="index">{{item.split(':')[1]}}</option>
+              <option v-for="(item, index) in item.extra.split(',')" v-bind:value="item.split(':')[1]" :key="index">{{item.split(':')[1]}}</option>
             </select>
           </div>
           <div class="checkbox circle right" slot="value" v-if="item.select && item.regardless !== 2">
@@ -39,7 +39,7 @@
           </div>
           <div class="form select" slot="title" v-if="item.extra">
             <select v-model="item.value">
-              <option v-for="(item, index) in item.extra.split(',')" v-bind:value="item.split(':')[0]" :key="index">{{item.split(':')[1]}}</option>
+              <option v-for="(item, index) in item.extra.split(',')" v-bind:value="item.split(':')[1]" :key="index">{{item.split(':')[1]}}</option>
             </select>
           </div>
           <div class="checkbox circle right" slot="value" v-if="item.select && item.regardless !== 2">
@@ -135,7 +135,7 @@
           // })
           result.forEach(item => {
             item.select = false
-            item.value = item.extra.split(',')[0].split(':')[0]
+            item.value = item.extra.split(',')[0].split(':')[1]
             switch (item.type) {
               case 0:
                 this.force.push(item)

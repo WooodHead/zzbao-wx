@@ -42,7 +42,7 @@
     data () {
       return {
         loading: false,
-        openId: this.$route.params.openId,
+        openId: '',
         form: {
           tel: '', // 13164620282
           pwd: ''
@@ -53,6 +53,8 @@
       if (this.$localStorage.get('logined') === 'true') {
         this.$router.replace('/offer')
       }
+      this.openId = this.$route.params.openId
+      console.log(this.openId)
     },
     computed: {
       ...mapGetters({
