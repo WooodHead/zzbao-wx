@@ -22,7 +22,7 @@
           <router-link :to="'/register/' + openId" class="link c-n">立即注册</router-link>
         </li>
         <li class="col v-m item t-l">
-          <router-link to="password" class="link c-n">忘记密码？</router-link>
+          <router-link to="/password" class="link c-n">忘记密码？</router-link>
         </li>
       </ul>
     </div>

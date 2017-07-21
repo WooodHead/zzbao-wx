@@ -26,7 +26,7 @@
             <router-link :to="'/track/'+ form.userId + '/' + form.orderId"><img style="width:2rem;vertical-align:middle" src="static/img/order.png" alt=""><span class="v-m">订单跟踪</span></router-link>
           </li>
           <li class="col v-m col-12 t-c">
-            <a :href="'http://wpa.qq.com/msgrd?v=3&uin=' + qq + '&site=qq&menu=yes'"><img style="width:2rem;vertical-align:middle" src="static/img/kefu.png" alt=""><span class="v-m">联系客服</span></a>
+            <a href="http://wpa.qq.com/msgrd?v=3&uin=979741120&site=qq&menu=yes"><img style="width:2rem;vertical-align:middle" src="static/img/kefu.png" alt=""><span class="v-m">联系客服</span></a>
           </li>
         </ul>
       </cell>
