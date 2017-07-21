@@ -20,7 +20,6 @@ const mutations = {
       jsonpCallback: 'json'
     })
     .then(res => {
-      console.log(res)
       state.mallNav = res.body.data.typeList
       This.$localStorage.set('goodsType', JSON.stringify(state.mallNav))
       This.$http({
@@ -35,8 +34,9 @@ const mutations = {
         }
       })
       .then(res => {
-        This.list = res.body.data.productList
+        console.log('加载完成')
         This.showLoading = false
+        This.list = res.body.data.productList
         This.$http({
           method: 'jsonp',
           url: adver,
@@ -47,6 +47,7 @@ const mutations = {
           }
         })
         .then(res => {
+          console.log(res)
           This.recommend = res.body.data.aderList
           This.$http({
             method: 'jsonp',

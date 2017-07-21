@@ -1,7 +1,7 @@
 <template>
   <div class="page gray">
     <swiper class="w" :aspect-ratio="315/712" dots-position="center" auto>
-      <swiper-item class="swiper-demo-img" v-for="(item, index) in recommend" :key="index" @click.native="jump('http://www.baidu.com')">
+      <swiper-item class="swiper-demo-img" v-for="(item, index) in recommend" :key="index" @click.native="jump(item.target)">
         <img class="w" v-lazy="item.url"/>
       </swiper-item>
     </swiper>
@@ -19,13 +19,25 @@
       </div>
     </div>
     <div class="grid t-l white mt-5 click top-line sub-line quick">
+      <router-link :to="'/mall/0/?init=time'" class="col col-6 t-c">
+        <img class="icon" v-lazy="'static/img/index1.png'" alt=""/>
+        <b class="block fs-1 c-n">新品上市</b>
+      </router-link>
+      <router-link :to="'/mall/0?init=price'" class="col col-6 t-c">
+        <img class="icon" v-lazy="'static/img/index2.png'" alt=""/>
+        <b class="block fs-1 c-n">超值兑换</b>
+      </router-link>
       <router-link :to="'/mall/' + item.id" class="col col-6 t-c" v-for="(item, index) in nav" :key="index">
-        <img class="icon" v-lazy="'static/img/index' + (index + 1) + '.png'" alt=""/>
+        <img class="icon" v-lazy="item.logo" alt=""/>
         <b class="block fs-1 c-n">{{item.name}}</b>
+      </router-link>
+      <router-link :to="'/mall/0'" class="col col-6 t-c">
+        <img class="icon" v-lazy="'static/img/index8.png'" alt=""/>
+        <b class="block fs-1 c-n">全部</b>
       </router-link>
     </div>
     <swiper class="w" :aspect-ratio="83/360" dots-position="center" auto v-if="advert.length > 0">
-      <swiper-item class="swiper-demo-img" v-for="(item, index) in advert" :key="index" @click.native="jump('http://www.baidu.com')">
+      <swiper-item class="swiper-demo-img" v-for="(item, index) in advert" :key="index" @click.native="jump(item.target)">
         <img class="w" v-lazy="item.url">
       </swiper-item>
     </swiper>

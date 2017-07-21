@@ -22,10 +22,10 @@
           </ul>
         </div>
       <!--</v-scroll>-->
-      <Loading :show="showLoading">
-        <span slot="icon" class="iconfont icon-shangpin"></span>
-        <p slot="text">正在加载商品列表！</p>
-      </Loading>
+      <div class="addressNull" v-if="showLoading">
+        <img style="width:4rem;" src="static/img/pageLoad.svg" alt="">
+        <p slot="text">正在努力加载商品列表！</p>
+      </div>
     </div>
     <popup position="top" v-model="select" class="popUp">
       <!--<group gutter="0">
@@ -115,6 +115,14 @@
       VScroll
     },
     created () {
+      const query = this.$route.query.init
+      if (query === 'time') {
+        this.index = 2
+        this.product.timeOrder = 1
+      } else if (query === 'price') {
+        this.index = 3
+        this.product.priceOrder = 1
+      }
       this.options = JSON.parse(this.$localStorage.get('goodsType'))
       this.options.unshift({
         id: 0,
@@ -284,4 +292,6 @@
 .has-tab .vux-tab{margin-top:-44px;}
 .popUp a{display:block;font-size:1rem;color:#666;padding:0.6rem 1rem;background:#fff;border-top:1px solid #eee;}
 .popUp a:active{background:rgba(0,0,0,0.1)}
+.addressNull{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1rem;color:#999;text-align:center;}
+.addressNull p{margin-top:1rem;}
 </style>
