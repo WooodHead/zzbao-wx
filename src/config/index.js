@@ -37,7 +37,7 @@ export const customerEdit = server + '/app/customer/submit.htm' // 编辑客户
 export const customerDel = server + '/app/customer/del.htm' // 删除客户
 export const phone = server + '/app/user/resetPhone.htm' // 更改绑定手机号
 export const track = server + '/app/order/detail/log.htm' // 订单跟踪
-export const pay = 'https://zzhb.cyht.com.cn/app/order/pay/wechatWapPay.htm' // 订单支付
+export const pay = server + '/app/order/pay/wechatWapPay.htm' // 订单支付
 export const orderInfo = server + '/app/order/info.htm' // 订单详情
 export const loginUrl = 'https://zzhb.cyht.com.cn/get-weixin-code.html?appid=wxede00c47ca454a02&scope=snsapi_base&state=hello-world&redirect_uri=https%3A%2F%2Fzzhb.cyht.com.cn%2Fwap%2Fwechat%2Flogin.htm'
 export const noMore = '我也是有底线的！'
