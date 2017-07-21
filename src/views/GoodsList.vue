@@ -7,7 +7,7 @@
       </tab-item>
     </tab>
     <div class="h content">
-      <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" style="top:44px;" :enableRefresh="false">
+      <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" style="top:44px;" :enableRefresh="true">
         <div class="tab-swiper vux-center h auto">
             <ul class="grid goods-list">
               <li class="col col-12" v-for="(item, index) in list" :key="index">
@@ -94,7 +94,7 @@
           timeOrder: 0,
           priceOrder: 0,
           defaultOrder: 0,
-          limit: 6,
+          limit: 10,
           pageIndex: 0
         },
         activeList: [] // 分类商品列表
