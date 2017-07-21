@@ -7,9 +7,8 @@
       </tab-item>
     </tab>
     <div class="h content">
-      <!--<v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" style="top:44px;">-->
+      <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" style="top:44px;" :enableRefresh="false">
         <div class="tab-swiper vux-center h auto">
-          <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" style="top:44px;">
             <ul class="grid goods-list">
               <li class="col col-12" v-for="(item, index) in list" :key="index">
                 <router-link :to="'/goods/' + item.id" class="goods" @click.native="handleSaveData(item)">
@@ -21,9 +20,8 @@
                 </router-link>
               </li>
             </ul>
-          </v-scroll>
         </div>
-      <!--</v-scroll>-->
+      </v-scroll>
       <!-- <div class="addressNull" v-if="showLoading">
         <img style="width:4rem;" src="static/img/pageLoad.svg" alt="">
         <p slot="text">正在努力加载商品列表！</p>
@@ -212,6 +210,7 @@
         }
       },
       getList (done, status) {
+        console.log(this.form)
         this.$http({
           method: 'jsonp',
           url: product,

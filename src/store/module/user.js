@@ -229,6 +229,7 @@ const mutations = {
           }
         })
         .then(res => {
+          console.log(res)
           This.loading = false
           if (res.body.status) {
             This.$vux.toast.show({
@@ -240,7 +241,48 @@ const mutations = {
             })
             state.logined = true
             setTimeout(() => {
-              This.$router.replace('/login')
+              This.$http({
+                method: 'jsonp',
+                url: login,
+                jsonp: 'callback',
+                jsonpCallback: 'json',
+                params: {
+                  tel: This.form.tel,
+                  pwd: This.form.pwd,
+                  openId: This.form.openId
+                }
+              })
+              .then(res => {
+                console.log(res)
+                if (res.body.data) {
+                  This.$vux.toast.show({
+                    type: 'text',
+                    width: '15em',
+                    position: 'bottom',
+                    text: '已为您自动登录！',
+                    time: '1000'
+                  })
+                  state.logined = true
+                  state.userInfo = res.body.data.userInfo
+                  This.$localStorage.set('userInfo', JSON.stringify(state.userInfo))
+                  This.$localStorage.set('time', Date.parse(new Date()))
+                  This.$localStorage.set('logined', true)
+                  setTimeout(() => {
+                    This.$router.replace('/personer')
+                  }, 1000)
+                } else {
+                  This.$vux.toast.show({
+                    type: 'text',
+                    width: '15em',
+                    position: 'bottom',
+                    text: '用户名或者密码有误！',
+                    time: '1000'
+                  })
+                }
+                setTimeout(() => {
+                  This.$router.replace('/personer')
+                }, 1000)
+              })
             }, 1000)
           }
         })

@@ -22,7 +22,7 @@
           <img v-lazy="userInfo.userSex > 1 ? 'static/img/female.png' : 'static/img/male.png'" alt="" class="circle v-m" v-if="userInfo">
           <img v-lazy="'static/img/face.png'" alt="" class="circle v-m" v-if="!userInfo">
           <span style="display:inline-block;width:5em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" class="v-m" v-if="userInfo">{{userInfo.userName}}</span>
-          <router-link to="/login/ceshi" v-if="!userInfo">登录/注册</router-link>
+          <a :href="loginUrl" v-if="!userInfo">登录/注册</a>
         </li>
         <li class="col v-t t-r col-6">
           <p>
@@ -85,7 +85,7 @@
   import {Blur, XImg, Group, Cell, XButton, Confirm} from 'vux'
   import ScoreItem from '@/components/ScoreItem'
   import {mapGetters, mapMutations} from 'vuex'
-  import {wallet, message} from '../config'
+  import {wallet, message, loginUrl} from '../config'
   export default {
     name: 'personer',
     head: {
@@ -102,6 +102,7 @@
         cumulative: 0,
         withdraw: 0,
         userId: 'null',
+        loginUrl: loginUrl,
         id: ''
       }
     },
