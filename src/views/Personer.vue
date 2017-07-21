@@ -19,7 +19,8 @@
     <div class="head-bar" style="background:#EB3D00;height:200px;">
       <ul class="row w h" style="position:relative;z-index:1;">
         <li class="col v-b col-18">
-          <img v-lazy="userInfo.userSex > 1 ? 'static/img/female.png' : 'static/img/male.png'" alt="" class="circle v-m" v-if="userInfo">
+          <!-- <img v-lazy="userInfo.userSex > 1 ? 'static/img/female.png' : 'static/img/male.png'" alt="" class="circle v-m" v-if="userInfo"> -->
+          <img v-lazy="'static/img/default-face.png'" alt="" class="circle v-m" v-if="userInfo">
           <img v-lazy="'static/img/face.png'" alt="" class="circle v-m" v-if="!userInfo">
           <span style="display:inline-block;width:5em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" class="v-m" v-if="userInfo">{{userInfo.userName}}</span>
           <a :href="loginUrl" v-if="!userInfo">登录/注册</a>
