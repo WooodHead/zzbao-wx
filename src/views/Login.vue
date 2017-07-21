@@ -31,6 +31,7 @@
 <script>
   import {mapGetters, mapMutations} from 'vuex'
   import {XButton, Group, Cell, XInput} from 'vux'
+  import {loginUrl} from '../config'
   export default {
     name: 'login',
     head: {
@@ -54,7 +55,9 @@
         this.$router.replace('/offer')
       }
       this.openId = this.$route.params.openId
-      console.log(this.openId)
+      if (!this.openId) {
+        window.location.href = loginUrl
+      }
     },
     computed: {
       ...mapGetters({
