@@ -74,7 +74,7 @@
         list: [],
         recommend: [],
         advert: [],
-        product: {
+        form: {
           type: 0,
           timeOrder: 1,
           priceOrder: 0,

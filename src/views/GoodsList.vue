@@ -9,23 +9,25 @@
     <div class="h content">
       <!--<v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" style="top:44px;">-->
         <div class="tab-swiper vux-center h auto">
-          <ul class="grid goods-list">
-            <li class="col col-12" v-for="(item, index) in list" :key="index">
-              <router-link :to="'/goods/' + item.id" class="goods" @click.native="handleSaveData(item)">
-                <span class="cover">
-                  <img class="w h" v-lazy="{src: item.listPic, error: 'static/img/err1.png', loading: 'static/img/loading1.gif'}"/>
-                </span>
-                <b class="name">{{item.name}}</b>
-                <span class="c-red">积分<b class="score">{{item.score}}</b></span>
-              </router-link>
-            </li>
-          </ul>
+          <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" style="top:44px;">
+            <ul class="grid goods-list">
+              <li class="col col-12" v-for="(item, index) in list" :key="index">
+                <router-link :to="'/goods/' + item.id" class="goods" @click.native="handleSaveData(item)">
+                  <span class="cover">
+                    <img class="w h" v-lazy="{src: item.listPic, error: 'static/img/err1.png', loading: 'static/img/loading1.gif'}"/>
+                  </span>
+                  <b class="name">{{item.name}}</b>
+                  <span class="c-red">积分<b class="score">{{item.score}}</b></span>
+                </router-link>
+              </li>
+            </ul>
+          </v-scroll>
         </div>
       <!--</v-scroll>-->
-      <div class="addressNull" v-if="showLoading">
+      <!-- <div class="addressNull" v-if="showLoading">
         <img style="width:4rem;" src="static/img/pageLoad.svg" alt="">
         <p slot="text">正在努力加载商品列表！</p>
-      </div>
+      </div> -->
     </div>
     <popup position="top" v-model="select" class="popUp">
       <!--<group gutter="0">
@@ -42,6 +44,7 @@
   import {mapMutations} from 'vuex'
   import Loading from '@/components/Loading'
   import VScroll from '../components/VScroll'
+  import {product} from '../config'
   export default {
     name: 'goodsList',
     head: {
@@ -88,12 +91,12 @@
         options: [],
         option: '全部',
         // 请求的初始参数
-        product: {
+        form: {
           type: 0,
           timeOrder: 0,
           priceOrder: 0,
           defaultOrder: 0,
-          limit: 8,
+          limit: 6,
           pageIndex: 0
         },
         activeList: [] // 分类商品列表
@@ -118,23 +121,23 @@
       const query = this.$route.query.init
       if (query === 'time') {
         this.index = 2
-        this.product.timeOrder = 1
+        this.form.timeOrder = 1
       } else if (query === 'price') {
         this.index = 3
-        this.product.priceOrder = 1
+        this.form.priceOrder = 1
       }
       this.options = JSON.parse(this.$localStorage.get('goodsType'))
       this.options.unshift({
         id: 0,
         name: '全部'
       })
-      this.product.type = this.$route.params.type
+      this.form.type = this.$route.params.type
       for (const i in this.options) {
-        if (this.options[i].id === this.product.type) {
+        if (this.options[i].id === this.form.type) {
           this.option = this.options[i].name
         }
       }
-      this.getProduct(this)
+      this.getList(() => {}, 1)
     },
     methods: {
       handleChange (index) {
@@ -146,75 +149,46 @@
           this.select = false
           switch (this.index) {
             case 1:
-              this.product.timeOrder = 0
-              this.product.priceOrder = 0
-              this.product.defaultOrder = 1
+              this.form.timeOrder = 0
+              this.form.priceOrder = 0
+              this.form.defaultOrder = 1
               break
             case 2:
               if (!this.bar[this.index].sort) {
-                this.product.timeOrder = 2
-                this.product.priceOrder = 0
-                this.product.defaultOrder = 0
+                this.form.timeOrder = 2
+                this.form.priceOrder = 0
+                this.form.defaultOrder = 0
               } else {
-                this.product.timeOrder = 1
-                this.product.priceOrder = 0
-                this.product.defaultOrder = 0
+                this.form.timeOrder = 1
+                this.form.priceOrder = 0
+                this.form.defaultOrder = 0
               }
               this.bar[this.index].sort = !this.bar[this.index].sort
-              this.getProduct(this, null)
+              this.form.pageIndex = 0
+              this.statusInit()
+              this.getList(() => {}, 1)
               break
             case 3:
               if (!this.bar[this.index].sort) {
-                this.product.timeOrder = 0
-                this.product.priceOrder = 2
-                this.product.defaultOrder = 0
+                this.form.timeOrder = 0
+                this.form.priceOrder = 2
+                this.form.defaultOrder = 0
               } else {
-                this.product.timeOrder = 0
-                this.product.priceOrder = 1
-                this.product.defaultOrder = 0
+                this.form.timeOrder = 0
+                this.form.priceOrder = 1
+                this.form.defaultOrder = 0
               }
               this.bar[this.index].sort = !this.bar[this.index].sort
-              this.getProduct(this, null)
+              this.form.pageIndex = 0
+              this.statusInit()
+              this.getList(() => {}, 1)
               break
           }
         }
       },
-      // handleSwiper (index) {
-      //   switch (index) {
-      //     case 0:
-      //       this.product.timeOrder = 0
-      //       this.product.priceOrder = 0
-      //       this.product.defaultOrder = 0
-      //       break
-      //     case 1:
-      //       this.product.timeOrder = 0
-      //       this.product.priceOrder = 0
-      //       this.product.defaultOrder = 1
-      //       break
-      //     case 2:
-      //       this.product.priceOrder = 0
-      //       this.product.defaultOrder = 0
-      //       if (this.bar[index]) {
-      //         this.product.timeOrder = 2
-      //       } else {
-      //         this.product.timeOrder = 1
-      //       }
-      //       break
-      //     case 3:
-      //       this.product.timeOrder = 0
-      //       this.product.defaultOrder = 0
-      //       if (this.bar[index]) {
-      //         this.product.priceOrder = 2
-      //       } else {
-      //         this.product.priceOrder = 1
-      //       }
-      //       break
-      //   }
-      //   this.getProduct(this, null)
-      // },
       handleSelect (item) {
         this.option = item.name
-        this.product.type = item.id
+        this.form.type = item.id
         this.select = false
         this.getProduct(this)
       },
@@ -222,9 +196,9 @@
         this.$localStorage.set('goods', JSON.stringify(item))
       },
       onRefresh (done) {
-        this.product.pageIndex = 0
+        this.form.pageIndex = 0
         this.statusInit()
-        // this.getList(done, 1)
+        this.getList(done, 1)
       },
       onInfinite (done) {
         this.form.pageIndex = this.list.length / this.form.limit
@@ -234,8 +208,40 @@
           this.$el.querySelectorAll('.load').forEach(el => {
             el.style.display = 'block'
           })
-          // this.getList(done, 0)
+          this.getList(done, 0)
         }
+      },
+      getList (done, status) {
+        this.$http({
+          method: 'jsonp',
+          url: product,
+          jsonp: 'callback',
+          jsonpCallback: 'json',
+          params: this.form,
+          before: (req) => {
+            if (status) {
+              this.list = []
+            }
+            this.showLoading = true
+          }
+        })
+        .then(res => {
+          console.log(res)
+          res.body.data.productList.forEach(el => {
+            this.list.push(el)
+          })
+          if (this.list.length < this.form.limit) {
+            this.statusNull()
+          } else if (res.body.data.productList.length < this.form.limit) {
+            this.statusNoMore()
+          } else {
+            this.statusLoad()
+          }
+          if (this.list.length < this.form.limit) {
+            this.statusInit()
+          }
+          done()
+        })
       },
       statusNoMore () {
         this.$el.querySelectorAll('.load').forEach(el => {

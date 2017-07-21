@@ -27,7 +27,7 @@ const mutations = {
         url: product,
         jsonp: 'callback',
         jsonpCallback: 'json',
-        params: This.product,
+        params: This.form,
         before: (req) => {
           This.list = []
           This.showLoading = true

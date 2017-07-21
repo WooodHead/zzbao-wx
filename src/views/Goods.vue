@@ -11,7 +11,7 @@
           <h3 class="title">详细说明：</h3>
           <!-- <h4 class="sub-title">商品详情</h4>
           <p class="text">{{goods.content}}</p> -->
-          <h4 class="sub-title">商品详情</h4>
+          <!-- <h4 class="sub-title">商品详情</h4> -->
           <div class="text" v-html="goods.spec"></div>
         </div>
       </group>
