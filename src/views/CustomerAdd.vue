@@ -68,7 +68,7 @@
     },
     methods: {
       goback () {
-        // jsToApp.back()
+        jsToApp.back()
       },
       submit () {
         if (!this.$refs.name.valid || !this.$refs.phone.valid || !this.$refs.carNo.valid || !this.$refs.vin.valid || !this.$refs.engine.valid || !this.$refs.regist.valid || !this.$refs.expire.valid) {

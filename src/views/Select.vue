@@ -76,10 +76,8 @@
   import {Group, Cell, XButton, Popup} from 'vux'
   // import {insurance} from '../config'
   import {submitOrder, insurance} from '../config'
-  var output = {
-    back: () => {
-      window.history.go(-1)
-    }
+  var back = () => {
+    window.history.go(-1)
   }
   export default {
     name: 'select',

@@ -84,10 +84,8 @@
   import {uploadFile, uploadBase64} from '../config'
   import {XButton} from 'vux'
   import $ from 'jquery'
-  var output = {
-    back: () => {
-      window.history.go(-1)
-    }
+  var back = () => {
+    window.history.go(-1)
   }
   export default {
     name: 'photoGraph',

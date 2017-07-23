@@ -72,13 +72,7 @@
       if (this.$route.params.userId !== 'null') {
         this.form.userId = this.$route.params.userId
         this.form.status = this.$route.params.id
-        if (this.form.status === '-100') {
-          const This = this
-          setTimeout(() => {
-            window.alert(this.form.userId)
-            This.getList(() => {}, 1)
-          }, 200)
-        }
+        this.getList(() => {}, 1)
       } else {
         this.$router.replace('/login')
       }
