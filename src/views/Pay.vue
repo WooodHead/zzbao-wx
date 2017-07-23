@@ -24,7 +24,7 @@
 </template>
 <script>
   import {Group, Cell, XButton, Radio, Loading} from 'vux'
-  import {pay} from '../config'
+  import {pay, orderInfo} from '../config'
   import $ from 'jquery'
   export default {
     name: 'pay',
@@ -44,7 +44,11 @@
     data () {
       return {
         paying: true,
-        info: {},
+        info: {
+          samount: 0,
+          jqamount: 0,
+          amount: 0
+        },
         userId: this.$route.params.userId,
         orderId: this.$route.params.orderId,
         loading: false,
@@ -72,9 +76,9 @@
           value: '微信'
         }]
       }
-      this.info = JSON.parse(this.$localStorage.get('orderDetail'))
-      console.log(this.info)
-      this.info.jqamount = parseFloat(this.info.jamount) + parseFloat(this.info.camount)
+      // this.info = JSON.parse(this.$localStorage.get('orderDetail'))
+      // console.log(this.info)
+      this.getInfo()
     },
     methods: {
       handlePay () {
@@ -87,6 +91,23 @@
             jsToApp.zfbPay(this.orderId)
           }
         }
+      },
+      getInfo () {
+        this.$http({
+          method: 'jsonp',
+          url: orderInfo,
+          jsonp: 'callback',
+          jsonpCallback: 'json',
+          params: {
+            userId: this.userId,
+            orderId: this.orderId
+          }
+        })
+        .then(res => {
+          console.log(res)
+          this.info = res.body.data.order
+          this.info.jqamount = parseFloat(this.info.jamount) + parseFloat(this.info.camount)
+        })
       },
       handlePay1 () {
         this.$vux.loading.show({
