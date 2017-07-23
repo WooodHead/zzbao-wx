@@ -113,7 +113,7 @@
     created () {
       this.form.userId = this.$route.params.userId
       this.handleInsurance()
-      console.log(output)
+      console.log(back)
     },
     methods: {
       handleInsurance () {

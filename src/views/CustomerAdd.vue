@@ -104,7 +104,7 @@
                 time: '1000'
               })
               setTimeout(() => {
-                // jsToApp.back()
+                jsToApp.back()
               }, 1000)
             }
           })
