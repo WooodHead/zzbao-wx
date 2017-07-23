@@ -66,8 +66,6 @@
     },
     mounted () {
       this.height = document.querySelector('.vux-slider').clientHeight + 'px'
-    },
-    created () {
       this.tag = this.$route.params.tag
       if (this.$route.params.userId !== 'null') {
         this.form.userId = this.$route.params.userId
@@ -81,6 +79,8 @@
           this.index = parseInt(i)
         }
       }
+    },
+    created () {
       // this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
     },
     components: {
