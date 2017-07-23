@@ -64,6 +64,8 @@
         loading: false,
         company: {},
         agree: false,
+        app: false,
+        customerId: '',
         orderUser: {
           license: '',
           name: '',
@@ -82,6 +84,11 @@
       Popup
     },
     created () {
+      if (this.app) {
+        this.customerId = 'app'
+      } else {
+        this.customerId = this.$route.params.userId
+      }
       // 获取保险公司信息
       // this.company = JSON.parse(this.$localStorage.get('orderCompany'))
       this.getInfo()
@@ -198,7 +205,8 @@
             insuranceArea: this.InsuranceArea,
             ownerName: this.orderUser.name,
             ownerLicense: this.orderUser.license,
-            ownerTel: this.orderUser.tel
+            ownerTel: this.orderUser.tel,
+            customerId: this.customerId
           }))
           this.$router.push('/offer/photograph/' + this.$route.params.id + '/' + this.$route.params.userId)
         }

@@ -332,6 +332,24 @@ const router = new Router({
       component: (resolve) => {
         require(['@/views/Net'], resolve)
       }
+    }, {
+      path: '/share',
+      name: 'share',
+      component: (resolve) => {
+        require(['@/views/Share'], resolve)
+      }
+    }, {
+      path: '/share/register/:type',
+      name: 'shareRegister',
+      component: (resolve) => {
+        require(['@/views/RegisterApp'], resolve)
+      }
+    }, {
+      path: '/article/:articleId',
+      name: 'article',
+      component: (resolve) => {
+        require(['@/views/Article'], resolve)
+      }
     }
   ]
 })

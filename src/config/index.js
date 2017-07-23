@@ -1,5 +1,5 @@
-// export const server = 'http://192.168.0.105:8080/zzbao' // http://zzhb.cyht.com.cn
-export const server = 'http://zzhb.cyht.com.cn:81' // http://liuwbox.com/zzbao
+// export const server = 'http://192.168.0.105:8080/zzbao' // http://zzhb.cyht.com.cn:81
+export const server = 'http://liuwbox.com/zzbao' // http://liuwbox.com/zzbao
 export const login = server + '/app/user/login.htm' // 登录api
 export const sms = server + '/app/user/sms.htm' // 短信接口
 export const register = server + '/app/user/regist.htm' // 注册接口
@@ -39,6 +39,7 @@ export const phone = server + '/app/user/resetPhone.htm' // 更改绑定手机�
 export const track = server + '/app/order/detail/log.htm' // 订单跟踪
 export const pay = server + '/app/order/pay/wechatWapPay.htm' // 订单支付
 export const orderInfo = server + '/app/order/info.htm' // 订单详情
+export const article = server + '/app/index/article/detail.htm' // 文章详情
 export const loginUrl = 'https://zzhb.cyht.com.cn/get-weixin-code.html?appid=wxede00c47ca454a02&scope=snsapi_base&state=hello-world&redirect_uri=https%3A%2F%2Fzzhb.cyht.com.cn%2Fwap%2Fwechat%2Flogin.htm'
 export const noMore = '我也是有底线的！'
 export const timeout = 5000
