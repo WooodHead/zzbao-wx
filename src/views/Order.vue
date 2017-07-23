@@ -70,7 +70,7 @@
       if (this.$route.params.userId !== 'null') {
         this.form.userId = this.$route.params.userId
         this.form.status = this.$route.params.id
-        this.getList(() => {}, 1)
+        this.getList(() => {window.alert(this.$route.params.userId)}, 1)
       } else {
         this.$router.replace('/login')
       }
@@ -81,7 +81,7 @@
       }
     },
     created () {
-      // this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
+      window.alert('created')
     },
     components: {
       Tab,

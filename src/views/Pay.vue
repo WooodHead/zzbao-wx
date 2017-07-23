@@ -82,9 +82,9 @@
           window.location.href = pay + '?userId=' + this.userId + '&orderId=' + this.orderId
         } else {
           if (this.paymodel === 2) {
-            // jsToApp.wxPay(this.orderId)
+            jsToApp.wxPay(this.orderId)
           } else if (this.paymodel === 1) {
-            // jsToApp.zfbPay(this.orderId)
+            jsToApp.zfbPay(this.orderId)
           }
         }
       },
