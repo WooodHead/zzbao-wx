@@ -64,7 +64,6 @@
         loading: false,
         company: {},
         agree: false,
-        app: false,
         customerId: '',
         orderUser: {
           license: '',
@@ -84,11 +83,7 @@
       Popup
     },
     created () {
-      if (this.app) {
-        this.customerId = 'app'
-      } else {
-        this.customerId = this.$route.params.userId
-      }
+      this.customerId = this.$route.query.customerId || ' '
       // 获取保险公司信息
       // this.company = JSON.parse(this.$localStorage.get('orderCompany'))
       this.getInfo()

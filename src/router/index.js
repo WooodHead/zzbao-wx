@@ -129,7 +129,7 @@ const router = new Router({
         require(['@/views/Order'], resolve)
       }
     }, {
-      path: '/order/:id/:userId',
+      path: '/order/:id/:userId/:tag',
       name: 'ordersId',
       component: (resolve) => {
         require(['@/views/Order'], resolve)
@@ -267,7 +267,7 @@ const router = new Router({
         require(['@/views/Password'], resolve)
       }
     }, {
-      path: '/pay/:userId/:orderId',
+      path: '/pay/:userId/:orderId/:tag',
       name: 'pay',
       component: (resolve) => {
         require(['@/views/Pay'], resolve)
@@ -291,7 +291,7 @@ const router = new Router({
         require(['@/views/Policy'], resolve)
       }
     }, {
-      path: '/orderdetail/:userId/:orderId',
+      path: '/orderdetail/:userId/:orderId/:tag',
       name: 'orderDetail',
       component: (resolve) => {
         require(['@/views/OrderDetail'], resolve)
@@ -333,13 +333,13 @@ const router = new Router({
         require(['@/views/Net'], resolve)
       }
     }, {
-      path: '/share',
-      name: 'share',
+      path: '/recomend/:userId',
+      name: 'recomend',
       component: (resolve) => {
-        require(['@/views/Share'], resolve)
+        require(['@/views/Recomend'], resolve)
       }
     }, {
-      path: '/share/register/:type',
+      path: '/share/register/:type/:userId',
       name: 'shareRegister',
       component: (resolve) => {
         require(['@/views/RegisterApp'], resolve)

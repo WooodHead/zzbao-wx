@@ -35,6 +35,7 @@
     data () {
       return {
         loading: false,
+        tag: '',
         form: {
           userId: '',
           status: -1,
@@ -67,11 +68,15 @@
       this.height = document.querySelector('.vux-slider').clientHeight + 'px'
     },
     created () {
+      this.tag = this.$route.params.tag
       if (this.$route.params.userId !== 'null') {
         this.form.userId = this.$route.params.userId
         this.form.status = this.$route.params.id
         if (this.form.status === '-100') {
-          this.getList(() => {}, 1)
+          const This = this
+          setTimeout(() => {
+            This.getList(() => {}, 1)
+          }, 200)
         }
       } else {
         this.$router.replace('/login')
@@ -167,7 +172,7 @@
       },
       handleSwiper (index) {
         this.form.pageIndex = 0
-        this.$router.replace('/order/' + this.bar[this.index].key + '/' + this.$route.params.userId)
+        this.$router.replace('/order/' + this.bar[this.index].key + '/' + this.$route.params.userId + '/' + this.tag)
         this.form.status = this.bar[index].key
         this.getList(() => {}, 1)
       },

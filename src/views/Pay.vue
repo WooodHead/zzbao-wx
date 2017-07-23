@@ -49,31 +49,44 @@
         orderId: this.$route.params.orderId,
         loading: false,
         paymodel: 2,
-        // pay: [{
-        //   icon: 'static/img/alipay.png',
-        //   key: 1,
-        //   value: '支付宝'
-        // }, {
-        //   icon: 'static/img/wechat.png',
-        //   key: 2,
-        //   value: '微信'
-        // }]
-        wx: this.$wechat,
-        pay: [{
+        tag: '',
+        pay: []
+      }
+    },
+    created () {
+      this.tag = this.$route.params.tag
+      if (this.tag === 'web') {
+        this.pay = [{
+          icon: 'static/img/wechat.png',
+          key: 2,
+          value: '微信'
+        }]
+      } else {
+        this.pay = [{
+          icon: 'static/img/alipay.png',
+          key: 1,
+          value: '支付宝'
+        }, {
           icon: 'static/img/wechat.png',
           key: 2,
           value: '微信'
         }]
       }
-    },
-    created () {
       this.info = JSON.parse(this.$localStorage.get('orderDetail'))
       console.log(this.info)
       this.info.jqamount = parseFloat(this.info.jamount) + parseFloat(this.info.camount)
     },
     methods: {
       handlePay () {
-        window.location.href = pay + '?userId=' + this.userId + '&orderId=' + this.orderId
+        if (this.tag === 'web') {
+          window.location.href = pay + '?userId=' + this.userId + '&orderId=' + this.orderId
+        } else {
+          if (this.paymodel === 2) {
+            jsToApp.wxPay(this.orderId)
+          } else if (this.paymodel === 1) {
+            jsToApp.zfbPay(this.orderId)
+          }
+        }
       },
       handlePay1 () {
         this.$vux.loading.show({

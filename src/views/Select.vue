@@ -204,7 +204,10 @@
           url: submitOrder,
           jsonp: 'callback',
           jsonpCallback: 'json',
-          params: this.form
+          params: this.form,
+          before: (req) => {
+            console.log(req)
+          }
         })
         .then(res => {
           console.log(res)

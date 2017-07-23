@@ -5,7 +5,7 @@
         <li class="col v-m time col-14">{{item.createTime}}</li>
         <li class="col v-m t-r col-10">{{changeStatus(item.orderStatus)}}</li>
       </ul>
-      <router-link :to="'/orderdetail/' + userId + '/' + item.id" class="row w good" @click.native="handleSaveData(item)">
+      <router-link :to="'/orderdetail/' + userId + '/' + item.id + '/web'" class="row w good" @click.native="handleSaveData(item)">
         <span class="col v-m col-6">
           <span class="img">
             <img style="width:100%;height:100%;" v-lazy="{src: item.companyLogo}" alt="">
@@ -22,7 +22,7 @@
       <ul class="row w price">
         <li class="col v-m t-r">
           <a href="http://wpa.qq.com/msgrd?v=3&uin=2306157540&site=qq&menu=yes" class="btn btn-light btn-small">联系客服</a>
-          <router-link :to="'/pay/' + userId + '/' + item.id" class="btn btn-danger btn-small" v-if="item.orderStatus === 3" @click.native="handleSaveData(item)">立刻付款</router-link>
+          <router-link :to="'/pay/' + userId + '/' + item.id + '/' + tag" class="btn btn-danger btn-small" v-if="item.orderStatus === 3" @click.native="handleSaveData(item)">立刻付款</router-link>
         </li>
       </ul>
     </div>
@@ -42,7 +42,8 @@
     data () {
       return {
         userId: '',
-        qq: QQ
+        qq: QQ,
+        tag: this.$route.params.tag
       }
     },
     created () {
@@ -86,7 +87,7 @@
         }
       },
       handleSaveData (item) {
-        this.$router.push('/orderdetail/' + this.$route.params.userId + '/' + item.id)
+        this.$router.push('/orderdetail/' + this.$route.params.userId + '/' + item.id + '/' + this.tag)
       }
     }
   }

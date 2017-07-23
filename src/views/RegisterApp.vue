@@ -46,7 +46,7 @@
 </template>
 <script>
   import {Group, Cell, XInput, XButton, Countdown} from 'vux'
-  import {time, register} from '../config'
+  import {time, register, loginUrl} from '../config'
   import {mapMutations} from 'vuex'
   export default {
     name: 'register',
@@ -72,8 +72,10 @@
           name: '',
           captcha: '',
           pwd: '',
-          type: this.$route.params.type
-        }
+          type: this.$route.params.type,
+          recomendId: this.$route.params.userId
+        },
+        loginUrl: loginUrl
       }
     },
     components: {
@@ -159,6 +161,9 @@
                   text: '恭喜，注册成功！',
                   time: '1000'
                 })
+                setTimeout(() => {
+                  window.location.href = this.loginUrl
+                }, 1000)
               }
             })
           } else {

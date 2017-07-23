@@ -48,16 +48,16 @@
     <div class="h auto view" style="padding-top:3rem;">
       <group class="mt-5 mb-5" title="订单管理">
         <div class="row w order">
-          <router-link :to="'/order/3/' + userId" class="col v-m col-8">
+          <router-link :to="'/order/3/' + userId + '/web'" class="col v-m col-8">
             <span class="iconfont icon-money red"></span>
             <b>待支付</b>
             <i v-if="false" class="num">2</i>
           </router-link>
-          <router-link :to="'/order/5/' + userId" class="col v-m col-8">
+          <router-link :to="'/order/5/' + userId + '/web'" class="col v-m col-8">
             <span class="iconfont icon-finish yellow"></span>
             <b>已承保</b>
           </router-link>
-          <router-link :to="'/order/-100/' + userId" class="col v-m col-8">
+          <router-link :to="'/order/-100/' + userId + '/web'" class="col v-m col-8">
             <span class="iconfont icon-order blue"></span>
             <b>我的订单</b>
           </router-link>
