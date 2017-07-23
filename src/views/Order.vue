@@ -75,6 +75,7 @@
         if (this.form.status === '-100') {
           const This = this
           setTimeout(() => {
+            window.alert(this.form.userId)
             This.getList(() => {}, 1)
           }, 200)
         }

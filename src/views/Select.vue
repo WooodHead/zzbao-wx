@@ -76,6 +76,11 @@
   import {Group, Cell, XButton, Popup} from 'vux'
   // import {insurance} from '../config'
   import {submitOrder, insurance} from '../config'
+  var output = {
+    back: () => {
+      window.history.go(-1)
+    }
+  }
   export default {
     name: 'select',
     head: {
@@ -110,6 +115,7 @@
     created () {
       this.form.userId = this.$route.params.userId
       this.handleInsurance()
+      console.log(output)
     },
     methods: {
       handleInsurance () {

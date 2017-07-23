@@ -1,7 +1,7 @@
 <template>
   <div class="customer gray">
     <header class="row w cus-head">
-      <span class="col v-m t-c iconfont icon-back"></span>
+      <span class="col v-m t-c iconfont icon-back" @click="goback"></span>
       <h2 class="col v-m t-c cus-tit">添加客户</h2>
       <span class="col v-m t-c cus-edit" @click="submit">完成</span>
     </header>
@@ -53,10 +53,7 @@
             registTime: '',
             expireTime: '',
             note: '',
-            driverCard: '',
-            idCard: '',
-            areaId: '',
-            subDriverCard: ''
+            areaId: ''
           }
         }
       }
@@ -70,6 +67,9 @@
       })
     },
     methods: {
+      goback () {
+        // jsToApp.back()
+      },
       submit () {
         if (!this.$refs.name.valid || !this.$refs.phone.valid || !this.$refs.carNo.valid || !this.$refs.vin.valid || !this.$refs.engine.valid || !this.$refs.regist.valid || !this.$refs.expire.valid) {
           this.$vux.toast.show({
@@ -88,7 +88,10 @@
             url: customerEdit,
             jsonp: 'callback',
             params: this.form,
-            jsonpCallback: 'json'
+            jsonpCallback: 'json',
+            before: (req) => {
+              console.log(req)
+            }
           })
           .then(res => {
             console.log(res)
@@ -98,8 +101,11 @@
                 width: '15em',
                 position: 'bottom',
                 text: '客户添加成功！',
-                time: '3000'
+                time: '1000'
               })
+              setTimeout(() => {
+                // jsToApp.back()
+              }, 1000)
             }
           })
         }

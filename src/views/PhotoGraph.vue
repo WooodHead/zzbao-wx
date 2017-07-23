@@ -84,6 +84,11 @@
   import {uploadFile, uploadBase64} from '../config'
   import {XButton} from 'vux'
   import $ from 'jquery'
+  var output = {
+    back: () => {
+      window.history.go(-1)
+    }
+  }
   export default {
     name: 'photoGraph',
     head: {
@@ -91,6 +96,9 @@
         inner: '完善信息',
         separator: ' '
       }
+    },
+    created () {
+      console.log(output)
     },
     data () {
       return {

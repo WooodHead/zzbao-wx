@@ -1,7 +1,7 @@
 <template>
   <div class="customer">
     <header class="row w cus-head">
-      <span class="col v-m t-c iconfont icon-back"></span>
+      <span class="col v-m t-c iconfont icon-back" @click="goback"></span>
       <h2 class="col v-m t-c cus-tit">客户详情</h2>
       <span class="col v-m t-c cus-edit" @click="handleSave">{{text}}</span>
     </header>
@@ -14,10 +14,9 @@
         <x-input :readonly="!edit" title="车辆识别代号" text-align="right" v-model="form.customer.vin"></x-input>
         <x-input :readonly="!edit" title="发动机号" text-align="right" v-model="form.customer.engine"></x-input>
         <datetime :readonly="!edit" title="注册登记日期" text-align="right" v-model="form.customer.registTime" :display-format="formatValueFunction" confirm-text="确认" cancel-text="取消"></datetime>
-        <datetime :readonly="'true'" title="保险到期日期" text-align="right" v-model="form.customer.expireTime" :display-format="formatValueFunction" confirm-text="确认" cancel-text="取消"></datetime>
+        <datetime :readonly="!edit" title="保险到期日期" text-align="right" v-model="form.customer.expireTime" :display-format="formatValueFunction" confirm-text="确认" cancel-text="取消"></datetime>
         <x-textarea :readonly="!edit" title="备注" text-align="right" v-model="form.customer.note"></x-textarea>
       </group>
-      {{area}}
     </section>
     <footer class="cus-footer row w">
       <div class="col v-m" style="padding:0 1rem;">
@@ -79,6 +78,9 @@
       }, 100)
     },
     methods: {
+      goback () {
+        jsToApp.back()
+      },
       handleDel () {
         this.loading = true
         this.$http({
@@ -99,8 +101,11 @@
               width: '15em',
               position: 'bottom',
               text: '用户删除成功！',
-              time: '3000'
+              time: '1000'
             })
+            setTimeout(() => {
+              jsToApp.back()
+            }, 1000)
           }
         })
       },
@@ -146,15 +151,18 @@
               width: '15em',
               position: 'bottom',
               text: '用户资料修改成功！',
-              time: '3000'
+              time: '1000'
             })
+            setTimeout(() => {
+              jsToApp.back()
+            }, 1000)
           } else {
             this.$vux.toast.show({
               type: 'text',
               width: '15em',
               position: 'bottom',
               text: '系统错误，请稍后重试！',
-              time: '3000'
+              time: '1000'
             })
           }
         })
