@@ -56,7 +56,7 @@
       }
       this.openId = this.$route.params.openId
       if (!this.openId) {
-        window.location.href = loginUrl
+        // window.location.href = loginUrl
         console.log(loginUrl)
       }
     },

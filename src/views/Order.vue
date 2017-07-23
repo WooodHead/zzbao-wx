@@ -67,10 +67,14 @@
     mounted () {
       this.height = document.querySelector('.vux-slider').clientHeight + 'px'
       this.tag = this.$route.params.tag
+    },
+    created () {
       if (this.$route.params.userId !== 'null') {
         this.form.userId = this.$route.params.userId
         this.form.status = this.$route.params.id
-        this.getList(() => {}, 1)
+        if (this.form.status === '-100') {
+          this.getList(() => {}, 1)
+        }
       } else {
         this.$router.replace('/login')
       }
@@ -79,8 +83,6 @@
           this.index = parseInt(i)
         }
       }
-    },
-    created () {
     },
     components: {
       Tab,

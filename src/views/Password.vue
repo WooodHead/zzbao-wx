@@ -25,12 +25,12 @@
           </ul>
         </group>
         <group gutter="10px">
-          <XInput placeholder="请输入新密码" v-model="form.pwd">
+          <XInput placeholder="请输入新密码" v-model="form.pwd" type="password">
             <img style="width:2rem;margin:0.2rem 0;" src="static/img/pwd.png" slot="label" alt="">
           </XInput>
         </group>
         <group gutter="10px">
-          <XInput placeholder="请再次输入密码" v-model="pwd">
+          <XInput placeholder="请再次输入密码" v-model="pwd" type="password">
             <img style="width:2rem;margin:0.2rem 0;" src="static/img/pwd.png" slot="label" alt="">
           </XInput>
         </group>
