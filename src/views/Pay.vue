@@ -87,8 +87,10 @@
         } else {
           if (this.paymodel === 2) {
             jsToApp.wxPay(this.orderId)
+            wxPay(this.orderId)
           } else if (this.paymodel === 1) {
             jsToApp.zfbPay(this.orderId)
+            zfbPay(this.orderId)
           }
         }
       },
