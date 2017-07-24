@@ -124,7 +124,7 @@
           case -1:
             return {
               icon: 'icon-faild',
-              status: '已撤销',
+              status: '已撤单',
               text: '您已主动撤销订单，给您带来不便敬请谅解'
             }
           case 1:

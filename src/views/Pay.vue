@@ -6,7 +6,8 @@
         <cell title="投保公司" :value="info.companyName"></cell>
         <cell title="保单信息" value="保单详情" is-link :link="'/policy/' + userId + '/' + orderId"></cell>
         <cell title="商业险" :value="'￥' + info.samount"></cell>
-        <cell title="交强险（车船税）" :value="'￥' + info.jqamount"></cell>
+        <cell title="交强险" :value="'￥' + info.jamount"></cell>
+        <cell title="车船费" :value="'￥' + info.camount"></cell>
         <cell>
           <p slot="value">应付总额：<span class="num c-red">￥{{info.amount}}</span></p>
         </cell>
@@ -84,7 +85,7 @@
       handlePay () {
         if (this.tag === 'web') {
           window.location.href = pay + '?userId=' + this.userId + '&orderId=' + this.orderId
-        } else {
+        } else if (this.tag === 'app') {
           if (this.paymodel === 2) {
             jsToApp.wxPay(this.orderId)
             wxPay(this.orderId)
@@ -92,6 +93,8 @@
             jsToApp.zfbPay(this.orderId)
             zfbPay(this.orderId)
           }
+        } else {
+          this.$router.replace('/payIos')
         }
       },
       getInfo () {

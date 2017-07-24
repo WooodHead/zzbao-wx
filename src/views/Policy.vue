@@ -2,8 +2,8 @@
   <div class="page gray auto">
     <group gutter="0px" v-if="order.user">
       <cell>
-        <p slot="title" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:90%;">保单城市：{{order.user.insuranceArea}}</p>
-        <p slot="default" style="color:#999;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:90%;">{{order.company.companyName}}</p>
+        <p slot="title" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:16rem;">保单城市：{{order.user.insuranceArea}}</p>
+        <p slot="default" style="color:#999;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:7rem;">{{order.company.companyName}}</p>
       </cell>
     </group>
     <group gutter="10px" v-if="insurance.length > 0">
