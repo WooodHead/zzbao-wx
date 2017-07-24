@@ -13,7 +13,13 @@
         <swiper v-model="index" class="select-list" :loop="false" :show-dots="false" height="100%" :threshold="100" @on-index-change="_swiperChange">
           <swiper-item v-for="(item, idx) in area" :key="idx">
             <ul class="list" id="list" v-if="areaList.length > 0">
-              <li v-for="(item, index) in areaList" :id="item.id" :key="item.id" @click="_select(item, idx, index)" :class="current[idx] === index ? 'active' : ''">{{item.text}}</li>
+              <li v-for="(item, index) in areaList" :id="item.id" :key="item.id" @click="_select(item, idx, index)" :class="current[idx] === index ? 'active' : ''">
+                <span class="col col-12 v-m">{{item.text}}</span>
+                <span class="col col-12 v-m">
+                  <b>商业保险费：</b>
+                  <b>交强保险费：</b>
+                </span>
+              </li>
             </ul>
             <div class="addressNull" v-if="loading">
               <img style="width:3rem;" src="static/img/pageload.svg" alt="">
@@ -54,6 +60,10 @@ export default {
       default: ''
     },
     readonly: {
+      type: Boolean,
+      default: false
+    },
+    rate: {
       type: Boolean,
       default: false
     }
@@ -212,7 +222,8 @@ export default {
 .select-btn .col:first-child button{background:#ddd;color:#333;}
 
 .list{padding:0 0 0 1.5rem;}
-.list li{font-size:1.2rem;color:#333;padding:15px 10px 15px 0;border-bottom:1px solid #e9e9e9;}
+.list li{font-size:1.2rem;color:#333;padding:15px 10px 15px 0;border-bottom:1px solid #e9e9e9;display:table;width:100%;}
+.list li b{display:inline-block;width:100%;}
 .list .active{color:#EB3D00;}
 </style>
 <style>

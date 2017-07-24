@@ -4,7 +4,8 @@
       <div class="cover w">
         <img style="height:25vh" class="w" v-lazy="{src: company.bigPic, error: 'static/img/err1.png', loading: 'static/img/loading3.gif'}" alt=""/>
       </div>
-      <selectCity title="投保城市" value="请选择投保城市"></selectCity>
+      <selectCity title="投保城市" value="请选择投保城市" :rate="info"></selectCity>
+      <p class="subTip" v-if="info">推广费：选择投保城市后即显示(分享页面推广费不可见)</p>
       <group gutter="0">
         <x-input title="车牌号码" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="orderUser.license" required ref="license"></x-input>
       </group>
@@ -65,6 +66,7 @@
         company: {},
         agree: false,
         customerId: '',
+        info: false,
         orderUser: {
           license: '',
           name: '',
@@ -83,6 +85,9 @@
       Popup
     },
     created () {
+      if (this.$route.query.platform === 'app') {
+        this.info = true
+      }
       this.customerId = this.$route.query.customerId || ' '
       // 获取保险公司信息
       // this.company = JSON.parse(this.$localStorage.get('orderCompany'))
@@ -211,6 +216,7 @@
   }
 </script>
 <style>
+.subTip{color:#B5B5B5;font-size:1rem;padding:1rem;}
 .pop-tip{height:100%;background:#fff;overflow:hidden;}
 .pop-tip.has-btn{padding-bottom:5rem;}
 .pop-tip h1{text-align:center;font-size:1.2rem;color:#333;border-bottom:1px solid #eee;padding:0.7rem 1rem;}

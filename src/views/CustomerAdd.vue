@@ -6,20 +6,20 @@
       <span class="col v-m t-c cus-edit" @click="submit">完成</span>
     </header>
       <group gutter="0">
-        <x-input title="姓名" placeholder="请输入真实姓名" placeholder-align="right" text-align="right" v-model="form.customer.name" required ref="name">
+        <x-input title="姓名" placeholder="请输入真实姓名" placeholder-align="right" text-align="right" v-model="form.data.name" :min="2" required ref="name">
           <span class="iconfont icon-tongxunlu" slot="right" style="font-size:1.6rem;vertical-align:middle;color:#76CD62;"></span>
         </x-input>
-        <x-input title="电话" placeholder="请输入真实手机号" placeholder-align="right" text-align="right" v-model="form.customer.phone" required ref="phone">
+        <x-input title="电话" type="number" placeholder="请输入真实手机号" is-type="china-mobile" placeholder-align="right" text-align="right" v-model="form.data.phone" required ref="phone">
         </x-input>
       </group>
       <group gutter="10px">
-        <selectCity title="城市" :value="form.customer.areaFullName"></selectCity>
-        <x-input title="车牌号" placeholder="请输入车牌号" placeholder-align="right" text-align="right" v-model="form.customer.carNo" required ref="carNo"></x-input>
-        <x-input title="车辆识别代号" placeholder="请输入车辆识别代号" placeholder-align="right" text-align="right" v-model="form.customer.vin" required ref="vin"></x-input>
-        <x-input title="发动机号" placeholder="请输入发动机号" placeholder-align="right" text-align="right" v-model="form.customer.engine" required ref="engine"></x-input>
-        <datetime title="注册登记日期" confirm-text="确认" cancel-text="取消" v-model="form.customer.registTime" required ref="regist"></datetime>
-        <datetime title="保险到期日期" confirm-text="确认" cancel-text="取消" v-model="form.customer.expireTime" required ref="expire"></datetime>
-        <x-textarea title="备注" text-align="right" v-model="form.customer.note"></x-textarea>
+        <selectCity title="城市" :value="form.data.areaFullName"></selectCity>
+        <x-input title="车牌号" placeholder="请输入车牌号" placeholder-align="right" text-align="right" v-model="form.data.carNo" required ref="carNo"></x-input>
+        <x-input title="车辆识别代号" placeholder="请输入车辆识别代号" placeholder-align="right" text-align="right" v-model="form.data.vin" required ref="vin"></x-input>
+        <x-input title="发动机号" placeholder="请输入发动机号" placeholder-align="right" text-align="right" v-model="form.data.engine" required ref="engine"></x-input>
+        <datetime title="注册登记日期" confirm-text="确认" cancel-text="取消" v-model="form.data.registTime" required ref="regist"></datetime>
+        <datetime title="保险到期日期" confirm-text="确认" cancel-text="取消" v-model="form.data.expireTime" required ref="expire"></datetime>
+        <x-textarea title="备注" text-align="right" v-model="form.data.note"></x-textarea>
       </group>
   </div>
 </template>
@@ -43,7 +43,7 @@
       return {
         form: {
           userId: '',
-          customer: {
+          data: {
             name: '',
             phone: '',
             areaFullName: '请选择',
@@ -71,18 +71,44 @@
         jsToApp.back()
       },
       submit () {
-        if (!this.$refs.name.valid || !this.$refs.phone.valid || !this.$refs.carNo.valid || !this.$refs.vin.valid || !this.$refs.engine.valid || !this.$refs.regist.valid || !this.$refs.expire.valid) {
+        const reg = /^[\u4e00-\u9fa5]*$/
+        console.log(this.form)
+        if (!this.$refs.name.valid) {
           this.$vux.toast.show({
             type: 'text',
             width: '15em',
             position: 'bottom',
-            text: '请完整填写以上信息！',
+            text: '姓名为必填项！',
+            time: '3000'
+          })
+        } else if (!reg.test(this.form.data.name)) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '姓名必须为中文！',
+            time: '3000'
+          })
+        } else if (!this.$refs.phone.valid) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '请填写正确的手机号码！',
+            time: '3000'
+          })
+        } else if (!this.$refs.carNo.valid) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '请填写车牌号！',
             time: '3000'
           })
         } else {
-          this.form.customer.areaId = this.areaId
-          this.form.customer = JSON.stringify(this.form.customer)
-          // console.log(this.form.customer)
+          this.form.data.areaId = this.areaId
+          this.form.customer = JSON.stringify(this.form.data)
+          console.log(this.form.customer)
           this.$http({
             method: 'jsonp',
             url: customerEdit,

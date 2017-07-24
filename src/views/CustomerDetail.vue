@@ -8,7 +8,7 @@
     <section class="cus-main">
       <group gutter="0">
         <x-input :readonly="!edit" title="姓名" text-align="right" v-model="form.customer.name"></x-input>
-        <x-input :readonly="!edit" title="电话" text-align="right" v-model="form.customer.phone"></x-input>
+        <x-input :readonly="!edit" title="电话" text-align="right" v-model="form.customer.phone" type="number"></x-input>
         <x-input :readonly="!edit" title="车牌号" text-align="right" v-model="form.customer.carNo"></x-input>
         <city :readonly="!edit" title="城市" :value="form.customer.areaFullName"></city>
         <x-input :readonly="!edit" title="车辆识别代号" text-align="right" v-model="form.customer.vin"></x-input>
