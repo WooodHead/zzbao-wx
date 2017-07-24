@@ -273,6 +273,12 @@ const router = new Router({
         require(['@/views/Pay'], resolve)
       }
     }, {
+      path: '/pay/:userId/:orderId/:tag/bridge',
+      name: 'PayIos',
+      component: (resolve) => {
+        require(['@/views/PayIos'], resolve)
+      }
+    }, {
       path: '/paysuccess/:userId/:orderId',
       name: 'paysuccess',
       component: (resolve) => {
@@ -349,12 +355,6 @@ const router = new Router({
       name: 'article',
       component: (resolve) => {
         require(['@/views/Article'], resolve)
-      }
-    }, {
-      path: '/payIos',
-      name: 'payios',
-      component: (resolve) => {
-        require(['@/views/PayIos'], resolve)
       }
     }
   ]

@@ -94,7 +94,7 @@
             zfbPay(this.orderId)
           }
         } else {
-          this.$router.replace('/payIos')
+          this.$router.replace('/pay/' + this.userId + '/' + this.orderId + '/' + this.tag + '/bridge')
         }
       },
       getInfo () {
