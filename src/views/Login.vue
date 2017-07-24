@@ -95,7 +95,7 @@
 <style>
 .form-panel .weui-cell__hd:before,.form-panel .weui-cell__hd:after{content:"";display:inline-block;width:0;height:5rem;position:absolute;top:0;left:0;border-left:1px solid #d9d9d9;transform:scaleX(0.5);}
 .form-panel .weui-cell__hd:after{left:auto;right:0;}
-.login .weui-cell{padding:0.5rem 1rem;}
+.login .weui-cell{padding:0rem 1rem;}
 .login .iconfont{padding:0 0.5rem 0 0;}
 .form-panel .iconfont{color:#959595;font-size:1.8rem;padding-right:0.5rem;}
 </style>

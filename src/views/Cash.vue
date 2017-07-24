@@ -95,6 +95,7 @@
         }
       },
       handleSubmit () {
+        console.log(this.form)
         if (this.form.score > this.balance) {
           this.$vux.toast.show({
             type: 'text',

@@ -86,6 +86,7 @@
       },
       handleSave (item) {
         this.$localStorage.set('record', JSON.stringify(item))
+        console.log(item)
       },
       onRefresh (done) {
         this.form.pageIndex = 0

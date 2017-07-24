@@ -11,14 +11,14 @@
       </x-input>
     </group>
     <group gutter="10px">
-      <x-input placeholder="请输入您注册的手机号" ref="tel" v-model="form.tel" is-type="china-mobile">
+      <x-input readonly placeholder="请输入您注册的手机号" ref="tel" v-model="form.tel" is-type="china-mobile">
         <img style="width:2rem;margin:0.2rem 0;" src="static/img/phone.png" slot="label" alt="">
       </x-input>
     </group>
     <group gutter="10px" class="getcode">
       <ul class="row w">
         <li class="col v-m col-14" style="position:relative;">
-          <x-input placeholder="验证码" ref="code" v-model="form.captcha":show-clear="false">
+          <x-input placeholder="验证码" ref="code" v-model="form.captcha" :show-clear="false">
             <img style="width:2rem;margin:0.2rem 0;" src="static/img/code.png" slot="label" alt="">
           </x-input>
         </li>
@@ -59,7 +59,7 @@
         payPwd: '',
         smsType: 1,
         form: {
-          tel: '',
+          tel: '110',
           userId: '',
           payPwd: '',
           captcha: ''
@@ -69,6 +69,7 @@
     created () {
       if (JSON.parse(this.$localStorage.get('userInfo'))) {
         this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
+        this.form.tel = JSON.parse(this.$localStorage.get('userInfo')).userTel
       } else {
         this.$router.replace('/login')
       }

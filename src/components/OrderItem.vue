@@ -22,7 +22,7 @@
       <ul class="row w price">
         <li class="col v-m t-r">
           <a href="http://wpa.qq.com/msgrd?v=3&uin=2306157540&site=qq&menu=yes" class="btn btn-light btn-small">联系客服</a>
-          <router-link :to="'/pay/' + userId + '/' + item.id + '/' + tag" class="btn btn-danger btn-small" v-if="item.orderStatus === 3" @click.native="handleSaveData(item)">立刻付款</router-link>
+          <router-link :to="'/pay/' + userId + '/' + item.id + '/' + tag" class="btn btn-danger btn-small" v-if="item.orderStatus === 3" @click.native="handleSaveData(item)">立即付款</router-link>
         </li>
       </ul>
     </div>
