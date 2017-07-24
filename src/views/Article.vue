@@ -2,8 +2,8 @@
   <div style="padding:0 1rem;overflow:auto;height:100%;">
     <h1 style="font-size:1.4rem;color:#424242;text-align:center;padding:1rem 0 0.5rem 0">{{article.title}}</h1>
     <p style="font-size:1.2rem;color:#A5A5A5;padding:0 2rem 1rem 2rem;text-align:center;border-bottom:1px solid #EEEEEE;margin-bottom:1rem;">发布于{{article.create_time}}</p>
-    <p style="font-size:1rem;color:#535353;line-height:1.6;text-indent:2em;">{{article.content}}</p>
-    <img v-for="(item, index) in article.image" style="margin-top:0.5rem;max-width:100%;" :src="item" alt="">
+    <p style="font-size:1rem;color:#535353;line-height:1.6;text-indent:2em;" v-html="article.content"></p>
+    <img v-for="(item, index) in article.image" style="margin-top:0.5rem;max-width:100%;" :src="item" alt=""/>
     <div class="t-c" style="padding:1rem;">
       <qrcode Type="url" :value=url :options="{ size: 200 }"></qrcode>
     </div>
