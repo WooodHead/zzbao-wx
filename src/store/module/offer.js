@@ -1,6 +1,7 @@
 import {company} from '../../config'
 const state = {
   insuranceArea: '',
+  car_city: '',
   // order: {
   //   insuranceId: '', // 险种id
   //   insuranceBanner: '', // 保险banner
@@ -65,11 +66,17 @@ const getters = {
   },
   getInsuranceArea (state) {
     return state.insuranceArea
+  },
+  getCar_city (state) {
+    return state.car_city
   }
 }
 const mutations = {
   getInsuranceArea (state, value) {
     state.insuranceArea = value
+  },
+  setCar_city (state, value) {
+    state.car_city = value
   },
   getOfferList (state, This) {
     This.$http({

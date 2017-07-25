@@ -7,13 +7,13 @@
       <selectCity title="投保城市" value="请选择投保城市" :rate="info"></selectCity>
       <p class="subTip" v-if="info">推广费：选择投保城市后即显示(分享页面推广费不可见)</p>
       <group gutter="0">
-        <x-input title="车牌号码" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="orderUser.license" required ref="license"></x-input>
+        <x-input title="车牌号码" :show-clear="false" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="car_city" required ref="license"></x-input>
       </group>
       <group gutter="0">
-        <x-input title="车主姓名" placeholder="请填写车主姓名" placeholder-align="right" text-align="right" v-model="orderUser.name" required ref="name" :min="2"></x-input>
+        <x-input title="车主姓名" :show-clear="false" placeholder="请填写车主姓名" placeholder-align="right" text-align="right" v-model="orderUser.name" required ref="name" :min="2"></x-input>
       </group>
       <group gutter="0">
-        <x-input title="手机号" type="tel" is-type="china-mobile" placeholder="请填写真实手机号" placeholder-align="right" text-align="right" v-model="orderUser.tel" required ref="tel" :min="11" :max="11"></x-input>
+        <x-input title="手机号" :show-clear="false" type="tel" is-type="china-mobile" placeholder="请填写真实手机号" placeholder-align="right" text-align="right" v-model="orderUser.tel" required ref="tel" :min="11" :max="11"></x-input>
       </group>
     </div>
     <div class="footer row w">
@@ -110,7 +110,8 @@
       ...mapGetters({
         offer: 'getOffer',
         InsuranceArea: 'getInsuranceArea',
-        checkAuthor: 'checkAuthor'
+        checkAuthor: 'checkAuthor',
+        car_city: 'getCar_city'
       })
     },
     methods: {
@@ -138,6 +139,11 @@
             companyName: this.company.name
           })) // 存储订单公司信息
         })
+      },
+      setTitle (title) {
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle(title)
+        }
       },
       handleSubmit () {
         const reg = /^[\u4e00-\u9fa5]*$/
@@ -201,6 +207,7 @@
           })
         } else {
           // 存储用户订单信息到localstorage
+          this.setTime('完善信息')
           this.$localStorage.set('orderUser', JSON.stringify({
             insuranceArea: this.InsuranceArea,
             ownerName: this.orderUser.name,

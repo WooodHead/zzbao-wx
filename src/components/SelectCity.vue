@@ -48,6 +48,7 @@
 import {Group, Popup, Tab, TabItem, XButton, Swiper, Cell, SwiperItem, XSwitch, TransferDom} from 'vux'
 import {area} from '../config'
 import {mapMutations} from 'vuex'
+import {car_city} from '../config/car_city'
 export default {
   name: 'city',
   props: {
@@ -76,6 +77,7 @@ export default {
       finish: false,
       index: 0,
       select: '',
+      car_city: car_city,
       area: [{
         name: '省',
         id: 0
@@ -129,12 +131,20 @@ export default {
     _tabClick (index) {
     },
     _select (item, index, row) {
+      console.log(item)
       this.area[this.index].name = item.text
       this.area[this.index].id = item.id
       this.current[index] = row
       if (index < this.area.length - 1) {
         this.index = index + 1
         this._fetch(item.id)
+        if (index === 0) {
+          this.car_city.forEach(el => {
+            if (el.id === item.id) {
+              this.setCar_city(el.car)
+            }
+          })
+        }
       } else {
         console.log('区')
       }
@@ -194,10 +204,12 @@ export default {
       .then(res => {
         this.areaList = res.body.data.areaList
         this.loading = false
+        console.log(res.body.data)
       })
     },
     ...mapMutations({
-      setAreaId: 'getInsuranceArea'
+      setAreaId: 'getInsuranceArea',
+      setCar_city: 'setCar_city'
     })
   }
 }

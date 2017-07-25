@@ -60,6 +60,11 @@
       this.getList(() => {}, null)
     },
     methods: {
+      setTitle (title) {
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle(title)
+        }
+      },
       statusNoMore () {
         this.$el.querySelectorAll('.load').forEach(el => {
           el.style.display = 'none'
@@ -86,6 +91,7 @@
       },
       handleSave (item) {
         this.$localStorage.set('record', JSON.stringify(item))
+        this.setTitle('提现详情')
         console.log(item)
       },
       onRefresh (done) {

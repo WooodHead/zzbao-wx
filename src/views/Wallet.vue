@@ -6,7 +6,7 @@
           我的钱包
         </li>
         <li class="col v-m t-r">
-          <router-link to='/record'><span style="vertical-align:middle">提现记录</span><span class="iconfont icon-right" style="font-size:1.2rem;vertical-align:middle;padding:0 0 0 0.5rem"></span></router-link>
+          <router-link to='/record' @click.native="setTitle('提现记录')"><span style="vertical-align:middle">提现记录</span><span class="iconfont icon-right" style="font-size:1.2rem;vertical-align:middle;padding:0 0 0 0.5rem"></span></router-link>
         </li>
       </ul>
       <div class="row w light">
@@ -128,15 +128,26 @@
       })
     },
     methods: {
+      setTitle (title) {
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle(title)
+        }
+      },
       onReady (instance) {
         this.loading = !this.loading
       },
       handleWithDraw (balance) {
         this.$localStorage.set('balance', balance)
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle('立即提现')
+        }
         this.jump('/cash')
       },
       handleDonation (balance) {
         this.$localStorage.set('balance', balance)
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle('积分转赠')
+        }
         this.jump('/donation')
       },
       jump (url, banlance) {

@@ -117,6 +117,11 @@
       XButton
     },
     methods: {
+      setTitle (title) {
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle(title)
+        }
+      },
       saveData (type) {
         this.type = type
       },
@@ -211,6 +216,7 @@
             drivingLicense: this.form.drivingLicense,
             subDrivingLicense: this.form.subDrivingLicense
           }))
+          this.setTitle('选择保障')
           this.$router.push('/offer/select/' + id + '/' + userId)
         }
       }
