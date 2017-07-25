@@ -8,19 +8,17 @@
         <div slot="title" v-if="order">
           <h2 class="tip t-l"><span style="margin-right:0;padding-left:0;padding-right:0.5rem;" :class="'iconfont ' + changeStatus(order.orderStatus).icon"></span>{{changeStatus(order.orderStatus).status}}</h2>
           <p style="padding:0.5rem 0;font-size:1.2rem;color:#8B8B8B;margin-bottom:0.5rem;" v-html="changeStatus(order.orderStatus).text"></p>
-          <flexbox slot="inline-desc">
-            <flexbox-item>
-              <x-button v-if="order.orderStatus === 0" type="warn" @click.native="handleBack">撤销报价</x-button>
-              <x-button v-if="order.orderStatus === 5 || order.orderStatus === 4" type="warn" @click.native="jump('/payinfo/' + form.userId + '/' + form.orderId)">支付详情</x-button>
-              <x-button v-if="order.orderStatus === 3" type="warn" @click.native="jump('/pay/' + form.userId + '/' + form.orderId + '/' + tag)">立即付款</x-button>
-              <x-button v-if="order.orderStatus === 2" type="warn" @click.native="handleRetry()">重新下单</x-button>
-            </flexbox-item>
-            <flexbox-item>
-            </flexbox-item>
-            <flexbox-item>
-            </flexbox-item>
-          </flexbox>
         </div>
+      </cell>
+      <cell class="noline">
+        <div slot="inline-desc" style="width:33.3%;overflow:hidden;">
+          <x-button v-if="order.orderStatus === 0" type="warn" @click.native="handleBack">撤销报价</x-button>
+          <x-button v-if="order.orderStatus === 5 || order.orderStatus === 4" type="warn" @click.native="jump('/payinfo/' + form.userId + '/' + form.orderId)">支付详情</x-button>
+          <x-button v-if="order.orderStatus === 3" type="warn" @click.native="jump('/pay/' + form.userId + '/' + form.orderId + '/' + tag)">立即付款</x-button>
+          <x-button v-if="order.orderStatus === 2" type="warn" @click.native="handleRetry()">重新下单</x-button>
+        </div>
+      </cell>
+      <cell class="noline" style="margin-top:1rem;">
         <ul class="row w" slot="inline-desc">
           <li class="col v-m col-12 t-c">
             <router-link :to="'/track/'+ form.userId + '/' + form.orderId"><img style="width:2rem;vertical-align:middle" src="static/img/order.png" alt=""><span class="v-m">订单跟踪</span></router-link>
@@ -199,13 +197,15 @@
 .tip{font-size:1.4rem;color:#333;}
 .tip .iconfont{font-size:2.2rem;margin-right:0;vertical-align: middle;color:#EB3D00;}
 .vux-label-desc img{margin-right:0.5rem;}
-.vux-label-desc .row{margin-top:1rem;border-top:1px solid #ECECEC;}
+.vux-label-desc .row{border-top:1px solid #ECECEC;}
 .vux-label-desc .row .col{padding:1rem 0;position:relative;}
 .vux-label-desc .row .col:first-child:after{content:"";display:inline-block;width:1px;height:1.4rem;background:#ECECEC;position:absolute;right:0;top:50%;transform:translateY(-50%);}
 .vux-label-desc a{font-size:1.2rem;color:#2b2b2b;}
 .vux-label-desc a span{display:inline-block;}
 </style>
 <style>
+.noline:before{display:none;}
+.noline{padding-top:0 !important;padding-bottom:0 !important;}
 .orderDetail .weui-cells .weui-cell:first-child .vux-label{color:#2b2b2b;}
 </style>
 

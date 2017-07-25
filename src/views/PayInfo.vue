@@ -33,7 +33,9 @@
     },
     data () {
       return {
-        order: {},
+        order: {
+          amount: 0
+        },
         form: {
           userId: this.$route.params.userId,
           orderId: this.$route.params.orderId
