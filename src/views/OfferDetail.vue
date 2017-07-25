@@ -207,7 +207,7 @@
           })
         } else {
           // 存储用户订单信息到localstorage
-          this.setTime('完善信息')
+          this.setTitle('完善信息')
           this.$localStorage.set('orderUser', JSON.stringify({
             insuranceArea: this.InsuranceArea,
             ownerName: this.orderUser.name,

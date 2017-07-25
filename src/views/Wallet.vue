@@ -138,16 +138,12 @@
       },
       handleWithDraw (balance) {
         this.$localStorage.set('balance', balance)
-        if (this.$route.query.platform === 'app') {
-          jsToApp.setTitle('立即提现')
-        }
+        this.setTitle('积分提现')
         this.jump('/cash')
       },
       handleDonation (balance) {
         this.$localStorage.set('balance', balance)
-        if (this.$route.query.platform === 'app') {
-          jsToApp.setTitle('积分转赠')
-        }
+        this.setTitle('积分转赠')
         this.jump('/donation')
       },
       jump (url, banlance) {
