@@ -15,7 +15,7 @@
             <ul class="list" id="list" v-if="areaList.length > 0">
               <li v-for="(item, index) in areaList" :id="item.id" :key="item.id" @click="_select(item, idx, index)" :class="current[idx] === index ? 'active' : ''">
                 <span class="col col-12 v-m">{{item.text}}</span>
-                <span class="col col-12 v-m">
+                <span class="col col-12 v-m" v-if="rate">
                   <b>商业保险费：</b>
                   <b>交强保险费：</b>
                 </span>

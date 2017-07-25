@@ -30,9 +30,7 @@
       <div class="pop-tip has-btn" style="padding-top:3rem;">
         <h1 style="height:3rem;margin-top:-3rem;">条款与免责声明</h1>
         <div class="h auto" style="padding-bottom:1rem;">
-          <p>由于保险电商的普及程度不高，所以对很多人来说在线购买保险是非常陌生的一件事，另外由于保险产品是虚拟化的一个物品，如果没有代理人，将很难确立信任。基于此，很多人对保险电商持着一种观望的态度，那么网上买保险靠谱吗？网上买保险要注意什么？对于大型的保险平台而言，都是经过保监会批准搭建的，因此就平台来说是非常可靠的，推荐的平台有淘宝保险、网易保险和中民保险网，其中淘宝保险的购买流程比较符合用户到额习惯，但是淘宝保险和网易保险的售后服务较弱，理赔困难，中民保险网在线销售1300余款保险产品，在售后服务上提供了7×24小时服务，并且协助理赔，各方面建设都比较健全。</p>
-          <p>由于保险电商的普及程度不高，所以对很多人来说在线购买保险是非常陌生的一件事，另外由于保险产品是虚拟化的一个物品，如果没有代理人，将很难确立信任。基于此，很多人对保险电商持着一种观望的态度，那么网上买保险靠谱吗？网上买保险要注意什么？对于大型的保险平台而言，都是经过保监会批准搭建的，因此就平台来说是非常可靠的，推荐的平台有淘宝保险、网易保险和中民保险网，其中淘宝保险的购买流程比较符合用户到额习惯，但是淘宝保险和网易保险的售后服务较弱，理赔困难，中民保险网在线销售1300余款保险产品，在售后服务上提供了7×24小时服务，并且协助理赔，各方面建设都比较健全。</p>
-          <p>由于保险电商的普及程度不高，所以对很多人来说在线购买保险是非常陌生的一件事，另外由于保险产品是虚拟化的一个物品，如果没有代理人，将很难确立信任。基于此，很多人对保险电商持着一种观望的态度，那么网上买保险靠谱吗？网上买保险要注意什么？对于大型的保险平台而言，都是经过保监会批准搭建的，因此就平台来说是非常可靠的，推荐的平台有淘宝保险、网易保险和中民保险网，其中淘宝保险的购买流程比较符合用户到额习惯，但是淘宝保险和网易保险的售后服务较弱，理赔困难，中民保险网在线销售1300余款保险产品，在售后服务上提供了7×24小时服务，并且协助理赔，各方面建设都比较健全。</p>
+          <agreement></agreement>
         </div>
         <div class="btn-area row w">
           <div class="col v-m">
@@ -50,6 +48,7 @@
   import {mapGetters} from 'vuex'
   import {Group, XAddress, Cell, XButton, XImg, XInput, Popup} from 'vux'
   import selectCity from '@/components/SelectCity'
+  import agreement from '@/components/Agreement'
   import {insuranceInfo} from '../config'
   export default {
     name: 'offerDetail',
@@ -82,6 +81,7 @@
       XImg,
       selectCity,
       XInput,
+      agreement,
       Popup
     },
     created () {
@@ -220,5 +220,4 @@
 .pop-tip{height:100%;background:#fff;overflow:hidden;}
 .pop-tip.has-btn{padding-bottom:5rem;}
 .pop-tip h1{text-align:center;font-size:1.2rem;color:#333;border-bottom:1px solid #eee;padding:0.7rem 1rem;}
-.pop-tip p{font-size:1rem;color:#666;line-height:1.8;padding:0 1rem;text-indent:2em;margin-top:1rem;}
 </style>

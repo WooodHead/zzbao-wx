@@ -47,7 +47,8 @@
         paying: true,
         info: {
           samount: 0,
-          jqamount: 0,
+          jamount: 0,
+          camount: 0,
           amount: 0
         },
         userId: this.$route.params.userId,

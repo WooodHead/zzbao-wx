@@ -89,6 +89,9 @@
       this.getDetail()
     },
     methods: {
+      handleRetry () {
+        this.$router.replace('/offer/' + this.order.companyId + '/' + this.order.userId + '?customerId=' + this.order.userId)
+      },
       handleBack () {
         this.$http({
           method: 'jsonp',
@@ -101,14 +104,14 @@
           if (res.body.status) {
             this.$vux.toast.show({
               type: 'text',
-              width: '22em',
+              width: '15em',
               position: 'bottom',
-              text: '成功撤销订单，欢迎再次为您服务！',
+              text: '订单撤销成功！',
               time: '1000'
             })
           }
           setTimeout(() => {
-            this.$router.replace('/order/-100/' + this.form.userId)
+            this.$router.replace('/order/-100/' + this.form.userId + '/' + this.$route.params.tag)
           }, 1000)
         })
       },
