@@ -7,7 +7,7 @@
       <selectCity title="投保城市" value="请选择投保城市" :rate="info"></selectCity>
       <p class="subTip" v-if="info">推广费：选择投保城市后即显示(分享页面推广费不可见)</p>
       <group gutter="0">
-        <x-input title="车牌号码" :show-clear="false" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="car_city" required ref="license"></x-input>
+        <x-input title="车牌号码" :show-clear="false" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="orderUser.license" required ref="license"></x-input>
       </group>
       <group gutter="0">
         <x-input title="车主姓名" :show-clear="false" placeholder="请填写车主姓名" placeholder-align="right" text-align="right" v-model="orderUser.name" required ref="name" :min="2"></x-input>
@@ -148,6 +148,7 @@
       handleSubmit () {
         const reg = /^[\u4e00-\u9fa5]*$/
         console.log(reg.test(this.orderUser.name))
+        this.orderUser.license = this.car_city
         this.loading = true
         if (this.$route.params.userId === 'null') {
           this.$vux.toast.show({
