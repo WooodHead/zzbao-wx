@@ -154,9 +154,9 @@
         }
       },
       handleSubmit () {
+        console.log(this.orderUser.license)
         const reg = /^[\u4e00-\u9fa5]*$/
         console.log(reg.test(this.orderUser.name))
-        this.orderUser.license = this.car_city
         this.loading = true
         if (this.$route.params.userId === 'null') {
           this.$vux.toast.show({
