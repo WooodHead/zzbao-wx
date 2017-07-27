@@ -47,11 +47,17 @@
       }
     },
     created () {
+      this.setTitle('保单详情')
       this.form.orderId = this.$route.params.orderId
       this.form.userId = this.$route.params.userId
       this.getDetail()
     },
     methods: {
+      setTitle (title) {
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle(title)
+        }
+      },
       getDetail () {
         this.$http({
           method: 'jsonp',

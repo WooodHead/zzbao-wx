@@ -54,6 +54,7 @@
       }
     },
     created () {
+      this.setTitle('积分提现')
       this.balance = this.$localStorage.get('balance')
       this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
       this.hadPayPwd = JSON.parse(this.$localStorage.get('userInfo')).hadPayPwd
@@ -62,6 +63,11 @@
       this.height = document.querySelector('.content').clientHeight + 'px'
     },
     methods: {
+      setTitle (title) {
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle(title)
+        }
+      },
       handleSubmit () {
         if (JSON.parse(this.$localStorage.get('userInfo')).hadPayPwd === false) {
           this.$vux.toast.show({

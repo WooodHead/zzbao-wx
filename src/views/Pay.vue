@@ -60,6 +60,7 @@
       }
     },
     created () {
+      this.setTitle('支付订单')
       this.tag = this.$route.params.tag
       if (this.tag === 'web') {
         this.pay = [{
@@ -83,6 +84,11 @@
       this.getInfo()
     },
     methods: {
+      setTitle (title) {
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle(title)
+        }
+      },
       handlePay () {
         if (this.tag === 'web') {
           window.location.href = pay + '?userId=' + this.userId + '&orderId=' + this.orderId
@@ -95,7 +101,7 @@
             zfbPay(this.orderId)
           }
         } else {
-          this.$router.replace('/pay/' + this.userId + '/' + this.orderId + '/' + this.tag + '/bridge')
+          this.$router.replace('/payIos?userId=' + this.userId + '&orderId=' + this.orderId)
         }
       },
       getInfo () {

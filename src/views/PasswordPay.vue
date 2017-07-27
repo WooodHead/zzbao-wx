@@ -67,7 +67,7 @@
       }
     },
     created () {
-      if (JSON.parse(this.$localStorage.get('userInfo'))) {
+      if (this.$route.query.userId) {
         this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
         this.form.tel = JSON.parse(this.$localStorage.get('userInfo')).userTel
       } else {

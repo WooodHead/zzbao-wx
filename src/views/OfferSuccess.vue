@@ -61,11 +61,17 @@
       }
     },
     created () {
+      this.setTitle('报价结果')
       this.order = JSON.parse(this.$localStorage.get('order'))
       this.orderSn = this.$route.params.orderSn
       // this.getOrder()
     },
     methods: {
+      setTitle (title) {
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle(title)
+        }
+      },
       handleSubmit () {
         this.$router.push('/policy/' + this.form.userId + '/' + this.$route.params.orderId)
       },

@@ -75,9 +75,6 @@
   // import {insurance} from '../config'
   import {submitOrder, insurance} from '../config'
   import law from '@/components/Law'
-  var back = () => {
-    window.history.go(-1)
-  }
   export default {
     name: 'select',
     head: {
@@ -109,6 +106,7 @@
       law
     },
     mounted () {
+      this.setTitle('选择保障')
     },
     created () {
       this.form.userId = this.$route.params.userId
@@ -116,6 +114,11 @@
       console.log(back)
     },
     methods: {
+      setTitle (title) {
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle(title)
+        }
+      },
       handleInsurance () {
         this.$http({
           method: 'jsonp',

@@ -356,6 +356,12 @@ const router = new Router({
       component: (resolve) => {
         require(['@/views/Article'], resolve)
       }
+    }, {
+      path: '/payIos',
+      name: 'payIos',
+      component: (resolve) => {
+        require(['@/views/PayIos'], resolve)
+      }
     }
   ]
 })

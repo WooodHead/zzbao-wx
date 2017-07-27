@@ -1,5 +1,5 @@
 // export const server = 'http://192.168.0.105:8080/zzbao' // http://zzhb.cyht.com.cn:81
-export const server = 'http://zzhb.cyht.com.cn:81' // http://liuwbox.com/zzbao
+export const server = 'http://liuwbox.com/zzbao' // http://liuwbox.com/zzbao
 export const login = server + '/app/user/login.htm' // 登录api
 export const sms = server + '/app/user/sms.htm' // 短信接口
 export const register = server + '/app/user/regist.htm' // 注册接口
@@ -50,3 +50,7 @@ export const timeout = 5000
 export const time = 60 // 获取验证码时间间隔单位：秒
 export const QQ = '2306157540'
 export const status = ['待报价', '核保中', '核保失败', '待支付', '待承保', '已承保']
+export const back = () => {
+  window.history.go(-1)
+  window.alert('back')
+}

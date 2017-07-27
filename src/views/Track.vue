@@ -31,10 +31,16 @@
       }
     },
     created () {
+      this.setTitle('订单跟踪')
       this.list = this.list.reverse()
       this.getList()
     },
     methods: {
+      setTitle (title) {
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle(title)
+        }
+      },
       getList () {
         this.$http({
           method: 'jsonp',

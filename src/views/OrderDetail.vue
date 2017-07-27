@@ -13,15 +13,15 @@
       <cell class="noline">
         <div slot="inline-desc" style="width:33.3%;overflow:hidden;">
           <x-button v-if="order.orderStatus === 0" type="warn" @click.native="handleBack">撤销报价</x-button>
-          <x-button v-if="order.orderStatus === 5 || order.orderStatus === 4" type="warn" @click.native="jump('/payinfo/' + form.userId + '/' + form.orderId)">支付详情</x-button>
-          <x-button v-if="order.orderStatus === 3" type="warn" @click.native="jump('/pay/' + form.userId + '/' + form.orderId + '/' + tag)">立即付款</x-button>
+          <x-button v-if="order.orderStatus === 5 || order.orderStatus === 4" type="warn" @click.native="handlePayInfo">支付详情</x-button>
+          <x-button v-if="order.orderStatus === 3" type="warn" @click.native="handlePaying">立即付款</x-button>
           <x-button v-if="order.orderStatus === 2" type="warn" @click.native="handleRetry()">重新下单</x-button>
         </div>
       </cell>
       <cell class="noline" style="margin-top:1rem;">
         <ul class="row w" slot="inline-desc">
           <li class="col v-m col-12 t-c">
-            <router-link :to="'/track/'+ form.userId + '/' + form.orderId"><img style="width:2rem;vertical-align:middle" src="static/img/order.png" alt=""><span class="v-m">订单跟踪</span></router-link>
+            <router-link :to="'/track/'+ form.userId + '/' + form.orderId" @click.native="setTitle('订单跟踪')"><img style="width:2rem;vertical-align:middle" src="static/img/order.png" alt=""><span class="v-m">订单跟踪</span></router-link>
           </li>
           <li class="col v-m col-12 t-c">
             <a href="http://wpa.qq.com/msgrd?v=3&uin=2306157540&site=qq&menu=yes"><img style="width:2rem;vertical-align:middle" src="static/img/kefu.png" alt=""><span class="v-m">联系客服</span></a>
@@ -30,7 +30,7 @@
       </cell>
     </group>
     <group gutter="5px" v-if="order" class="orderDetail">
-      <cell title="保单信息" value="查看详情" is-link :link="'/policy/' + form.userId + '/' + form.orderId"></cell>
+      <cell title="保单信息" value="查看详情" is-link :link="'/policy/' + form.userId + '/' + form.orderId" @click.native="setTitle('保单信息')"></cell>
       <cell title="商业险"  v-if="order.extraAmount"></cell>
       <cell v-if="order.baseAmount">
         <p slot="title">交强险<span>（含车船税）</span></p>
@@ -82,11 +82,26 @@
       }
     },
     created () {
+      this.setTitle('订单详情')
       this.form.orderId = this.$route.params.orderId
       this.form.userId = this.$route.params.userId
       this.getDetail()
     },
     methods: {
+      setTitle (title) {
+        console.log(title)
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle(title)
+        }
+      },
+      handlePaying () {
+        this.setTitle('订单支付')
+        this.jump('/pay/' + this.form.userId + '/' + this.form.orderId + '/' + this.tag)
+      },
+      handlePayInfo () {
+        this.setTitle('支付详情')
+        this.jump('/payinfo/' + this.form.userId + '/' + this.form.orderId)
+      },
       handleRetry () {
         this.$router.replace('/offer/' + this.order.companyId + '/' + this.order.userId + '?customerId=' + this.order.userId)
       },

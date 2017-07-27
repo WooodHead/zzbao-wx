@@ -84,9 +84,6 @@
   import {uploadFile, uploadBase64} from '../config'
   import {XButton} from 'vux'
   import $ from 'jquery'
-  var back = () => {
-    window.history.go(-1)
-  }
   export default {
     name: 'photoGraph',
     head: {
@@ -96,6 +93,7 @@
       }
     },
     created () {
+      this.setTitle('完善信息')
       console.log(back)
     },
     data () {

@@ -88,6 +88,9 @@
       },
       handleSaveData (item) {
         this.$router.push('/orderdetail/' + this.$route.params.userId + '/' + item.id + '/' + this.tag)
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle('订单详情')
+        }
       }
     }
   }

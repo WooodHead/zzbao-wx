@@ -14,7 +14,7 @@
         <x-input title="收款人" placeholder="收款账号开户人姓名" novalidate :show-clear="false" placeholder-align="right" text-align="right" v-model="form.cardUser"></x-input>
         <x-input title="支付密码" on-focus="handleTip" placeholder="请输入支付密码" novalidate :show-clear="false" placeholder-align="right" type="password" text-align="right" v-model="form.payPwd" :max="6"></x-input>
       </group>
-      <p class="text" v-if="!hasPayPwd">您的支付密码还未设置，<router-link to="/edit/passwordBypay" class="c-red">立即设置</router-link></p>
+      <p class="text" v-if="!hasPayPwd">您的支付密码还未设置，<router-link :to="'/edit/passwordBypay?userId=' + form.userId" class="c-red">立即设置</router-link></p>
     </div>
     <div class="btn-area w row" style="border:none;">
       <div class="col v-m">
@@ -25,7 +25,7 @@
 </template>
 <script>
   import {XInput, Group, Cell, XButton} from 'vux'
-  import {precard, withdraw} from '../config'
+  import {precard, withdraw, back} from '../config'
   export default {
     name: 'cash',
     head: {
@@ -59,6 +59,7 @@
       }
     },
     created () {
+      this.setTitle('积分提现')
       this.balance = this.$localStorage.get('balance')
       this.hasPayPwd = JSON.parse(this.$localStorage.get('userInfo')).hadPayPwd
       this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
@@ -100,6 +101,11 @@
       }
     },
     methods: {
+      setTitle (title) {
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle(title)
+        }
+      },
       handleTip () {
         console.log(0)
       },

@@ -35,9 +35,15 @@
       }
     },
     mounted () {
+      this.setTitle('提现详情')
       this.info = JSON.parse(this.$localStorage.get('record'))
     },
     methods: {
+      setTitle (title) {
+        if (this.$route.query.platform === 'app') {
+          jsToApp.setTitle(title)
+        }
+      },
       select (num) {
         if (num === 0) {
           return '审核中'
