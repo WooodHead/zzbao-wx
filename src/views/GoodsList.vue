@@ -118,8 +118,9 @@
     created () {
       const query = this.$route.query.init
       if (query === 'time') {
+        this.bar[2].sort = true
         this.index = 2
-        this.form.timeOrder = 1
+        this.form.timeOrder = 2
       } else if (query === 'price') {
         this.index = 3
         this.form.priceOrder = 1

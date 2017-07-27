@@ -119,7 +119,6 @@ export default {
       if (index > 0) {
         if (this.area[index - 1].id === 0) {
           this.areaList = []
-          console.log('没有上一级')
         } else {
           this._fetch(this.area[index - 1].id)
         }
@@ -131,7 +130,6 @@ export default {
     _tabClick (index) {
     },
     _select (item, index, row) {
-      console.log(item)
       this.area[this.index].name = item.text
       this.area[this.index].id = item.id
       this.current[index] = row
@@ -171,6 +169,7 @@ export default {
           this.select += el.name
         })
         this._cancel()
+
       } else {
         this.$vux.toast.show({
           type: 'text',

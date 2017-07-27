@@ -11,7 +11,7 @@
           </div>
         </Cell>
       </group>
-      <group title="基本险" class="select" v-if="basic">
+      <group title="基本保障" class="select" v-if="basic">
         <Cell v-for="(item, index) in basic" :key="index" :class="item.extra === ''?'long': ''">
           <div class="checkbox circle left" slot="icon">
             <input type="checkbox" name="basic" v-model="item.select" :id="'b' + index">
@@ -30,7 +30,7 @@
           </div>
         </Cell>
       </group>
-      <group title="附加险" class="select" v-if="additional">
+      <group title="升级保障" class="select" v-if="additional">
         <Cell v-for="(item, index) in additional" :key="index" :class="item.extra === ''?'long': ''">
           <div class="checkbox circle left" slot="icon">
             <input type="checkbox" name="basic" v-model="item.select" :id="'a' + index">
@@ -59,9 +59,7 @@
       <div class="pop-tip has-btn" style="padding-top:3rem;">
         <h1 style="height:3rem;margin-top:-3rem;">购险说明</h1>
         <div class="h auto" style="padding-bottom:1rem;">
-          <p>由于保险电商的普及程度不高，所以对很多人来说在线购买保险是非常陌生的一件事，另外由于保险产品是虚拟化的一个物品，如果没有代理人，将很难确立信任。基于此，很多人对保险电商持着一种观望的态度，那么网上买保险靠谱吗？网上买保险要注意什么？对于大型的保险平台而言，都是经过保监会批准搭建的，因此就平台来说是非常可靠的，推荐的平台有淘宝保险、网易保险和中民保险网，其中淘宝保险的购买流程比较符合用户到额习惯，但是淘宝保险和网易保险的售后服务较弱，理赔困难，中民保险网在线销售1300余款保险产品，在售后服务上提供了7×24小时服务，并且协助理赔，各方面建设都比较健全。</p>
-          <p>由于保险电商的普及程度不高，所以对很多人来说在线购买保险是非常陌生的一件事，另外由于保险产品是虚拟化的一个物品，如果没有代理人，将很难确立信任。基于此，很多人对保险电商持着一种观望的态度，那么网上买保险靠谱吗？网上买保险要注意什么？对于大型的保险平台而言，都是经过保监会批准搭建的，因此就平台来说是非常可靠的，推荐的平台有淘宝保险、网易保险和中民保险网，其中淘宝保险的购买流程比较符合用户到额习惯，但是淘宝保险和网易保险的售后服务较弱，理赔困难，中民保险网在线销售1300余款保险产品，在售后服务上提供了7×24小时服务，并且协助理赔，各方面建设都比较健全。</p>
-          <p>由于保险电商的普及程度不高，所以对很多人来说在线购买保险是非常陌生的一件事，另外由于保险产品是虚拟化的一个物品，如果没有代理人，将很难确立信任。基于此，很多人对保险电商持着一种观望的态度，那么网上买保险靠谱吗？网上买保险要注意什么？对于大型的保险平台而言，都是经过保监会批准搭建的，因此就平台来说是非常可靠的，推荐的平台有淘宝保险、网易保险和中民保险网，其中淘宝保险的购买流程比较符合用户到额习惯，但是淘宝保险和网易保险的售后服务较弱，理赔困难，中民保险网在线销售1300余款保险产品，在售后服务上提供了7×24小时服务，并且协助理赔，各方面建设都比较健全。</p>
+          <law></law>
         </div>
         <div class="btn-area row w">
           <div class="col v-m">
@@ -76,6 +74,7 @@
   import {Group, Cell, XButton, Popup} from 'vux'
   // import {insurance} from '../config'
   import {submitOrder, insurance} from '../config'
+  import law from '@/components/Law'
   var back = () => {
     window.history.go(-1)
   }
@@ -106,7 +105,8 @@
       Group,
       Cell,
       XButton,
-      Popup
+      Popup,
+      law
     },
     mounted () {
     },

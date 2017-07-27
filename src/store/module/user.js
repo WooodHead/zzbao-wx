@@ -379,41 +379,51 @@ const mutations = {
     delete This.userInfo.userArea
     delete This.userInfo.userBalance
     delete This.userInfo.userCumulative
-    This.$http({
-      method: 'jsonp',
-      url: information,
-      jsonp: 'callback',
-      jsonpCallback: 'json',
-      params: This.form,
-      before: () => {
-        This.loading = true
-      }
-    })
-    .then(res => {
-      let userInfo = JSON.parse(This.$localStorage.get('userInfo'))
-      if (res.body.status) {
-        userInfo.userName = This.form.userName
-        userInfo.userBirthday = This.form.birthday
-        userInfo.userSex = This.form.userSex
-        This.$localStorage.set('userInfo', JSON.stringify(userInfo))
-        This.$vux.toast.show({
-          type: 'text',
-          width: '20em',
-          position: 'bottom',
-          text: '资料修改成功！',
-          time: '1000'
-        })
-      } else {
-        This.$vux.toast.show({
-          type: 'text',
-          width: '20em',
-          position: 'bottom',
-          text: res.body.msg,
-          time: '1000'
-        })
-      }
-      This.loading = false
-    })
+    if (!This.form.birthday) {
+      This.$vux.toast.show({
+        type: 'text',
+        width: '15em',
+        position: 'bottom',
+        text: '请选择出生日期！',
+        time: '1000'
+      })
+    } else {
+      This.$http({
+        method: 'jsonp',
+        url: information,
+        jsonp: 'callback',
+        jsonpCallback: 'json',
+        params: This.form,
+        before: () => {
+          This.loading = true
+        }
+      })
+      .then(res => {
+        let userInfo = JSON.parse(This.$localStorage.get('userInfo'))
+        if (res.body.status) {
+          userInfo.userName = This.form.userName
+          userInfo.userBirthday = This.form.birthday
+          userInfo.userSex = This.form.userSex
+          This.$localStorage.set('userInfo', JSON.stringify(userInfo))
+          This.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '资料修改成功！',
+            time: '1000'
+          })
+        } else {
+          This.$vux.toast.show({
+            type: 'text',
+            width: '20em',
+            position: 'bottom',
+            text: '噢，出错了，请稍后重试！',
+            time: '1000'
+          })
+        }
+        This.loading = false
+      })
+    }
   }
 }
 export default {

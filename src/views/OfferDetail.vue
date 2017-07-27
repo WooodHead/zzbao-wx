@@ -7,8 +7,7 @@
       <selectCity title="投保城市" value="请选择投保城市" :rate="info"></selectCity>
       <p class="subTip" v-if="info">推广费：选择投保城市后即显示(分享页面推广费不可见)</p>
       <group gutter="0">
-        <x-input title="车牌号码" :show-clear="false" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="orderUser.license" required ref="license">
-          <span>{{car_city}}</span>
+        <x-input title="车牌号码" :show-clear="false" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="orderUser.license" required ref="license" :max="7">
         </x-input>
       </group>
       <group gutter="0">
@@ -87,6 +86,9 @@
       Popup
     },
     created () {
+      if (this.$localStorage.get('orderUser')) {
+        this.orderUser.license = JSON.parse(this.$localStorage.get('orderUser')).ownerLicense
+      }
       if (this.$route.query.platform === 'app') {
         this.info = true
       }
@@ -116,13 +118,10 @@
         car_city: 'getCar_city'
       })
     },
-    watch: {
-      car_city (v) {
-        console.log(v)
-        this.orderUser.license = v
-      }
-    },
     methods: {
+      changeLicense () {
+        this.orderUser.license = this.orderUser.license.toUpperCase()
+      },
       toggleTips (agree) {
         this.tips = !this.tips
         if (agree) {
@@ -227,6 +226,17 @@
           this.$router.push('/offer/photograph/' + this.$route.params.id + '/' + this.$route.params.userId)
         }
         this.loading = false
+      }
+    },
+    watch: {
+      car_city (v) {
+        if (!this.orderUser.license || v.indexOf(this.orderUser.license) < 0) {
+          this.orderUser.license = v
+        }
+      },
+      'orderUser.license': function () {
+        console.log(this)
+        this.orderUser.license = this.orderUser.license.toUpperCase()
       }
     }
   }

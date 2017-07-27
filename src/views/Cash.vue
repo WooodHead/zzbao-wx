@@ -12,7 +12,7 @@
         <x-input title="开户银行" placeholder="请填写详细的开户银行分行名称" novalidate :show-clear="false" placeholder-align="right" text-align="right" v-model="form.bankName"></x-input>
         <x-input title="银行卡号" placeholder="请填写收款银行卡号信息" novalidate :show-clear="false" placeholder-align="right" text-align="right" v-model="form.cardNo" type="number"></x-input>
         <x-input title="收款人" placeholder="收款账号开户人姓名" novalidate :show-clear="false" placeholder-align="right" text-align="right" v-model="form.cardUser"></x-input>
-        <x-input title="支付密码" placeholder="请输入支付密码" novalidate :show-clear="false" placeholder-align="right" type="password" text-align="right" v-model="form.payPwd"></x-input>
+        <x-input title="支付密码" on-focus="handleTip" placeholder="请输入支付密码" novalidate :show-clear="false" placeholder-align="right" type="password" text-align="right" v-model="form.payPwd" :max="6"></x-input>
       </group>
       <p class="text" v-if="!hasPayPwd">您的支付密码还未设置，<router-link to="/edit/passwordBypay" class="c-red">立即设置</router-link></p>
     </div>
@@ -85,7 +85,24 @@
     mounted () {
       this.height = document.querySelector('.content').clientHeight + 'px'
     },
+    watch: {
+      'form.payPwd':function (v, o) {
+        if (!this.hasPayPwd) {
+          this.form.payPwd = v
+          this.$vux.toast.show({
+            type: 'text',
+            width: '20em',
+            position: 'bottom',
+            text: '请先设置您的支付密码！',
+            time: '1000'
+          })
+        }
+      }
+    },
     methods: {
+      handleTip () {
+        console.log(0)
+      },
       handleScore () {
         if (parseInt(this.payScore) <= 0) {
           this.payScore = 0
@@ -96,6 +113,7 @@
       },
       handleSubmit () {
         console.log(this.form)
+        const reg = /^[\u4e00-\u9fa5]*$/
         if (this.form.score > this.balance) {
           this.$vux.toast.show({
             type: 'text',
@@ -107,9 +125,9 @@
         } else if (this.form.score <= 0) {
           this.$vux.toast.show({
             type: 'text',
-            width: '20em',
+            width: '15em',
             position: 'bottom',
-            text: '提现金额有误!',
+            text: '请输入提现金额！',
             time: '1000'
           })
         } else if (this.form.score % 100) {
@@ -118,6 +136,54 @@
             width: '20em',
             position: 'bottom',
             text: '提现金额必须是10的倍数!',
+            time: '1000'
+          })
+        } else if (!this.form.bankName) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '16em',
+            position: 'bottom',
+            text: '请输入开户银行名称！',
+            time: '1000'
+          })
+        } else if (!reg.test(this.form.bankName)) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '16em',
+            position: 'bottom',
+            text: '银行名称必须是中文！',
+            time: '1000'
+          })
+        } else if (!this.form.cardNo) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '请输入收款银行卡号！',
+            time: '1000'
+          })
+        } else if (!this.form.cardUser) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '请输入账号开户人姓名！',
+            time: '1000'
+          })
+        } else if (!reg.test(this.form.cardUser)) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '16em',
+            position: 'bottom',
+            text: '开户人姓名必须是中文！',
+            time: '1000'
+          })
+        } else if (!this.form.payPwd) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '请输入支付密码！',
             time: '1000'
           })
         } else {
