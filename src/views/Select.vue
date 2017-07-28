@@ -106,7 +106,7 @@
       law
     },
     mounted () {
-      this.setTitle('选择保障')
+      // this.setTitle('选择保障')
     },
     created () {
       this.form.userId = this.$route.params.userId

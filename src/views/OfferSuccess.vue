@@ -61,7 +61,7 @@
       }
     },
     created () {
-      this.setTitle('报价结果')
+      // this.setTitle('报价结果')
       this.order = JSON.parse(this.$localStorage.get('order'))
       this.orderSn = this.$route.params.orderSn
       // this.getOrder()

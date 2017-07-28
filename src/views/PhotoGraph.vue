@@ -214,7 +214,7 @@
             drivingLicense: this.form.drivingLicense,
             subDrivingLicense: this.form.subDrivingLicense
           }))
-          this.setTitle('选择保障')
+          // this.setTitle('选择保障')
           this.$router.push('/offer/select/' + id + '/' + userId)
         }
       }
