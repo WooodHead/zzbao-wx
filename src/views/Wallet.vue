@@ -128,6 +128,9 @@
       })
     },
     methods: {
+      appBack(){
+        alert('app back')
+      },
       setTitle (title) {
         if (this.$route.query.platform === 'app') {
           jsToApp.setTitle(title)

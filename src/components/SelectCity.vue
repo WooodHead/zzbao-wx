@@ -7,6 +7,7 @@
     </group>
     <div v-transfer-dom>
       <popup v-model="popShow" position="bottom" height="60%" class="bg-f select">
+        <h2 style="font-size:1.2rem;color:#2b2b2b;margin-top:-100px;text-align:center;border-bottom:1px solid #E9E9E9;padding-bottom:10px;padding-top:10px;">{{title}}</h2>
         <tab active-color='#EB3D00' class="select-tab" v-model="index">
           <tab-item v-for="(item, index) in area" :key="index" @click.native="_tabClick(index)">{{item.name}}</tab-item>
         </tab>
@@ -15,9 +16,9 @@
             <ul class="list" id="list" v-if="areaList.length > 0">
               <li v-for="(item, index) in areaList" :id="item.id" :key="item.id" @click="_select(item, idx, index)" :class="current[idx] === index ? 'active' : ''">
                 <span class="col col-12 v-m">{{item.text}}</span>
-                <span class="col col-12 v-m" v-if="rate">
-                  <b>商业保险费：</b>
-                  <b>交强保险费：</b>
+                <span class="col col-12 v-m" v-if="rate" style="font-size:1rem;">
+                  <b>商业保险费：{{item.sfee}}</b>
+                  <b>交强保险费：{{item.jfee}}</b>
                 </span>
               </li>
             </ul>
@@ -132,6 +133,8 @@ export default {
     _select (item, index, row) {
       this.area[this.index].name = item.text
       this.area[this.index].id = item.id
+      this.area[this.index].jfee = item.jfee
+      this.area[this.index].sfee = item.sfee
       this.current[index] = row
       if (index < this.area.length - 1) {
         this.index = index + 1
@@ -168,6 +171,10 @@ export default {
         this.area.forEach(el => {
           this.select += el.name
         })
+        this.setFee({
+          sfee: this.area[this.area.length - 1].sfee,
+          jfee: this.area[this.area.length - 1].jfee
+        })
         this._cancel()
 
       } else {
@@ -193,7 +200,8 @@ export default {
         jsonp: 'callback',
         jsonpCallback: 'json',
         params: {
-          id: id
+          id: id,
+          companyId: this.$route.params.id
         },
         before: () => {
           this.areaList = []
@@ -203,12 +211,31 @@ export default {
       .then(res => {
         this.areaList = res.body.data.areaList
         this.loading = false
+        this.areaList.forEach(el => {
+          console.log(el, this.index)
+          if (this.index > 1) {
+            if (!el.jfee) {
+              el.jfee = '20%'
+            }
+            if (!el.sfee) {
+              el.sfee = '10%'
+            }
+          } else {
+            if (!el.jfee) {
+              el.jfee = '10%-30%'
+            }
+            if (!el.sfee) {
+              el.sfee = '10%-30%'
+            }
+          }
+        })
         console.log(res.body.data)
       })
     },
     ...mapMutations({
       setAreaId: 'getInsuranceArea',
-      setCar_city: 'setCar_city'
+      setCar_city: 'setCar_city',
+      setFee: 'setFee'
     })
   }
 }
@@ -222,8 +249,7 @@ export default {
 .col{display:table-cell;}.v-m{vertical-align:middle;}
 .w-30{width:30%;}.w-70{width:70%;}.w{width:100%;}.bg-f{background:#fff;}
 
-.select{padding-top:44px;padding-bottom:60px;box-sizing:border-box;overflow:hidden;}
-.select-tab{margin-top:-44px;}
+.select{padding-top:100px;padding-bottom:60px;box-sizing:border-box;overflow:hidden;}
 .select-tab .vux-tab-item{font-size:1.2rem;}
 .select-list{height:100%;}
 .select-btn{height:60px;}

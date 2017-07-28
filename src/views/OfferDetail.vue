@@ -5,7 +5,7 @@
         <img style="height:25vh" class="w" v-lazy="{src: company.bigPic, error: 'static/img/err1.png', loading: 'static/img/loading3.gif'}" alt=""/>
       </div>
       <selectCity title="投保城市" value="请选择投保城市" :rate="info"></selectCity>
-      <p class="subTip" v-if="info">推广费：选择投保城市后即显示(分享页面推广费不可见)</p>
+      <p class="subTip" v-if="info"><span v-if="!fee">推广费：选择投保城市后即显示(分享页面推广费不可见)</span><span v-if="fee">推广费：商业险保费<b style="color:#3a3a3a;padding:0 3px;">*{{fee.sfee}}</b>交强险保费<b style="color:#3a3a3a;padding:0 3px;">*{{fee.jfee}}</b>(分享页面推广费不可见)</span></p>
       <group gutter="0">
         <x-input title="车牌号码" :show-clear="false" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="orderUser.license" required ref="license" :max="7">
         </x-input>
@@ -113,6 +113,7 @@
     computed: {
       ...mapGetters({
         offer: 'getOffer',
+        fee: 'getFee',
         InsuranceArea: 'getInsuranceArea',
         checkAuthor: 'checkAuthor',
         car_city: 'getCar_city'

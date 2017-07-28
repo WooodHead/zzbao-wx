@@ -17,15 +17,12 @@
     <!-- built files will be auto injected -->
   </body>
   <script>
-    function back () {
-      if(window.history.length > 1){
-          window.history.go( -1 ); 
-          if (this.$route.query.platform === 'app') {
-            jsToApp.setTitle(document.title)
-          }
-      }else{  
-          jsToApp.back();
-      } 
+    function appBack (page) {
+      if (page) {
+        jsToApp.back();
+      } else {
+        window.history.go( -1 );
+      }
     }
   </script>
 </html>

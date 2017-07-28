@@ -7,7 +7,7 @@
     </header>
       <group gutter="0">
         <x-input title="姓名" placeholder="请输入真实姓名" placeholder-align="right" text-align="right" v-model="form.data.name" :min="2" required ref="name">
-          <span class="iconfont icon-tongxunlu" slot="right" style="font-size:1.6rem;vertical-align:middle;color:#76CD62;"></span>
+          <span class="iconfont icon-tongxunlu" @click="getUser" slot="right" style="font-size:1.6rem;vertical-align:middle;color:#76CD62;"></span>
         </x-input>
         <x-input title="电话" type="number" placeholder="请输入真实手机号" is-type="china-mobile" placeholder-align="right" text-align="right" v-model="form.data.phone" required ref="phone">
         </x-input>
@@ -67,6 +67,11 @@
       })
     },
     methods: {
+      getUser () {
+        const str = jsToApp.getName().split(',')
+        this.data.name = str[0]
+        this.data.phone = str[1]
+      },
       goback () {
         jsToApp.back()
       },

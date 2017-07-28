@@ -2,6 +2,7 @@ import {company} from '../../config'
 const state = {
   insuranceArea: '',
   car_city: '',
+  fee: null,
   // order: {
   //   insuranceId: '', // 险种id
   //   insuranceBanner: '', // 保险banner
@@ -55,6 +56,9 @@ const state = {
   offerList: []
 }
 const getters = {
+  getFee (state) {
+    return state.fee
+  },
   getOrder (state) {
     return state.order
   },
@@ -72,6 +76,9 @@ const getters = {
   }
 }
 const mutations = {
+  setFee (state, params) {
+    state.fee = params
+  },
   getInsuranceArea (state, value) {
     state.insuranceArea = value
   },
