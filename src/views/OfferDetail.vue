@@ -7,7 +7,7 @@
       <selectCity title="投保城市" value="请选择投保城市" :rate="info"></selectCity>
       <p class="subTip" v-if="info"><span v-if="!fee">推广费：选择投保城市后即显示(分享页面推广费不可见)</span><span v-if="fee">推广费：商业险保费<b style="color:#3a3a3a;padding:0 3px;">*{{fee.sfee}}</b>交强险保费<b style="color:#3a3a3a;padding:0 3px;">*{{fee.jfee}}</b>(分享页面推广费不可见)</span></p>
       <group gutter="0">
-        <x-input title="车牌号码" :show-clear="false" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="orderUser.license" required ref="license" :max="7">
+        <x-input title="车牌号码" :class="focus ? 'focus' : ''" :show-clear="false" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="orderUser.license" required ref="license" :max="7">
         </x-input>
       </group>
       <group gutter="0">
@@ -61,6 +61,7 @@
     },
     data () {
       return {
+        focus: false,
         tips: false,
         loading: false,
         company: {},
@@ -120,6 +121,9 @@
       })
     },
     methods: {
+      handleFocus () {
+        this.$refs.license.focus()
+      },
       changeLicense () {
         this.orderUser.license = this.orderUser.license.toUpperCase()
       },
@@ -247,4 +251,5 @@
 .pop-tip{height:100%;background:#fff;overflow:hidden;}
 .pop-tip.has-btn{padding-bottom:5rem;}
 .pop-tip h1{text-align:center;font-size:1.2rem;color:#333;border-bottom:1px solid #eee;padding:0.7rem 1rem;}
+.focus input{padding-right:5em;}
 </style>

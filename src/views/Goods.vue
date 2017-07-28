@@ -40,6 +40,11 @@
             <span slot="label" class="label">详细地址</span>
           </x-input>
         </group>
+        <group gutter="10px" class="bor">
+          <x-input type="text" label-width="5rem" ref="place" style="text-align:right" placeholder="请输入备注！" required v-model="form.address">
+            <span slot="label" class="label">备注</span>
+          </x-input>
+        </group>
         <ul class="row w do">
           <li class="col v-m col-12" style="padding-left:0;">
             <x-button @click.native="order = false">取消</x-button>

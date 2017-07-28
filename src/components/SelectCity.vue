@@ -176,7 +176,7 @@ export default {
           jfee: this.area[this.area.length - 1].jfee
         })
         this._cancel()
-
+        this.$parent.handleFocus()
       } else {
         this.$vux.toast.show({
           type: 'text',
@@ -212,7 +212,6 @@ export default {
         this.areaList = res.body.data.areaList
         this.loading = false
         this.areaList.forEach(el => {
-          console.log(el, this.index)
           if (this.index > 1) {
             if (!el.jfee) {
               el.jfee = '20%'
@@ -229,7 +228,6 @@ export default {
             }
           }
         })
-        console.log(res.body.data)
       })
     },
     ...mapMutations({
