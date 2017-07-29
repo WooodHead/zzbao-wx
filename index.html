@@ -17,9 +17,8 @@
     <!-- built files will be auto injected -->
   </body>
   <script>
-    var User = null
+    var bookList = {}
     function appBack (page) {
-      alert(page)
       if (page) {
         jsToApp.back();
       } else {
@@ -32,10 +31,10 @@
       window.location.href = 'http://liuwbox.com/zzbao/dist/#/iosBack?url=' + url + '&title=' + title
     }
     function getUserIos (name, phone) {
-      return {
-        userName: name,
-        tel: phone
-      }
+      bookList.name = name
+      bookList.phone = phone
+      localStorage.mailName = name
+      localStorage.mailPhone = phone
     }
     function getUser (user) {
       alert('姓名：' + user.name)

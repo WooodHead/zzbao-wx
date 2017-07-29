@@ -73,23 +73,30 @@
         areaId: 'getInsuranceArea'
       })
     },
+    watch: {
+      'bookList': function (v, o) {
+        window.alert(v)
+      }
+    },
     methods: {
       getUser () {
         const This = this
         const url = this.server + '/userBook?getUser=ios'
         if (this.$route.query.platform === 'ios') {
           loadURL(url)
-          const timer = setInterval(() => {
-            const user = getUserIos()
-            if (user) {
-              This.form.data.name = user.userName
-              This.form.data.phone = user.tel
-              clearInterval(timer)
-            }
-          }, 500)
         } else {
           const str = jsToApp.getName()
         }
+        const timer = setInterval(() => {
+          const mailName = localStorage.mailName
+          const mailPhone = localStorage.mailPhone
+          if (mailPhone !== This.form.data.phone) {
+            This.form.data.name = mailName
+            This.form.data.phone = mailPhone
+            alert(This.form.data.name + ':' + mailName + ',' + This.form.data.phone + ':' + mailPhone)
+            clearInterval(timer)
+          }
+        }, 5000)
       },
       goback () {
         if (this.$route.query.platform === 'ios') {
