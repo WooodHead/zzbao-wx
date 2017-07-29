@@ -36,7 +36,7 @@
     <div class="btn-area row w" style="border:none;">
       <div class="col v-m">
         <x-button type="warn" @click.native="handleWithDraw(balance)">立即提现</x-button>
-        <x-button plain type="primary" class="custom-primary-red" style="margin-top:10px;" @click.native="handleDonation(balance)">积分转增</x-button>
+        <x-button plain type="primary" class="custom-primary-red" style="margin-top:10px;" @click.native="handleDonation(balance)">积分转赠</x-button>
       </div>
     </div>
   </div>

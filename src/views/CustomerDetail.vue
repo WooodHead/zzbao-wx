@@ -21,7 +21,7 @@
     <footer class="cus-footer row w">
       <div class="col v-m" style="padding:0 1rem;">
         <x-button type="warn" v-if="!edit" @click.native="handleJump">立即报价</x-button>
-        <x-button type="warn" v-if="edit" :show-loading="loading" @click.native="handleDel">删除用户</x-button>
+        <x-button type="warn" v-if="edit" :show-loading="loading" @click.native="handleDel">删除</x-button>
       </div>
     </footer>
   </div>
@@ -107,7 +107,7 @@
               type: 'text',
               width: '15em',
               position: 'bottom',
-              text: '用户删除成功！',
+              text: '删除成功！',
               time: '1000'
             })
             setTimeout(() => {
