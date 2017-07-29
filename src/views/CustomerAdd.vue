@@ -27,9 +27,15 @@
   import { Group, Cell, XInput, XButton, XTextarea, Datetime } from 'vux'
   import selectCity from '@/components/SelectCity'
   import {mapGetters} from 'vuex'
-  import {customerEdit} from '../config'
+  import {customerEdit, server} from '../config'
   export default {
     name: 'customerAdd',
+    head: {
+      title: {
+        inner: '添加客户',
+        separator: ' '
+      }
+    },
     components: {
       Group,
       Cell,
@@ -41,6 +47,7 @@
     },
     data () {
       return {
+        server: server,
         form: {
           userId: '',
           data: {
@@ -68,12 +75,28 @@
     },
     methods: {
       getUser () {
-        const str = jsToApp.getName().split(',')
-        this.data.name = str[0]
-        this.data.phone = str[1]
+        const This = this
+        const url = this.server + '/userBook?getUser=ios'
+        if (this.$route.query.platform === 'ios') {
+          loadURL(url)
+          const timer = setInterval(() => {
+            const user = getUserIos()
+            if (user) {
+              This.form.data.name = user.userName
+              This.form.data.phone = user.tel
+              clearInterval(timer)
+            }
+          }, 500)
+        } else {
+          const str = jsToApp.getName()
+        }
       },
       goback () {
-        jsToApp.back()
+        if (this.$route.query.platform === 'ios') {
+          this.$router.replace('/backCustomer?click=true')
+        } else {
+          jsToApp.back()
+        }
       },
       submit () {
         const reg = /^[\u4e00-\u9fa5]*$/

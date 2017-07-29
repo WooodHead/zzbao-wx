@@ -17,12 +17,45 @@
     <!-- built files will be auto injected -->
   </body>
   <script>
+    var User = null
     function appBack (page) {
+      alert(page)
       if (page) {
         jsToApp.back();
       } else {
         window.history.go( -1 );
       }
+    }
+    function iosBack () {
+      const title = document.title
+      const url = window.location.href
+      window.location.href = 'http://liuwbox.com/zzbao/dist/#/iosBack?url=' + url + '&title=' + title
+    }
+    function getUserIos (name, phone) {
+      return {
+        userName: name,
+        tel: phone
+      }
+    }
+    function getUser (user) {
+      alert('姓名：' + user.name)
+      alert('手机号码：' + user.phone)
+    }
+    function getUserAndroid (obj) {
+      alert('返回：' + obj)
+    }
+    function loadURL(url) {
+      var iFrame;
+      iFrame = document.createElement("iframe");
+      iFrame.setAttribute("src", url);
+      iFrame.setAttribute("style", "display:none;");
+      iFrame.setAttribute("height", "0px");
+      iFrame.setAttribute("width", "0px");
+      iFrame.setAttribute("frameborder", "0");
+      document.body.appendChild(iFrame);
+      // 发起请求后这个 iFrame 就没用了，所以把它从 dom 上移除掉
+      iFrame.parentNode.removeChild(iFrame);
+      iFrame = null;
     }
   </script>
 </html>

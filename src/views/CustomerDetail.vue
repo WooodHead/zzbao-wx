@@ -82,7 +82,11 @@
         jsToApp.intent()
       },
       goback () {
-        jsToApp.back()
+        if (this.$route.query.platform === 'ios') {
+          this.$router.replace('/backCustomerAdd?click=true')
+        } else {
+          jsToApp.back()
+        }
       },
       handleDel () {
         this.loading = true
