@@ -57,7 +57,7 @@
     },
     created () {
       this.setTitle('提现记录')
-      this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
+      this.form.userId = this.$route.query.userId
       this.getList(() => {}, null)
     },
     methods: {

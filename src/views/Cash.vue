@@ -4,7 +4,7 @@
       <group gutter="0px">
         <cell title="积分余额" value-align="left">
           <span class="c-red num v-m" style="padding-left:1rem;">{{balance}}</span>
-          <span class="summary v-m">（可提现（￥{{balance/10}}元）</span>
+          <span class="summary v-m">（可提现￥{{balance/10}}元）</span>
         </cell>
       </group>
       <group gutter="10px">
@@ -14,7 +14,7 @@
         <x-input title="收款人" placeholder="收款账号开户人姓名" novalidate :show-clear="false" placeholder-align="right" text-align="right" v-model="form.cardUser"></x-input>
         <x-input title="支付密码" on-focus="handleTip" placeholder="请输入支付密码" novalidate :show-clear="false" placeholder-align="right" type="password" text-align="right" v-model="form.payPwd" :max="6"></x-input>
       </group>
-      <p class="text" v-if="!hasPayPwd">您的支付密码还未设置，<router-link :to="'/edit/passwordBypay?userId=' + form.userId" class="c-red">立即设置</router-link></p>
+      <p class="text" v-if="!hasPayPwd">您的支付密码还未设置，<router-link :to="'/edit/passwordBypay?userId=' + userId" class="c-red">立即设置</router-link></p>
     </div>
     <div class="btn-area w row" style="border:none;">
       <div class="col v-m">
@@ -45,6 +45,7 @@
         loading: false,
         height: '',
         balance: 0,
+        userId: '',
         hasPayPwd: false,
         payScore: null,
         form: {
@@ -58,18 +59,23 @@
         }
       }
     },
+    mounted () {
+      this.height = document.querySelector('.content').clientHeight + 'px'
+      this.userId = this.$route.query.userId
+      this.form.userId = this.$route.query.userId
+      console.log(this.$route)
+    },
     created () {
-      this.setTitle('积分提现')
+      // this.setTitle('积分提现')
       this.balance = this.$localStorage.get('balance')
       this.hasPayPwd = JSON.parse(this.$localStorage.get('userInfo')).hadPayPwd
-      this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
       this.$http({
         method: 'jsonp',
         url: precard,
         jsonp: 'callback',
         jsonpCallback: 'json',
         params: {
-          userId: JSON.parse(this.$localStorage.get('userInfo')).userId
+          userId: this.userId
         },
         before: () => {
         }
@@ -82,9 +88,6 @@
           this.form.cardUser = res.body.data.bankCard.userName
         }
       })
-    },
-    mounted () {
-      this.height = document.querySelector('.content').clientHeight + 'px'
     },
     watch: {
       'form.payPwd':function (v, o) {

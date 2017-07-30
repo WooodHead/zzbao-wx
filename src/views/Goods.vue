@@ -41,7 +41,7 @@
           </x-input>
         </group>
         <group gutter="10px" class="bor">
-          <x-input type="text" label-width="5rem" ref="place" style="text-align:right" placeholder="请输入备注！" required v-model="form.address">
+          <x-input type="text" label-width="5rem" ref="place" style="text-align:right" placeholder="请输入备注！" required v-model="form.note">
             <span slot="label" class="label">备注</span>
           </x-input>
         </group>
@@ -114,7 +114,8 @@
           productId: '',
           consignee: '',
           phone: '',
-          address: ''
+          address: '',
+          note: ''
         }
       }
     },
@@ -209,8 +210,8 @@
   .detail .title{padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid #eee;padding-left:0;}
   .detail .title:before{display:none;}
   .sub-title{font-size:1.4rem;color:#333;}
-  .text{font-size:1rem;color:#666;text-indent:2em;line-height:1.8;}
-  .text img{width:100%;}
+  .text{font-size:1rem;color:#666;line-height:1.8;}
+  .text img{width:100%;height:auto;visibility: visible;}
   /*.label{display:inline-block;width:5rem;padding-right:0.5rem;text-align:left;font-size:1rem;color:#666;}*/
   .do .col{padding:1rem 0.5rem;}
   .form-wrap h2{font-size:1rem;color:#666;}

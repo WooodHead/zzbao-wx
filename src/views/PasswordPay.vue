@@ -59,7 +59,7 @@
         payPwd: '',
         smsType: 1,
         form: {
-          tel: '110',
+          tel: '',
           userId: '',
           payPwd: '',
           captcha: ''

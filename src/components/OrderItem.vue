@@ -17,10 +17,12 @@
         </span>
       </router-link>
       <ul class="row w price">
+        <li class="col v-m t-l">推广费：<span class="num">{{changeMaxFee(item) || '￥0.00'}}</span></li>
         <li class="col v-m t-r">合计保费：<span class="num">{{changePrice(item) || '￥0.00'}}</span></li>
       </ul>
       <ul class="row w price">
         <li class="col v-m t-r">
+          <span v-if="tag !== 'web'" class="btn btn-light btn-small" @click="sendCustomer(item)">发送客户</span>
           <a href="http://wpa.qq.com/msgrd?v=3&uin=2306157540&site=qq&menu=yes" class="btn btn-light btn-small">联系客服</a>
           <router-link :to="'/pay/' + userId + '/' + item.id + '/' + tag" class="btn btn-danger btn-small" v-if="item.orderStatus === 3" @click.native="handleSaveData(item)">立即付款</router-link>
         </li>
@@ -30,7 +32,7 @@
 </template>
 <script>
 // mqqwpa://im/chat?chat_type=wpa&uin=979741120&version=1&src_type=web&web_src=oicqzone.com
-  import {QQ} from '../config'
+  import {QQ, server} from '../config'
   export default {
     name: 'orderItem',
     props: {
@@ -41,6 +43,7 @@
     },
     data () {
       return {
+        server: server,
         userId: '',
         qq: QQ,
         tag: this.$route.params.tag
@@ -50,6 +53,9 @@
       this.userId = this.$route.params.userId
     },
     methods: {
+      sendCustomer (item) {
+        loadURL(server + '/sendToCustomer?userId=' + this.userId + '&orderId=' + item.id)
+      },
       changeStatus (num) {
         switch (num) {
           case -1:
@@ -84,6 +90,24 @@
             return '￥' + item.amount
           case 5:
             return '￥' + item.amount
+        }
+      },
+      changeMaxFee (item) {
+        switch (item.orderStatus) {
+          case -1:
+            return '待计算'
+          case 0:
+            return '待计算'
+          case 1:
+            return '待计算'
+          case 2:
+            return '待计算'
+          case 3:
+            return '待计算'
+          case 4:
+            return '待计算'
+          case 5:
+            return '￥' + item.maxFee
         }
       },
       handleSaveData (item) {

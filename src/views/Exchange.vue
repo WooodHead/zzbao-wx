@@ -11,6 +11,7 @@
             </span>
             <span class="col v-m col-15" style="padding-left:1rem;">
               <b class="name mb-10">{{item.name}}</b>
+              <i style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{item.note}}</i>
               <span class="row w">
                 <span class="col v-m t-l c-red"><span class="num">{{item.score}}</span>积分</span>
                 <span class="col v-m t-r status">已兑换</span>
@@ -126,6 +127,7 @@
           }
         })
         .then(res => {
+          console.log(res)
           res.body.data.productList.forEach(el => {
             This.list.push(el)
           })

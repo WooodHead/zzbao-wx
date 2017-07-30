@@ -104,6 +104,7 @@
         this.postSMS(this)
       },
       handleRegister () {
+        const type = this.$route.params.type
         if (!this.form.tel || !this.$refs.tel.valid) {
           this.$vux.toast.show({
             type: 'text',
@@ -162,7 +163,11 @@
                   time: '1000'
                 })
                 setTimeout(() => {
-                  window.location.href = this.loginUrl
+                  if (type === '1') {
+                    this.$router.replace('/waiting')
+                  } else {
+                    window.location.href = this.loginUrl
+                  }
                 }, 1000)
               }
             })

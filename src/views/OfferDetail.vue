@@ -4,7 +4,7 @@
       <div class="cover w">
         <img style="height:25vh" class="w" v-lazy="{src: company.bigPic, error: 'static/img/err1.png', loading: 'static/img/loading3.gif'}" alt=""/>
       </div>
-      <selectCity title="投保城市" value="请选择投保城市" :rate="info"></selectCity>
+      <selectCity title="投保城市" :value="areaName" :rate="info"></selectCity>
       <p class="subTip" v-if="info"><span v-if="!fee">推广费：选择投保城市后即显示(分享页面推广费不可见)</span><span v-if="fee">推广费：商业险保费<b style="color:#3a3a3a;padding:0 3px;">*{{fee.sfee}}</b>交强险保费<b style="color:#3a3a3a;padding:0 3px;">*{{fee.jfee}}</b>(分享页面推广费不可见)</span></p>
       <group gutter="0">
         <x-input title="车牌号码" :class="focus ? 'focus' : ''" :show-clear="false" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="orderUser.license" required ref="license" :max="7">
@@ -46,7 +46,7 @@
   </div>
 </template>
 <script>
-  import {mapGetters} from 'vuex'
+  import {mapGetters, mapMutations} from 'vuex'
   import {Group, XAddress, Cell, XButton, XImg, XInput, Popup} from 'vux'
   import selectCity from '@/components/SelectCity'
   import agreement from '@/components/Agreement'
@@ -67,7 +67,9 @@
         company: {},
         agree: false,
         customerId: '',
+        customerInfo: '',
         info: false,
+        areaName: '请选择投保城市！',
         orderUser: {
           license: '',
           name: '',
@@ -100,6 +102,15 @@
       if (this.$route.params.userId === 'null') {
         this.$router.replace('/login')
       }
+      if (this.$route.query.customerInfo) {
+        this.customerInfo = JSON.parse(this.$route.query.customerInfo)
+        console.log(this.customerInfo)
+        this.areaName = this.customerInfo.area
+        this.orderUser.license = this.customerInfo.license
+        this.orderUser.name = this.customerInfo.name
+        this.orderUser.tel = this.customerInfo.phone
+        this.setAreaId(this.customerInfo.areaId)
+      }
       // if (this.$localStorage.get('logined') !== 'true') {
       //   this.$vux.toast.show({
       //     type: 'text',
@@ -121,11 +132,16 @@
       })
     },
     methods: {
+      ...mapMutations({
+        setAreaId: 'getInsuranceArea'
+      }),
       handleFocus () {
         this.$refs.license.focus()
       },
       changeLicense () {
-        this.orderUser.license = this.orderUser.license.toUpperCase()
+        if (!this.$route.query.customerInfo) {
+          this.orderUser.license = this.orderUser.license.toUpperCase()
+        }
       },
       toggleTips (agree) {
         this.tips = !this.tips

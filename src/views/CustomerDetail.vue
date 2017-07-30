@@ -28,7 +28,7 @@
 </template>
 <script>
   import { dateFormat, Group, Cell, XInput, XButton, XTextarea, Datetime } from 'vux'
-  import {customer, customerEdit, customerDel} from '../config'
+  import {customer, customerEdit, customerDel, server} from '../config'
   import city from '@/components/SelectCity'
   import {mapGetters} from 'vuex'
   export default {
@@ -47,6 +47,7 @@
       return {
         edit: false,
         loading: false,
+        server: server,
         info: {},
         data: [],
         userId: 'da738f8b730b4b62be0333cec2b9dd1b',
@@ -79,7 +80,19 @@
     },
     methods: {
       handleJump () {
-        jsToApp.intent()
+        const customerInfo = {
+          name: this.form.customer.name,
+          phone: this.form.customer.phone,
+          area: this.form.customer.areaFullName,
+          license: this.form.customer.carNo,
+          areaId: this.form.customer.areaId
+        }
+        console.log(customerInfo)
+        if (this.$route.query.platform === 'ios') {
+          loadURL(server + '/offerApp?customerId=' + this.$route.params.customerId + '&customerInfo=' + JSON.stringify(customerInfo))
+        } else {
+          jsToApp.intent()
+        }
       },
       goback () {
         if (this.$route.query.platform === 'ios') {
@@ -101,6 +114,7 @@
           jsonpCallback: 'json'
         })
         .then(res => {
+          console.log(res)
           this.loading = false
           if (res.body.status) {
             this.$vux.toast.show({

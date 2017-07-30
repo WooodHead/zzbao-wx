@@ -380,6 +380,12 @@ const router = new Router({
       component: (resolve) => {
         require(['@/views/PayIos'], resolve)
       }
+    }, {
+      path: '/waiting',
+      name: 'waiting',
+      component: (resolve) => {
+        require(['@/views/Waiting'], resolve)
+      }
     }
   ]
 })

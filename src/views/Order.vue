@@ -35,6 +35,7 @@
     data () {
       return {
         loading: false,
+        platform: '',
         tag: '',
         form: {
           userId: '',
@@ -67,6 +68,7 @@
     mounted () {
       this.height = document.querySelector('.vux-slider').clientHeight + 'px'
       this.tag = this.$route.params.tag
+      this.platform = this.$route.query.platform
     },
     created () {
       if (this.$route.params.userId !== 'null') {

@@ -14,7 +14,7 @@
         <x-input title="赠与积分" placeholder="请输入要赠与的积分数额" novalidate :show-clear="false" placeholder-align="right" text-align="right" v-model="form.score" type="number" :min="0"></x-input>
         <x-input title="支付密码" placeholder="请输入支付密码" novalidate :show-clear="false" placeholder-align="right" text-align="right" v-model="form.payPwd" type="password"></x-input>
       </group>
-      <p class="text" v-if="!hadPayPwd">您的支付密码还未设置，<router-link to="/edit/passwordBypay" class="c-red">立即设置</router-link></p>
+      <p class="text" v-if="!hadPayPwd">您的支付密码还未设置，<router-link :to="'/edit/passwordBypay?userId=' + form.userId" class="c-red">立即设置</router-link></p>
     </div>
     <div class="btn-area row w" style="border:none;">
       <div class="col v-m">
@@ -56,7 +56,7 @@
     created () {
       this.setTitle('积分提现')
       this.balance = this.$localStorage.get('balance')
-      this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
+      this.form.userId = this.$route.query.userId
       this.hadPayPwd = JSON.parse(this.$localStorage.get('userInfo')).hadPayPwd
     },
     mounted () {

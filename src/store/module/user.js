@@ -153,9 +153,9 @@ const mutations = {
             This.loading = false
             This.$vux.toast.show({
               type: 'text',
-              width: '15em',
+              width: '20em',
               position: 'bottom',
-              text: '用户名或者密码有误！',
+              text: res.body.msg,
               time: '1000'
             })
           }
