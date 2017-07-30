@@ -11,8 +11,8 @@
         <x-input :readonly="!edit" title="电话" text-align="right" v-model="form.customer.phone" type="number"></x-input>
       </group>
       <group gutter="5px">
-        <x-input :readonly="!edit" title="车牌号" text-align="right" v-model="form.customer.carNo"></x-input>
         <city :readonly="!edit" title="城市" :value="form.customer.areaFullName"></city>
+        <x-input :readonly="!edit" title="车牌号" text-align="right" v-model="form.customer.carNo"></x-input>
         <x-input :readonly="!edit" title="车辆识别代号" text-align="right" v-model="form.customer.vin"></x-input>
         <x-input :readonly="!edit" title="发动机号" text-align="right" v-model="form.customer.engine"></x-input>
         <datetime :readonly="!edit" title="注册登记日期" text-align="right" v-model="form.customer.registTime" :display-format="formatValueFunction" confirm-text="确认" cancel-text="取消"></datetime>
@@ -93,7 +93,7 @@
         if (this.$route.query.platform === 'ios') {
           loadURL(server + '/offerApp?customerId=' + this.$route.params.customerId + '&customerInfo=' + JSON.stringify(customerInfo))
         } else {
-          jsToApp.intent()
+          jsToApp.intent(JSON.stringify(customerInfo))
         }
       },
       goback () {

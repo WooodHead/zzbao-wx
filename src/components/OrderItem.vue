@@ -54,7 +54,11 @@
     },
     methods: {
       sendCustomer (item) {
-        loadURL(server + '/sendToCustomer?userId=' + this.userId + '&orderId=' + item.id)
+        if (this.$route.query.platform === 'ios') {
+          loadURL(server + '/sendToCustomer?userId=' + this.userId + '&orderId=' + item.id)
+        } else {
+          jsToApp.androidShare(server + '/sendToCustomer?userId=' + this.userId + '&orderId=' + item.id)
+        }
       },
       changeStatus (num) {
         switch (num) {
