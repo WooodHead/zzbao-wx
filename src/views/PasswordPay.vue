@@ -11,7 +11,7 @@
       </x-input>
     </group>
     <group gutter="10px">
-      <x-input :readonly='!platform' placeholder="请输入您注册的手机号" ref="tel" v-model="form.tel" is-type="china-mobile">
+      <x-input :readonly='true' placeholder="请输入您注册的手机号" ref="tel" v-model="form.tel" is-type="china-mobile">
         <img style="width:2rem;margin:0.2rem 0;" src="static/img/phone.png" slot="label" alt="">
       </x-input>
     </group>
@@ -38,7 +38,7 @@
 </template>
 <script>
   import {Group, XInput, XButton, Countdown} from 'vux'
-  import {time, resetPayPwd} from '../config'
+  import {time, resetPayPwd, userInfo} from '../config'
   import {mapMutations} from 'vuex'
   export default {
     name: 'passwordPay',
@@ -69,8 +69,8 @@
     },
     created () {
       if (this.$route.query.userId) {
-        this.form.userId = JSON.parse(this.$localStorage.get('userInfo')).userId
-        this.form.tel = JSON.parse(this.$localStorage.get('userInfo')).userTel
+        this.form.userId = this.$route.query.userId
+        this.getUser()
       } else {
         this.$router.replace('/login')
       }
@@ -82,6 +82,21 @@
       Countdown
     },
     methods: {
+      getUser () {
+        this.$http({
+          method: 'jsonp',
+          url: userInfo,
+          jsonp: 'callback',
+          jsonpCallback: 'json',
+          params: {
+            userId: this.form.userId
+          }
+        })
+        .then(res => {
+          console.log(res)
+          this.form.tel = res.body.data.userPhone
+        })
+      },
       handleSubmit () {
         if (!this.form.payPwd || !this.payPwd) {
           this.$vux.toast.show({

@@ -40,6 +40,7 @@ export const track = server + '/app/order/detail/log.htm' // 订单跟踪
 export const pay = server + '/app/order/pay/wechatWapPay.htm' // 订单支付
 export const orderInfo = server + '/app/order/info.htm' // 订单详情
 export const article = server + '/app/index/article/detail.htm' // 文章详情
+export const userInfo = server + '/app/user/checkPayPwd.htm' // 文章详情
 export const loginUrl = 'https://zzhb.cyht.com.cn/get-weixin-code.html?appid=wxede00c47ca454a02&scope=snsapi_base&state=hello-world&redirect_uri=https%3A%2F%2Fzzhb.cyht.com.cn%2Fwap%2Fwechat%2Flogin.htm'
 export const noMore = '我也是有底线的！'
 export const timeout = 5000

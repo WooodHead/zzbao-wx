@@ -25,7 +25,7 @@
 </template>
 <script>
   import {XInput, Group, Cell, XButton} from 'vux'
-  import {precard, withdraw, back} from '../config'
+  import {precard, withdraw, back, userInfo} from '../config'
   export default {
     name: 'cash',
     head: {
@@ -64,6 +64,7 @@
       this.userId = this.$route.query.userId
       this.form.userId = this.$route.query.userId
       console.log(this.$route)
+      this.getUser()
     },
     created () {
       // this.setTitle('积分提现')
@@ -104,6 +105,22 @@
       }
     },
     methods: {
+      getUser () {
+        this.$http({
+          method: 'jsonp',
+          url: userInfo,
+          jsonp: 'callback',
+          jsonpCallback: 'json',
+          params: {
+            userId: this.form.userId
+          }
+        })
+        .then(res => {
+          console.log(res)
+          this.hasPayPwd = res.body.data.hadPayPwd
+          console.log(this.hasPayPwd)
+        })
+      },
       setTitle (title) {
         if (this.$route.query.platform === 'app') {
           jsToApp.setTitle(title)

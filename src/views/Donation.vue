@@ -25,7 +25,7 @@
 </template>
 <script>
   import {Group, Cell, XInput, XButton} from 'vux'
-  import {donation} from '../config'
+  import {donation, userInfo} from '../config'
   export default {
     name: 'donation',
     head: {
@@ -61,8 +61,25 @@
     },
     mounted () {
       this.height = document.querySelector('.content').clientHeight + 'px'
+      this.getUser()
     },
     methods: {
+      getUser () {
+        this.$http({
+          method: 'jsonp',
+          url: userInfo,
+          jsonp: 'callback',
+          jsonpCallback: 'json',
+          params: {
+            userId: this.form.userId
+          }
+        })
+        .then(res => {
+          console.log(res)
+          this.hasPayPwd = res.body.data.hadPayPwd
+          console.log(this.hasPayPwd)
+        })
+      },
       setTitle (title) {
         if (this.$route.query.platform === 'app') {
           jsToApp.setTitle(title)
