@@ -44,6 +44,7 @@
       return {
         height: '',
         balance: 0,
+        phone: '',
         hadPayPwd: false,
         form: {
           userId: '',
@@ -57,7 +58,7 @@
       this.setTitle('积分提现')
       this.balance = this.$localStorage.get('balance')
       this.form.userId = this.$route.query.userId
-      this.hadPayPwd = JSON.parse(this.$localStorage.get('userInfo')).hadPayPwd
+      // this.hadPayPwd = JSON.parse(this.$localStorage.get('userInfo')).hadPayPwd
     },
     mounted () {
       this.height = document.querySelector('.content').clientHeight + 'px'
@@ -76,8 +77,9 @@
         })
         .then(res => {
           console.log(res)
-          this.hasPayPwd = res.body.data.hadPayPwd
-          console.log(this.hasPayPwd)
+          this.hadPayPwd = res.body.data.hadPayPwd
+          this.phone = res.body.data.userPhone
+          this.balance = res.body.data.userBalance
         })
       },
       setTitle (title) {
@@ -86,7 +88,7 @@
         }
       },
       handleSubmit () {
-        if (JSON.parse(this.$localStorage.get('userInfo')).hadPayPwd === false) {
+        if (!this.hadPayPwd) {
           this.$vux.toast.show({
             type: 'text',
             width: '115em',
@@ -102,7 +104,7 @@
             text: '请填写获赠用户！',
             time: '1000'
           })
-        } else if (this.form.target === JSON.parse(this.$localStorage.get('userInfo')).userTel) {
+        } else if (this.form.target === this.phone) {
           this.$vux.toast.show({
             type: 'text',
             width: '15em',
@@ -145,10 +147,10 @@
             }
           })
           .then(res => {
-            let balance = this.balance - this.form.score
-            const userInfo = JSON.parse(this.$localStorage.get('userInfo'))
-            userInfo.userBalance = balance
-            this.$localStorage.set('userInfo', JSON.stringify(userInfo))
+            // let balance = this.balance - this.form.score
+            // const userInfo = JSON.parse(this.$localStorage.get('userInfo'))
+            // userInfo.userBalance = balance
+            // this.$localStorage.set('userInfo', JSON.stringify(userInfo))
             if (res.body.status) {
               this.$vux.toast.show({
                 type: 'text',

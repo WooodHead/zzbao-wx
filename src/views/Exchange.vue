@@ -9,7 +9,7 @@
                 <img v-lazy="{src: item.listPic, error: 'static/img/err1.png', loading: 'static/img/loading1.gif'}" alt=""/>
               </span>
             </span>
-            <span class="col v-m col-15" style="padding-left:1rem;">
+            <span class="col v-m col-15" style="padding-left:1rem;padding-right:1rem;">
               <b class="name mb-10">{{item.name}}</b>
               <i style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{item.note}}</i>
               <span class="row w">

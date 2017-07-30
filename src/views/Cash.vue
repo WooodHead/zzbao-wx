@@ -70,25 +70,6 @@
       // this.setTitle('积分提现')
       this.balance = this.$localStorage.get('balance')
       this.hasPayPwd = JSON.parse(this.$localStorage.get('userInfo')).hadPayPwd
-      this.$http({
-        method: 'jsonp',
-        url: precard,
-        jsonp: 'callback',
-        jsonpCallback: 'json',
-        params: {
-          userId: this.userId
-        },
-        before: () => {
-        }
-      })
-      .then(res => {
-        if (res.body.data.bankCard) {
-          this.form.cardId = res.body.data.bankCard.id
-          this.form.bankName = res.body.data.bankCard.bankName
-          this.form.cardNo = res.body.data.bankCard.cardNum
-          this.form.cardUser = res.body.data.bankCard.userName
-        }
-      })
     },
     watch: {
       'form.payPwd':function (v, o) {
@@ -106,6 +87,7 @@
     },
     methods: {
       getUser () {
+        const This = this
         this.$http({
           method: 'jsonp',
           url: userInfo,
@@ -118,7 +100,25 @@
         .then(res => {
           console.log(res)
           this.hasPayPwd = res.body.data.hadPayPwd
-          console.log(this.hasPayPwd)
+          this.$http({
+            method: 'jsonp',
+            url: precard,
+            jsonp: 'callback',
+            jsonpCallback: 'json',
+            params: {
+              userId: this.userId
+            },
+            before: () => {
+            }
+          })
+          .then(res => {
+            if (res.body.data.bankCard) {
+              this.form.cardId = res.body.data.bankCard.id
+              this.form.bankName = res.body.data.bankCard.bankName
+              this.form.cardNo = res.body.data.bankCard.cardNum
+              this.form.cardUser = res.body.data.bankCard.userName
+            }
+          })
         })
       },
       setTitle (title) {
@@ -224,6 +224,7 @@
             }
           })
           .then(res => {
+            console.log(res)
             this.loading = false
             if (res.body.status) {
               this.$vux.toast.show({
@@ -233,7 +234,7 @@
                 text: '申请成功，已提交审核！',
                 time: '1000'
               })
-              this.$router.replace('/record')
+              this.$router.replace('/record?userId' + this.userId)
             } else {
               this.$vux.toast.show({
                 type: 'text',

@@ -11,7 +11,7 @@
     </group>
     <group gutter="10px">
       <cell title="订单号：" :value="order.orderSn" value-align="left"></cell>
-      <cell title="支付方式：" value="微信" value-align="left"></cell>
+      <cell title="支付方式：" :value="payType" value-align="left"></cell>
       <cell title="支付金额：" :value="'￥' + order.amount" value-align="left"></cell>
     </group>
   </div>
@@ -33,6 +33,7 @@
     },
     data () {
       return {
+        payType: '',
         order: {
           amount: 0
         },
@@ -55,9 +56,22 @@
           params: this.form
         })
         .then(res => {
-          console.log(res)
           this.order = res.body.data.order
           this.order.jqamount = parseFloat(this.order.jamount) + parseFloat(this.order.camount)
+          switch (this.order.payType) {
+            case 0:
+              this.payType = '未知'
+              break
+            case 1:
+              this.payType = '支付宝APP'
+              break
+            case 2 :
+              this.payType = '微信APP'
+              break
+            case 3 :
+              this.payType = '微信公众号'
+              break
+          }
         })
       }
     }

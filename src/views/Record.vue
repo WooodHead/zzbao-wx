@@ -125,6 +125,7 @@
           }
         })
         .then(res => {
+          console.log(res)
           res.body.data.scoreList.forEach(el => {
             This.list.push(el)
           })
