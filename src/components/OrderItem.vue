@@ -54,10 +54,10 @@
     },
     methods: {
       sendCustomer (item) {
-        if (this.$route.query.platform === 'ios') {
+        if (this.$route.params.tag === 'ios') {
           loadURL(server + '/sendToCustomer?userId=' + this.userId + '&orderId=' + item.id)
         } else {
-          jsToApp.androidShare(server + '/sendToCustomer?userId=' + this.userId + '&orderId=' + item.id)
+          jsToApp.androidShare(this.userId, item.id)
         }
       },
       changeStatus (num) {

@@ -11,7 +11,7 @@
       </x-input>
     </group>
     <group gutter="10px">
-      <x-input readonly placeholder="请输入您注册的手机号" ref="tel" v-model="form.tel" is-type="china-mobile">
+      <x-input :readonly='!platform' placeholder="请输入您注册的手机号" ref="tel" v-model="form.tel" is-type="china-mobile">
         <img style="width:2rem;margin:0.2rem 0;" src="static/img/phone.png" slot="label" alt="">
       </x-input>
     </group>
@@ -50,6 +50,7 @@
     },
     data () {
       return {
+        platform: this.$route.query.platform,
         show: false,
         loading: false,
         getting: false,

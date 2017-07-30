@@ -127,8 +127,20 @@
               time: '1000'
             })
             setTimeout(() => {
-              jsToApp.back()
+              if (this.$route.query.platform === 'ios') {
+                loadURL(server + '/delCustomerSucess?back=true')
+              } else {
+                jsToApp.back()
+              }
             }, 1000)
+          } else {
+            this.$vux.toast.show({
+              type: 'text',
+              width: '15em',
+              position: 'bottom',
+              text: '删除失败，请稍后重试！',
+              time: '1000'
+            })
           }
         })
       },
@@ -177,7 +189,11 @@
               time: '1000'
             })
             setTimeout(() => {
-              jsToApp.back()
+              if (this.$route.query.platform === 'ios') {
+                loadURL(server + '/editCustomerSucess?back=true')
+              } else {
+                jsToApp.back()
+              }
             }, 1000)
           } else {
             this.$vux.toast.show({

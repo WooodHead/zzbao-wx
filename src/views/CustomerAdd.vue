@@ -93,10 +93,9 @@
           if (mailPhone !== This.form.data.phone) {
             This.form.data.name = mailName
             This.form.data.phone = mailPhone
-            alert(This.form.data.name + ':' + mailName + ',' + This.form.data.phone + ':' + mailPhone)
             clearInterval(timer)
           }
-        }, 5000)
+        }, 200)
       },
       goback () {
         if (this.$route.query.platform === 'ios') {
@@ -165,8 +164,20 @@
                 time: '1000'
               })
               setTimeout(() => {
-                jsToApp.back()
+                if (this.$route.query.platform === 'ios') {
+                  loadURL(server + '/addCustomerSucess?back=true')
+                } else {
+                  jsToApp.back()
+                }
               }, 1000)
+            } else {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '15em',
+                position: 'bottom',
+                text: res.body.msg,
+                time: '1000'
+              })
             }
           })
         }

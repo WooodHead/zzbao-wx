@@ -232,9 +232,9 @@
           } else {
             this.$vux.toast.show({
               type: 'text',
-              width: '18em',
+              width: '20em',
               position: 'bottom',
-              text: '您尚未选择任何保障！',
+              text: res.body.msg,
               time: '3000'
             })
           }
