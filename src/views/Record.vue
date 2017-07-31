@@ -10,7 +10,7 @@
             </span>
             <span class="col v-m col-13 t-r">
               <i class="score">{{item.createTime}}</i>
-              <i :class="'status ' + {'success': item.status === 1, 'error': item.status === 2}">{{item.note}}</i>
+              <i :class="'status ' + showCss(item.status)">{{showText(item.status)}}</i>
             </span>
           </li>
         </cell>
@@ -61,6 +61,26 @@
       this.getList(() => {}, null)
     },
     methods: {
+      showCss (status) {
+        switch (status) {
+          case 0:
+            return ''
+          case 1:
+            return 'success'
+          case 2:
+            return 'error'
+        }
+      },
+      showText (status) {
+        switch (status) {
+          case 0:
+            return '等待审核'
+          case 1:
+            return '审核通过'
+          case 2:
+            return '审核失败'
+        }
+      },
       setTitle (title) {
         if (this.$route.query.platform === 'app') {
           jsToApp.setTitle(title)

@@ -219,8 +219,9 @@
             jsonp: 'callback',
             jsonpCallback: 'json',
             params: this.form,
-            before: () => {
+            before: (req) => {
               this.loading = true
+              console.log(req)
             }
           })
           .then(res => {
@@ -234,7 +235,7 @@
                 text: '申请成功，已提交审核！',
                 time: '1000'
               })
-              this.$router.replace('/record?userId' + this.userId)
+              this.$router.replace('/record?userId=' + this.userId)
             } else {
               this.$vux.toast.show({
                 type: 'text',
