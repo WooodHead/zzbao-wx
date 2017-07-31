@@ -2,7 +2,7 @@
   <div class="page gray has-footer">
     <div class="content">
       <div class="cover w">
-        <img style="height:25vh" class="w" v-lazy="{src: company.bigPic, error: 'static/img/err1.png', loading: 'static/img/loading3.gif'}" alt=""/>
+        <img ref="banner" class="w" v-lazy="{src: company.bigPic, error: 'static/img/err1.png', loading: 'static/img/loading3.gif'}" alt=""/>
       </div>
       <selectCity title="投保城市" :value="areaName" :rate="info"></selectCity>
       <p class="subTip" v-if="info"><span v-if="!fee">推广费：选择投保城市后即显示(分享页面推广费不可见)</span><span v-if="fee">推广费：商业险保费<b style="color:#3a3a3a;padding:0 3px;">*{{fee.sfee}}</b>交强险保费<b style="color:#3a3a3a;padding:0 3px;">*{{fee.jfee}}</b>(分享页面推广费不可见)</span></p>
@@ -88,6 +88,10 @@
       agreement,
       Popup
     },
+    mounted () {
+      console.log(this.company)
+      this.resize(this.company.bigPic)
+    },
     created () {
       if (this.$localStorage.get('orderUser')) {
         this.orderUser.license = JSON.parse(this.$localStorage.get('orderUser')).ownerLicense
@@ -111,16 +115,6 @@
         this.orderUser.tel = this.customerInfo.phone
         this.setAreaId(this.customerInfo.areaId)
       }
-      // if (this.$localStorage.get('logined') !== 'true') {
-      //   this.$vux.toast.show({
-      //     type: 'text',
-      //     width: '20em',
-      //     position: 'bottom',
-      //     text: '您尚未登录，请前往登录！',
-      //     time: '1000'
-      //   })
-      //   this.$router.push('/login')
-      // }
     },
     computed: {
       ...mapGetters({
@@ -132,6 +126,25 @@
       })
     },
     methods: {
+      resize (url) {
+        console.log(url)
+        const img = new Image()
+        let bili = 1
+        img.src = url
+        img.onload = () => {
+          console.log(img.width, img.height)
+          bili = img.width / img.height
+          console.log(bili)
+          if (bili < 2) {
+            this.$refs.banner.style.width = '100%'
+            this.$refs.banner.style.height = 'auto'
+          } else {
+            this.$refs.banner.style.width = 'auto'
+            this.$refs.banner.style.height = '100%'
+          }
+          // this.$refs.banner.style.height = 100 + 'px'
+        }
+      },
       ...mapMutations({
         setAreaId: 'getInsuranceArea'
       }),
@@ -268,4 +281,6 @@
 .pop-tip.has-btn{padding-bottom:5rem;}
 .pop-tip h1{text-align:center;font-size:1.2rem;color:#333;border-bottom:1px solid #eee;padding:0.7rem 1rem;}
 .focus input{padding-right:5em;}
+.cover{position:relative;height:24vh}
+.cover img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
 </style>
