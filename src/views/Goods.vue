@@ -1,7 +1,9 @@
 <template>
   <div class="page gray has-btn">
     <div class="content h auto">
-      <img style="height:30vh" class="w" v-lazy="{src: goods.infoPic, error: 'static/img/err2.png', loading: 'static/img/loading3.gif'}">
+      <div class="banner">
+        <img ref="banner" class="w" v-lazy="{src: goods.infoPic, error: 'static/img/err2.png', loading: 'static/img/loading3.gif'}">
+      </div>
       <group class="info" gutter="0px">
         <h2>{{goods.name}}</h2>
         <p class="c-red"><span class="num">{{goods.score}}</span>积分</p>
@@ -124,12 +126,34 @@
         area: 'getInsuranceArea'
       })
     },
+    mounted () {
+      this.resize(this.goods.infoPic)
+    },
     created () {
       this.id = this.$route.params.id
       // 获取商品详情
       this.goods = JSON.parse(this.$localStorage.get('goods'))
     },
     methods: {
+      resize (url) {
+        console.log(url)
+        const img = new Image()
+        let bili = 1
+        img.src = url
+        img.onload = () => {
+          console.log(img.width, img.height)
+          bili = img.width / img.height
+          console.log(bili)
+          if (bili < 2) {
+            this.$refs.banner.style.width = '100%'
+            this.$refs.banner.style.height = 'auto'
+          } else {
+            this.$refs.banner.style.width = 'auto'
+            this.$refs.banner.style.height = '100%'
+          }
+          // this.$refs.banner.style.height = 100 + 'px'
+        }
+      },
       handleJump (url) {
         this.tips = false
         this.$router.push(url)
@@ -225,11 +249,13 @@
 .address .vux-cell-bd{text-align:left;}
 .vux-popup-dialog{z-index:5001 !important;}
 .dialog-tip .weui-icon{font-size:3rem;}
-.text img{width:100%;}
+.text img{width:100%;height:auto !important;}
 .exchange .vux-label{font-size:1rem;color:#444;}
 .dialog-exchange .label{color:#444;}
 .exchange .weui-cell__ft{font-size:1rem;}
 .dialog-exchange .weui-input{font-size:1rem;}
 .dialog-exchange .weui-input::-webkit-input-placeholder{font-size:1rem;}
 .dialog-exchange .weui-btn{font-size:1rem !important;height:3rem;}
+.banner{position:relative;}
+.banner img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);}
 </style>

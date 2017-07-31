@@ -69,7 +69,7 @@
         customerId: '',
         customerInfo: '',
         info: false,
-        areaName: '请选择投保城市！',
+        areaName: '请选择投保城市',
         orderUser: {
           license: '',
           name: '',
