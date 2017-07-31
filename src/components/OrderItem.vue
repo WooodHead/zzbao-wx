@@ -107,11 +107,11 @@
           case 2:
             return '待计算'
           case 3:
-            return '待计算'
+            return '￥' + item.maxFee / 10
           case 4:
-            return '待计算'
+            return '￥' + item.maxFee / 10
           case 5:
-            return '￥' + item.maxFee
+            return '￥' + item.maxFee / 10
         }
       },
       handleSaveData (item) {

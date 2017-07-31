@@ -7,12 +7,12 @@
     </header>
     <section class="cus-main">
       <group gutter="0">
-        <x-input :readonly="!edit" title="姓名" text-align="right" v-model="form.customer.name"></x-input>
-        <x-input :readonly="!edit" title="电话" text-align="right" v-model="form.customer.phone" type="number"></x-input>
+        <x-input :readonly="!edit" title="姓名" text-align="right" v-model="form.customer.name"  ref="name" :min="2" required></x-input>
+        <x-input :readonly="!edit" title="电话" text-align="right" v-model="form.customer.phone" type="number" ref="tel" required  is-type="china-mobile"></x-input>
       </group>
       <group gutter="5px">
         <city :readonly="!edit" title="城市" :value="form.customer.areaFullName"></city>
-        <x-input :readonly="!edit" title="车牌号" text-align="right" v-model="form.customer.carNo"></x-input>
+        <x-input :readonly="!edit" title="车牌号" text-align="right" v-model="form.customer.carNo" ref="license" required></x-input>
         <x-input :readonly="!edit" title="车辆识别代号" text-align="right" v-model="form.customer.vin"></x-input>
         <x-input :readonly="!edit" title="发动机号" text-align="right" v-model="form.customer.engine"></x-input>
         <datetime :readonly="!edit" title="注册登记日期" text-align="right" v-model="form.customer.registTime" :display-format="formatValueFunction" confirm-text="确认" cancel-text="取消"></datetime>
@@ -145,21 +145,49 @@
         })
       },
       handleSave () {
+        const reg = /^[\u4e00-\u9fa5]*$/
         this.edit = !this.edit
         if (!this.edit) {
-          if (this.form.customer.areaFullName && this.form.customer.carNo && this.form.customer.name && this.form.customer.note && this.form.customer.phone && this.form.customer.registTime && this.form.customer.vin && this.form.customer.expireTime && this.form.customer.engine) {
-            this.form.customer.areaId = this.area || this.info.areaId
-            this.form.customer = JSON.stringify(this.form.customer)
-            this.handleEdit()
-          } else {
-            this.edit = true
+          if (!this.$refs.name.valid) {
             this.$vux.toast.show({
               type: 'text',
               width: '15em',
               position: 'bottom',
-              text: '以上信息为必填项！',
+              text: '姓名为必填项！',
               time: '3000'
             })
+            this.edit = true
+          } else if (!reg.test(this.form.customer.name)) {
+            this.$vux.toast.show({
+              type: 'text',
+              width: '15em',
+              position: 'bottom',
+              text: '姓名必须为中文！',
+              time: '3000'
+            })
+            this.edit = true
+          } else if (!this.$refs.tel.valid) {
+            this.$vux.toast.show({
+              type: 'text',
+              width: '15em',
+              position: 'bottom',
+              text: '请填写正确的手机号码！',
+              time: '3000'
+            })
+            this.edit = true
+          } else if (!this.$refs.license.valid) {
+            this.$vux.toast.show({
+              type: 'text',
+              width: '15em',
+              position: 'bottom',
+              text: '请填写车牌号！',
+              time: '3000'
+            })
+            this.edit = true
+          } else {
+            this.form.customer.areaId = this.area || this.info.areaId
+            this.form.customer = JSON.stringify(this.form.customer)
+            this.handleEdit()
           }
         }
       },
