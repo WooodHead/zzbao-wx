@@ -125,7 +125,7 @@
         } else if (!this.form.captcha) {
           this.$vux.toast.show({
             type: 'text',
-            width: '20em',
+            width: '15em',
             position: 'bottom',
             text: '请先获取验证码！',
             time: '1000'
@@ -142,8 +142,9 @@
             }
           })
           .then(res => {
+            console.log(res)
             this.loading = false
-            if (res.body.status) {
+            if (res.body.status === 1) {
               this.$vux.toast.show({
                 type: 'text',
                 width: '15em',
@@ -154,15 +155,23 @@
               let userInfo = JSON.parse(this.$localStorage.get('userInfo'))
               userInfo.hadPayPwd = true
               this.$localStorage.set('userInfo', JSON.stringify(userInfo))
-              setTimeout(() => {
-                this.$router.replace('/personer')
-              }, 1000)
+              // setTimeout(() => {
+              //   this.$router.replace('/personer')
+              // }, 1000)
+            } else if (res.body.status === 0) {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '15em',
+                position: 'bottom',
+                text: '验证码输入错误！',
+                time: '1000'
+              })
             } else {
               this.$vux.toast.show({
                 type: 'text',
                 width: '15em',
                 position: 'bottom',
-                text: res.body.msg,
+                text: '请先获取验证码！',
                 time: '1000'
               })
             }

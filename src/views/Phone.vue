@@ -92,42 +92,72 @@
       },
       handleSubmit () {
         this.loading = true
-        this.$http({
-          method: 'jsonp',
-          url: phone,
-          jsonp: 'callback',
-          jsonpCallback: 'json',
-          params: {
-            phone: this.form.tel,
-            captcha: this.form.captcha,
-            userId: this.form.userId
-          }
-        })
-        .then(res => {
+        if (!this.form.tel) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '请输入新手机号码！',
+            time: '1000'
+          })
           this.loading = false
-          if (res.body.status) {
-            this.$vux.toast.show({
-              type: 'text',
-              width: '20em',
-              position: 'bottom',
-              text: '手机号修改成功！',
-              time: '1000'
-            })
-            setTimeout(() => {
-              this.$localStorage.remove('userInfo')
-              this.$localStorage.set('logined', false)
-              this.$router.replace('/login')
-            }, 1000)
-          } else {
-            this.$vux.toast.show({
-              type: 'text',
-              width: '20em',
-              position: 'bottom',
-              text: res.body.msg,
-              time: '1000'
-            })
-          }
-        })
+        } else if (this.form.tel === JSON.parse(this.$localStorage.get('userInfo')).userTel) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '不能是旧手机号！',
+            time: '1000'
+          })
+          this.loading = false
+        } else if (!this.form.captcha) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '请输入手机验证码！',
+            time: '1000'
+          })
+          this.loading = false
+        } else {
+          this.$http({
+            method: 'jsonp',
+            url: phone,
+            jsonp: 'callback',
+            jsonpCallback: 'json',
+            params: {
+              phone: this.form.tel,
+              captcha: this.form.captcha,
+              userId: this.form.userId
+            }
+          })
+          .then(res => {
+            console.log(res)
+            this.loading = false
+            if (res.body.status === 1) {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '20em',
+                position: 'bottom',
+                text: '手机号修改成功！',
+                time: '1000'
+              })
+              setTimeout(() => {
+                this.$localStorage.remove('userInfo')
+                this.$localStorage.set('logined', false)
+                this.$router.replace('/login')
+              }, 1000)
+            } else {
+              this.$vux.toast.show({
+                type: 'text',
+                width: '15em',
+                position: 'bottom',
+                text: '验证码错误！',
+                time: '1000'
+              })
+            }
+          })
+        }
       },
       ...mapMutations({
         postSMS: 'postSMS'

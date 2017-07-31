@@ -281,6 +281,6 @@
 .pop-tip.has-btn{padding-bottom:5rem;}
 .pop-tip h1{text-align:center;font-size:1.2rem;color:#333;border-bottom:1px solid #eee;padding:0.7rem 1rem;}
 .focus input{padding-right:5em;}
-.cover{position:relative;height:24vh}
+.cover{position:relative;height:24vh;overflow:hidden;}
 .cover img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
 </style>

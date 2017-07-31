@@ -212,19 +212,20 @@ export default {
         this.areaList = res.body.data.areaList
         this.loading = false
         this.areaList.forEach(el => {
+          console.log(el.sfee, el.jfee)
           if (this.index > 1) {
             if (!el.jfee) {
-              el.jfee = '20%'
+              el.jfee = '0%'
             }
             if (!el.sfee) {
-              el.sfee = '10%'
+              el.sfee = '0%'
             }
           } else {
             if (!el.jfee) {
-              el.jfee = '10%-30%'
+              el.jfee = '0%-0%'
             }
             if (!el.sfee) {
-              el.sfee = '10%-30%'
+              el.sfee = '0%-0%'
             }
           }
         })
