@@ -186,7 +186,7 @@
             this.edit = true
           } else {
             this.form.customer.areaId = this.area || this.info.areaId
-            this.form.customer = JSON.stringify(this.form.customer)
+            // this.form.customer = JSON.stringify(this.form.customer)
             this.handleEdit()
           }
         }
@@ -199,7 +199,11 @@
           method: 'jsonp',
           url: customerEdit,
           jsonp: 'callback',
-          params: this.form,
+          params: {
+            userId: this.form.userId,
+            customerId: this.form.customerId,
+            customer: JSON.stringify(this.form.customer)
+          },
           jsonpCallback: 'json',
           before: (req) => {
             console.log(req)
@@ -207,8 +211,8 @@
         })
         .then(res => {
           console.log(res)
-          if (res.body.status) {
-            this.form.customer = JSON.parse(this.form.customer)
+          if (res.body.status === 1) {
+            // this.form.customer = JSON.parse(this.form.customer)
             this.$vux.toast.show({
               type: 'text',
               width: '15em',
@@ -224,6 +228,7 @@
               }
             }, 1000)
           } else {
+            this.edit = true
             this.$vux.toast.show({
               type: 'text',
               width: '15em',

@@ -47,6 +47,7 @@
         balance: 0,
         userId: '',
         hasPayPwd: false,
+        preCard: '',
         payScore: null,
         form: {
           userId: '',
@@ -115,7 +116,7 @@
             if (res.body.data.bankCard) {
               this.form.cardId = res.body.data.bankCard.id
               this.form.bankName = res.body.data.bankCard.bankName
-              this.form.cardNo = res.body.data.bankCard.cardNum
+              this.form.cardNo = this.preCard = res.body.data.bankCard.cardNum
               this.form.cardUser = res.body.data.bankCard.userName
             }
           })
@@ -138,7 +139,9 @@
         }
       },
       handleSubmit () {
-        console.log(this.form)
+        if (this.form.cardNo !== this.precard) {
+          this.form.cardId = ''
+        }
         const reg = /^[\u4e00-\u9fa5]*$/
         if (this.form.score > this.balance) {
           this.$vux.toast.show({

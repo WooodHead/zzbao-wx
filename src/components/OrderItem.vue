@@ -107,9 +107,9 @@
           case 2:
             return '待计算'
           case 3:
-            return '￥' + item.maxFee / 10
+            return '待计算'
           case 4:
-            return '￥' + item.maxFee / 10
+            return '待计算'
           case 5:
             return '￥' + item.maxFee / 10
         }
