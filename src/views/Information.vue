@@ -2,7 +2,10 @@
   <div class="page gray row h w">
     <div class="col v-m t-c" style="padding:0 1rem;">
       <div class="face">
-        <img src="static/img/face-default.jpg" alt="">
+        <img :src="face" alt="">
+        <form :action="userFace" method="post" id="face">
+          <input  name="face" type="file" @change="handleFileChange" capture="camera" accept='image/*'>
+        </form>
       </div>
       <group gutter="30px" class="information">
         <x-input v-model="form.userName" text-align="right">
@@ -43,6 +46,9 @@
 <script>
   import {XInput, Group, Datetime, XButton, Cell, dateFormat} from 'vux'
   import {mapMutations} from 'vuex'
+  import lrz from 'lrz/dist/lrz.all.bundle.js'
+  import {uploadBase64, userFace} from '../config'
+  import $ from 'jquery'
   export default {
     name: 'information',
     head: {
@@ -54,7 +60,10 @@
     data () {
       return {
         loading: false,
+        userFace: userFace,
+        url: uploadBase64,
         birthIcon: '<span class="iconfont icon-shengri"></span>',
+        face: 'static/img/face-default.jpg',
         userInfo: {},
         form: {
           userId: '',
@@ -76,6 +85,11 @@
       }
     },
     methods: {
+      handleFileChange (file) {
+        $('#face').submit(function(){
+          alert($(this).serialize())
+        })
+      },
       handleSubmit () {
         this.editInformation(this)
       },
@@ -95,8 +109,9 @@
 <style scoped>
 .form-panel{margin-top:2rem;}
 .form-panel .form{margin:0;margin-top:-1px;}
-.face{display:inline-block;width:6rem;height:6rem;border-radius:50%;overflow:hidden;border:1px solid #D9D9D9;}
+.face{display:inline-block;width:6rem;height:6rem;border-radius:50%;overflow:hidden;border:1px solid #D9D9D9;position:relative;}
 .face img{width:100%;height:100%;}
+.face input{font-size:100rem;position:absolute;top:0;right:0;opacity:0;display:none;}
 .form .iconfont,.weui-cells .iconfont{color:#959595;font-size:1.8rem;margin-right:1rem;}
 .form .icon-right{right:0;left:auto;font-size:1.4rem;transform:translate(0, -50%);}
 .icon-shengri{position:absolute;left:1rem;top:50%;transform:translate(0,-50%);}
