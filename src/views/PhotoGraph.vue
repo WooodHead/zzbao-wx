@@ -124,10 +124,10 @@
     methods: {
       takePhoto (tag) {
         if (this.platform === 'ios') {
-          console.log('ios')
+          console.log('ios', tag)
           loadURL(server + '/takePhoto?type=app&tag=' + tag)
         } else {
-          console.log('android')
+          console.log('android', tag)
           jsToApp.takePhoto(tag)
         }
       },
