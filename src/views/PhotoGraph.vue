@@ -124,12 +124,18 @@
     methods: {
       takePhoto (tag) {
         if (this.platform === 'ios') {
-          console.log('ios', tag)
+          window.alert(tag)
           loadURL(server + '/takePhoto?type=app&tag=' + tag)
         } else {
-          console.log('android', tag)
+          window.alert(tag)
           jsToApp.takePhoto(tag)
         }
+        const timer = setInterval(() => {
+          if (this.$localStorage.get(tag)) {
+            this.form[tag] = this.$localStorage.get(tag)
+            clearInterval(timer)
+          }
+        }3000)
       },
       setTitle (title) {
         if (this.$route.query.platform === 'app') {
