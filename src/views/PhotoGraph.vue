@@ -21,8 +21,10 @@
           </div>
           <img style="width:80%;height:10rem;" v-if="form.idCard" v-lazy="form.idCard" alt="">
           <img style="width:80%;" v-if="!form.idCard" v-lazy="{src: 'static/img/sfz.jpg', error: 'static/img/err1.png', loading: 'static/img/loading3.gif'}" alt="">
-          <span class="iconfont icon-add" @click="saveData(1)">
+          <span class="iconfont icon-add" @click="saveData(1)" v-if="!platform">
             <input name="idCard" type="file" @change="handleFileChange1" capture="camera" accept='image/*'>
+          </span>
+          <span class="iconfont icon-add" @click="takePhoto('idCard')" v-if="platform">
           </span>
         </div>
       </div>
@@ -46,8 +48,10 @@
           </div>
           <img style="width:80%;height:10rem;" v-if="form.drivingLicense" v-lazy="form.drivingLicense" alt="">
           <img style="width:80%;" v-if="!form.drivingLicense" v-lazy="{src: 'static/img/jszf.jpg', error: 'static/img/err1.png', loading: 'static/img/loading3.gif'}" alt="">
-          <span class="iconfont icon-add" @click="saveData(2)">
+          <span class="iconfont icon-add" @click="saveData(2)" v-if="!platform">
             <input name="drivingLicense" type="file" @change="handleFileChange1" capture="camera" accept='image/*'>
+          </span>
+          <span class="iconfont icon-add" @click="takePhoto('drivingLicense')" v-if="platform">
           </span>
         </div>
         <h4 class="sub-module-title sub-line">行驶证副本照</span></h4>
@@ -66,8 +70,10 @@
           </div>
           <img style="width:80%;height:10rem;" v-if="form.subDrivingLicense" v-lazy="form.subDrivingLicense" alt="">
           <img style="width:80%;" v-if="!form.subDrivingLicense" v-lazy="{src: 'static/img/jsz.jpg', error: 'static/img/err1.png', loading: 'static/img/loading3.gif'}" alt="">
-          <span class="iconfont icon-add" @click="saveData(3)">
+          <span class="iconfont icon-add" @click="saveData(3)" v-if="!platform">
             <input name="subDrivingLicense" type="file" @change="handleFileChange1" capture="camera" accept='image/*'>
+          </span>
+          <span class="iconfont icon-add" @click="takePhoto('subDrivingLicense')" v-if="platform">
           </span>
         </div>
       </div>
@@ -81,7 +87,7 @@
 </template>
 <script>
   import lrz from 'lrz/dist/lrz.all.bundle.js'
-  import {uploadFile, uploadBase64} from '../config'
+  import {uploadFile, uploadBase64, server} from '../config'
   import {XButton} from 'vux'
   import $ from 'jquery'
   export default {
@@ -94,13 +100,14 @@
     },
     created () {
       this.setTitle('完善信息')
-      console.log(back)
+      this.platform = this.$route.query.platform
     },
     data () {
       return {
         url: uploadFile,
         url1: uploadBase64,
         type: 0,
+        platform: 'web',
         idCard: false,
         drivingLicense: false,
         subDrivingLicense: false,
@@ -115,6 +122,15 @@
       XButton
     },
     methods: {
+      takePhoto (tag) {
+        if (this.platform === 'ios') {
+          console.log('ios')
+          loadURL(server + '/takePhoto?type=app&tag=' + tag)
+        } else {
+          console.log('android')
+          jsToApp.takePhoto(tag)
+        }
+      },
       setTitle (title) {
         if (this.$route.query.platform === 'app') {
           jsToApp.setTitle(title)
