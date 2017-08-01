@@ -135,7 +135,7 @@
             this.form[tag] = this.$localStorage.get(tag)
             clearInterval(timer)
           }
-        }3000)
+        }, 3000)
       },
       setTitle (title) {
         if (this.$route.query.platform === 'app') {
