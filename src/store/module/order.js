@@ -1,4 +1,5 @@
 const state = {
+  service: false,
   orderList: [{
     id: 1,
     goods: {
@@ -74,11 +75,20 @@ const state = {
   }]
 }
 const getters = {
+  getService (state) {
+    return state.service
+  },
   getOrderList (state) {
     return state.orderList
   }
 }
+const mutations = {
+  setService (state, value) {
+    state.service = value
+  }
+}
 export default {
   state,
-  getters
+  getters,
+  mutations
 }

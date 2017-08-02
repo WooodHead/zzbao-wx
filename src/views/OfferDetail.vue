@@ -1,5 +1,5 @@
 <template>
-  <div class="page gray has-footer">
+  <div class="page gray">
     <div class="content">
       <div class="cover w">
         <img ref="banner" class="w" v-lazy="{src: company.bigPic, error: 'static/img/err1.png', loading: 'static/img/loading3.gif'}" alt=""/>
@@ -7,23 +7,23 @@
       <selectCity title="投保城市" :value="areaName" :rate="info"></selectCity>
       <p class="subTip" v-if="info"><span v-if="!fee">推广费：选择投保城市后即显示(分享页面推广费不可见)</span><span v-if="fee">推广费：商业险保费<b style="color:#3a3a3a;padding:0 3px;">*{{fee.sfee}}</b>交强险保费<b style="color:#3a3a3a;padding:0 3px;">*{{fee.jfee}}</b>(分享页面推广费不可见)</span></p>
       <group gutter="0">
-        <x-input title="车牌号码" :class="focus ? 'focus' : ''" :show-clear="false" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="orderUser.license" required ref="license" :max="7">
+        <x-input title="车牌号码" class="focus" :show-clear="false" placeholder="请填写车牌号" placeholder-align="right" text-align="right" v-model="orderUser.license" required ref="license" :max="7">
         </x-input>
       </group>
       <group gutter="0">
         <x-input title="车主姓名" :show-clear="false" placeholder="请填写车主姓名" placeholder-align="right" text-align="right" v-model="orderUser.name" required ref="name" :min="2"></x-input>
       </group>
       <group gutter="0">
-        <x-input title="手机号" :show-clear="false" type="tel" is-type="china-mobile" placeholder="请填写真实手机号" placeholder-align="right" text-align="right" v-model="orderUser.tel" required ref="tel" :min="11" :max="11"></x-input>
+        <x-input title="手机号码" :show-clear="false" type="tel" is-type="china-mobile" placeholder="请填写真实手机号" placeholder-align="right" text-align="right" v-model="orderUser.tel" required ref="tel" :min="11" :max="11"></x-input>
       </group>
-    </div>
-    <div class="footer row w">
-      <div class="col v-m t-c">
-        <x-button type="warn" @click.native="handleSubmit" :show-loading="loading">下一步</x-button>
-        <div class="checkbox mt-10">
-          <input type="checkbox" v-model="agree" name="n" id="n1">
-          <span class="iconfont icon-right1"></span>
-          <label for="n1">我已阅读并同意</label><a href="javascript:;" @click="toggleTips(false)">《条款与免责申明》</a>
+      <div class="footer row w" style="margin-top:6rem;">
+        <div class="col v-m t-c">
+          <x-button type="warn" @click.native="handleSubmit" :show-loading="loading">下一步</x-button>
+          <div class="checkbox mt-10">
+            <input type="checkbox" v-model="agree" name="n" id="n1">
+            <span class="iconfont icon-right1"></span>
+            <label for="n1">我已阅读并同意</label><a href="javascript:;" @click="toggleTips(false)">《条款与免责申明》</a>
+          </div>
         </div>
       </div>
     </div>
@@ -61,6 +61,7 @@
     },
     data () {
       return {
+        dom: '',
         focus: false,
         tips: false,
         loading: false,
@@ -89,14 +90,15 @@
       Popup
     },
     mounted () {
-      console.log(this.company)
+      console.log(this.$refs.license, 1)
       this.resize(this.company.bigPic)
+      this.dom = this
     },
     created () {
       if (this.$localStorage.get('orderUser')) {
         this.orderUser.license = JSON.parse(this.$localStorage.get('orderUser')).ownerLicense
       }
-      if (this.$route.query.platform === 'app') {
+      if (this.$route.query.platform !== '') {
         this.info = true
       }
       this.customerId = this.$route.query.customerId || ' '
@@ -150,6 +152,7 @@
       }),
       handleFocus () {
         this.$refs.license.focus()
+        console.log(this)
       },
       changeLicense () {
         if (!this.$route.query.customerInfo) {
@@ -257,7 +260,7 @@
             ownerTel: this.orderUser.tel,
             customerId: this.customerId
           }))
-          this.$router.push('/offer/photograph/' + this.$route.params.id + '/' + this.$route.params.userId)
+          this.$router.push('/offer/photograph/' + this.$route.params.id + '/' + this.$route.params.userId + '?platform=' + this.$route.query.platform)
         }
         this.loading = false
       }
@@ -280,7 +283,8 @@
 .pop-tip{height:100%;background:#fff;overflow:hidden;}
 .pop-tip.has-btn{padding-bottom:5rem;}
 .pop-tip h1{text-align:center;font-size:1.2rem;color:#333;border-bottom:1px solid #eee;padding:0.7rem 1rem;}
-.focus input{padding-right:5em;}
+.focus input{width:6em;text-align:left !important;}
+.focus .weui-cell__bd{text-align:right;}
 .cover{position:relative;height:24vh;overflow:hidden;}
 .cover img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
 </style>

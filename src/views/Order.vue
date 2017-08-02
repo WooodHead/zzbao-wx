@@ -16,14 +16,25 @@
         </v-scroll>
       </swiper-item>
     </swiper>
+    <popup v-model="service" class="service" :hide-on-blur="false">
+      <h2>客服工作时间：9:00~21:00</h2>
+      <group gutter="10px">
+        <div style="padding:0 1rem 1rem 1rem;">
+          <x-button plain type="primary" style="border-color:#eb3d00;color:#eb3d00;" @click.native="takeQQ">咨询在线客服</x-button>
+          <x-button plain type="primary" style="border-color:#47B6E5;color:#47B6E5;" @click.native="takeTel">拨打客服热线</x-button>
+        </div>
+      </group>
+      <x-button @click.native="hideService(false)" plain type="primary" style="border-color:#ccc;color:#999;border-radius:0;border-left:none;border-right:none;">取消</x-button>
+    </popup>
   </div>
 </template>
 <script>
-  import {Tab, TabItem, Swiper, SwiperItem, Sticky, dateFormat} from 'vux'
+  import {Tab, TabItem, Swiper, SwiperItem, Sticky, dateFormat, Popup, XButton, Group} from 'vux'
   import OrderItem from '@/components/OrderItem'
   import {orderList} from '../config'
   import VScroll from '../components/VScroll'
   import noData from '@/components/Null'
+  import {mapGetters, mapMutations} from 'vuex'
   export default {
     name: 'order',
     head: {
@@ -65,6 +76,11 @@
         index: 0
       }
     },
+    computed: {
+      ...mapGetters({
+        service: 'getService'
+      })
+    },
     mounted () {
       this.height = document.querySelector('.vux-slider').clientHeight + 'px'
       this.tag = this.$route.params.tag
@@ -91,12 +107,28 @@
       TabItem,
       Swiper,
       SwiperItem,
+      Group,
       Sticky,
       OrderItem,
       VScroll,
-      noData
+      Popup,
+      noData,
+      XButton
     },
     methods: {
+      takeQQ () {
+        console.log('QQ')
+        loadURL('tencent://message/?uin=979741120&Site=&menu=yes')
+      },
+      takeTel () {
+        window.location.href="tel:4006 128 070"
+      },
+      ...mapMutations({
+        hideService: 'setService'
+      }),
+      serviceShow () {
+        this.showService = false
+      },
       onRefresh (done) {
         this.form.pageIndex = 0
         this.statusInit()

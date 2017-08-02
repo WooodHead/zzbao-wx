@@ -167,7 +167,8 @@ img{border:none;vertical-align: top;}
 @media (device-height:480px) and (-webkit-min-device-pixel-ratio:2),(device-height:568px) and (-webkit-min-device-pixel-ratio:2){
 input::-webkit-input-placeholder{transform:translateY(-1px);}
 }
-
+.service{background:#fff !important;border-top:1px solid #ccc;}
+.service h2{font-size:1rem;text-align:center;color:#999;margin-bottom:20px;margin-top:1rem;}
 input::-webkit-input-placeholder{font-size:1.2rem;}
 
 /*修改weui*/

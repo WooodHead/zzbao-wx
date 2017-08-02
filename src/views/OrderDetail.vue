@@ -24,13 +24,15 @@
             <router-link :to="'/track/'+ form.userId + '/' + form.orderId" @click.native="setTitle('订单跟踪')"><img style="width:2rem;vertical-align:middle" src="static/img/order.png" alt=""><span class="v-m">订单跟踪</span></router-link>
           </li>
           <li class="col v-m col-12 t-c">
-            <a href="http://wpa.qq.com/msgrd?v=3&uin=2306157540&site=qq&menu=yes"><img style="width:2rem;vertical-align:middle" src="static/img/kefu.png" alt=""><span class="v-m">联系客服</span></a>
+            <a @click="setService(true)"><img style="width:2rem;vertical-align:middle" src="static/img/kefu.png" alt=""><span class="v-m">联系客服</span></a>
           </li>
         </ul>
       </cell>
     </group>
     <group gutter="5px" v-if="order" class="orderDetail">
-      <cell title="保单信息" value="查看详情" is-link :link="'/policy/' + form.userId + '/' + form.orderId" @click.native="setTitle('保单信息')"></cell>
+      <cell title="保单信息" is-link :link="'/policy/' + form.userId + '/' + form.orderId" @click.native="setTitle('保单信息')">
+        <span style="color:#EB3D00;">查看详情</span>
+      </cell>
       <cell title="商业险"  v-if="order.extraAmount"></cell>
       <cell v-if="order.baseAmount">
         <p slot="title">交强险<span>（含车船税）</span></p>
@@ -46,11 +48,22 @@
       <cell title="订单号" :value="order.orderSn"></cell>
       <cell title="下单时间" :value="order.createTime"></cell>
     </group>
+    <popup v-model="service" class="service" :hide-on-blur="false">
+      <h2>客服工作时间：9:00~21:00</h2>
+      <group gutter="10px">
+        <div style="padding:0 1rem 1rem 1rem;">
+          <x-button plain type="primary" style="border-color:#eb3d00;color:#eb3d00;" @click.native="takeQQ">咨询在线客服</x-button>
+          <x-button plain type="primary" style="border-color:#47B6E5;color:#47B6E5;" @click.native="takeTel">拨打客服热线</x-button>
+        </div>
+      </group>
+      <x-button @click.native="setService(false)" plain type="primary" style="border-color:#ccc;color:#999;border-radius:0;border-left:none;border-right:none;">取消</x-button>
+    </popup>
   </div>
 </template>
 <script>
-  import {Group, Cell, XButton, Flexbox, FlexboxItem, Divider, dateFormat} from 'vux'
+  import {Group, Cell, XButton, Flexbox, FlexboxItem, Divider, dateFormat, Popup} from 'vux'
   import {orderInfo, backOrder, QQ} from '../config'
+  import {mapGetters, mapMutations} from 'vuex'
   export default {
     name: 'orderDetail',
     head: {
@@ -65,6 +78,7 @@
       Flexbox,
       FlexboxItem,
       XButton,
+      Popup,
       Divider
     },
     data () {
@@ -81,6 +95,11 @@
         }
       }
     },
+    computed: {
+      ...mapGetters({
+        service: 'getService'
+      })
+    },
     created () {
       this.setTitle('订单详情')
       this.form.orderId = this.$route.params.orderId
@@ -88,6 +107,15 @@
       this.getDetail()
     },
     methods: {
+      takeQQ () {
+        console.log('QQ')
+      },
+      takeTel () {
+        window.location.href="tel:4006 128 070"
+      },
+      ...mapMutations({
+        setService: 'setService'
+      }),
       setTitle (title) {
         console.log(title)
         if (this.$route.query.platform === 'app') {

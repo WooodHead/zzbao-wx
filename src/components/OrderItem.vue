@@ -23,7 +23,7 @@
       <ul class="row w price">
         <li class="col v-m t-r">
           <span v-if="tag !== 'web'" class="btn btn-light btn-small" @click="sendCustomer(item)">发送客户</span>
-          <a href="http://wpa.qq.com/msgrd?v=3&uin=2306157540&site=qq&menu=yes" class="btn btn-light btn-small">联系客服</a>
+          <a class="btn btn-light btn-small" @click="showService(true)">联系客服</a>
           <router-link :to="'/pay/' + userId + '/' + item.id + '/' + tag" class="btn btn-danger btn-small" v-if="item.orderStatus === 3" @click.native="handleSaveData(item)">立即付款</router-link>
         </li>
       </ul>
@@ -33,6 +33,7 @@
 <script>
 // mqqwpa://im/chat?chat_type=wpa&uin=979741120&version=1&src_type=web&web_src=oicqzone.com
   import {QQ, server} from '../config'
+  import {mapMutations} from 'vuex'
   export default {
     name: 'orderItem',
     props: {
@@ -53,6 +54,9 @@
       this.userId = this.$route.params.userId
     },
     methods: {
+      ...mapMutations({
+        showService: 'setService'
+      }),
       sendCustomer (item) {
         if (this.$route.params.tag === 'ios') {
           loadURL(server + '/sendToCustomer?userId=' + this.userId + '&orderId=' + item.id)
