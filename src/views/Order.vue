@@ -118,7 +118,8 @@
     methods: {
       takeQQ () {
         console.log('QQ')
-        loadURL('tencent://message/?uin=979741120&Site=&menu=yes')
+        // loadURL('tencent://message/?uin=979741120&Site=&menu=yes')
+        loadURL('http://wpa.qq.com/msgrd?v=3&uin=2306157540&site=qq&menu=yes')
       },
       takeTel () {
         window.location.href="tel:4006 128 070"
