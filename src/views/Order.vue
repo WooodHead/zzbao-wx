@@ -1,20 +1,17 @@
 <template>
   <div class="page gray auto has-tab">
-    <tab :line-width=2 active-color='#EB3D00' v-model="index">
+    <tab :line-width=2 active-color='#EB3D00' v-model="index" style="position:fixed;top:0;left:0;width:100%;margin:0;z-index:100;">
       <tab-item class="vux-center" :selected="current === item.text" v-for="(item, index) in bar" @on-item-click="handleChange(item, index)" :key="index">{{item.text}}</tab-item>
     </tab>
     <!--<swiper v-model="index" :show-dots="false" class="h" :height="height" @on-index-change="handleSwiper" :min-moving-distance="100">
       <swiper-item v-for="(item, index) in bar" :key="index" class="h">-->
-        <div class="h" style="position:relative;">
-          <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
-            <no-data v-if="list.length === 0">
-              <h2 slot="icon" class="iconfont icon-none"></h2>
-              <p slot="title" class="text">没有相关订单！</p>
-            </no-data>
-            <div class="tab-swiper vux-center h auto">
-              <order-item :list="list"></order-item>
-            </div>
-          </v-scroll>
+        <div>
+          <no-data v-if="list.length === 0">
+            <h2 slot="icon" class="iconfont icon-none"></h2>
+            <p slot="title" class="text">没有相关订单！</p>
+          </no-data>
+          <order-item :list="list"></order-item>
+          <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading"></infinite-loading>
         </div>
       <!--</swiper-item>
     </swiper>-->
@@ -34,7 +31,7 @@
   import {Tab, TabItem, Swiper, SwiperItem, Sticky, dateFormat, Popup, XButton, Group} from 'vux'
   import OrderItem from '@/components/OrderItem'
   import {orderList} from '../config'
-  import VScroll from '../components/VScroll'
+  import InfiniteLoading from 'vue-infinite-loading'
   import noData from '@/components/Null'
   import {mapGetters, mapMutations} from 'vuex'
   export default {
@@ -93,7 +90,7 @@
         this.form.userId = this.$route.params.userId
         this.form.status = this.$route.params.id
         if (this.form.status === '-100') {
-          this.getList(() => {}, 1)
+          this.getList(1)
         }
       } else {
         this.$router.replace('/login')
@@ -112,7 +109,7 @@
       Group,
       Sticky,
       OrderItem,
-      VScroll,
+      InfiniteLoading,
       Popup,
       noData,
       XButton
@@ -132,23 +129,13 @@
       serviceShow () {
         this.showService = false
       },
-      onRefresh (done) {
-        this.form.pageIndex = 0
-        this.statusInit()
-        this.getList(done, 1)
+      onInfinite () {
+        console.log(0)
+        
+        this.getList(0)
+        // this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
       },
-      onInfinite (done) {
-        this.form.pageIndex = this.list.length / this.form.limit
-        if (this.list.length % this.form.limit) {
-          this.statusNoMore()
-        } else {
-          this.$el.querySelectorAll('.load').forEach(el => {
-            el.style.display = 'block'
-          })
-          this.getList(done, 0)
-        }
-      },
-      getList (done, status) {
+      getList (status) {
         const This = this
         this.$http({
           method: 'jsonp',
@@ -171,6 +158,8 @@
             console.log('timeout')
           },
           before: () => {
+            this.form.pageIndex = Math.ceil(this.list.length / this.form.limit)
+            console.log('请求第' + this.form.pageIndex + '页')
             if (status) {
               this.list = []
             }
@@ -181,20 +170,13 @@
           res.body.data.orderList.forEach(el => {
             This.list.push(el)
           })
-          if (this.list.length < this.form.limit) {
-            this.statusNull()
-          } else if (res.body.data.orderList.length < This.form.limit) {
-            this.statusNoMore()
-          } else {
-            this.statusLoad()
-          }
-          done()
           for (const i in this.list) {
             this.list[i].createTime = dateFormat(this.list[i].createTime)
           }
           this.list.forEach(el => {
             el.createTime = dateFormat(el.createTime)
           })
+          this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded');
         })
       },
       handleChange (item, index) {
