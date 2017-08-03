@@ -6,12 +6,18 @@
     <!--<swiper v-model="index" :show-dots="false" class="h" :height="height" @on-index-change="handleSwiper" :min-moving-distance="100">
       <swiper-item v-for="(item, index) in bar" :key="index" class="h">-->
         <div>
-          <no-data v-if="list.length === 0">
+          <no-data v-if="noData">
             <h2 slot="icon" class="iconfont icon-none"></h2>
             <p slot="title" class="text">没有相关订单！</p>
           </no-data>
           <order-item :list="list"></order-item>
-          <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading"></infinite-loading>
+          <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
+            <p slot="no-more">没有更多！</p>
+            <div slot="spinner" style="padding:1rem;">
+              <img style="width:2rem;" class="v-m" src="static/img/331.svg" alt="">
+              <span class="v-m" style="font-size:1rem;color:#666;">加载中</span>
+            </div>
+          </infinite-loading>
         </div>
       <!--</swiper-item>
     </swiper>-->
@@ -45,6 +51,7 @@
     data () {
       return {
         loading: false,
+        noData: false,
         platform: '',
         tag: '',
         form: {
@@ -98,6 +105,8 @@
       for (const i in this.bar) {
         if (this.bar[i].key === this.$route.params.id) {
           this.index = parseInt(i)
+          this.current = this.bar[i].text
+          console.log(this.index,'index')
         }
       }
     },
@@ -131,30 +140,29 @@
       },
       onInfinite () {
         console.log(0)
-        
         this.getList(0)
-        // this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
       },
       getList (status) {
         const This = this
+        
         this.$http({
           method: 'jsonp',
           url: orderList,
           jsonp: 'callback',
           jsonpCallback: 'json',
           params: this.form,
-          _timeout: 5000,
-          timeout: 5000,
+          _timeout: 10000,
+          timeout: 10000,
           onTimeout: request => {
             this.statusInit()
             // this.$router.push('/net')
-            This.$vux.toast.show({
-              type: 'text',
-              width: '20em',
-              position: 'bottom',
-              text: '网络连接失败，请稍后重试！',
-              time: '3000'
-            })
+            // This.$vux.toast.show({
+            //   type: 'text',
+            //   width: '20em',
+            //   position: 'bottom',
+            //   text: '网络连接失败，请稍后重试！',
+            //   time: '3000'
+            // })
             console.log('timeout')
           },
           before: () => {
@@ -162,41 +170,52 @@
             console.log('请求第' + this.form.pageIndex + '页')
             if (status) {
               this.list = []
+              this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
             }
           }
         })
         .then(res => {
           console.log(res)
-          res.body.data.orderList.forEach(el => {
-            This.list.push(el)
-          })
-          for (const i in this.list) {
-            this.list[i].createTime = dateFormat(this.list[i].createTime)
+          // res.body.data.orderList.forEach(el => {
+          //   This.list.push(el)
+          // })
+          // for (const i in this.list) {
+          //   this.list[i].createTime = dateFormat(this.list[i].createTime)
+          // }
+          if (res.body.data.orderList.length) {
+            this.list = this.list.concat(res.body.data.orderList)
+            this.list.forEach(el => {
+              el.createTime = dateFormat(el.createTime)
+            })
+            this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+            if (res.body.data.orderList.length < this.form.limit) {
+              this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+            }
+          } else {
+            console.log('nomore')
+            this.noData = true
+            this.statusNoMore()
+            this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
           }
-          this.list.forEach(el => {
-            el.createTime = dateFormat(el.createTime)
-          })
-          this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded');
         })
       },
       handleChange (item, index) {
-        this.form.pageIndex = 0
+        this.list = []
+        this.noData = false
+        this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
         this.$router.replace('/order/' + this.bar[this.index].key + '/' + this.$route.params.userId + '/' + this.tag)
         this.form.status = this.bar[index].key
-        this.getList(() => {}, 1)
+        this.getList(1)
       },
       handleSwiper (index) {
         this.form.pageIndex = 0
         this.$router.replace('/order/' + this.bar[this.index].key + '/' + this.$route.params.userId + '/' + this.tag)
         this.form.status = this.bar[index].key
-        this.getList(() => {}, 1)
+        this.getList(1)
       },
       statusNoMore () {
-        this.$el.querySelectorAll('.load').forEach(el => {
+        this.$el.querySelectorAll('.infinite-status-prompt').forEach(el => {
           el.style.display = 'none'
-        })
-        this.$el.querySelectorAll('.no-more').forEach(el => {
-          el.style.display = 'block'
         })
       },
       statusLoad () {

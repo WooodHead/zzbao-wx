@@ -43,7 +43,7 @@ export const article = server + '/app/index/article/detail.htm' // 文章详情
 export const userInfo = server + '/app/user/checkPayPwd.htm' // 文章详情
 export const userFace = server + '/app/user/headPic/update.htm' // 文章详情
 export const loginUrl = 'https://zzhb.cyht.com.cn/get-weixin-code.html?appid=wxede00c47ca454a02&scope=snsapi_base&state=hello-world&redirect_uri=https%3A%2F%2Fzzhb.cyht.com.cn%2Fwap%2Fwechat%2Flogin.htm'
-export const noMore = '我也是有底线的！'
+export const noMore = '没有更多！'
 export const timeout = 5000
 // export const tokenUrl = server + 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential'
 // export const ticketUrl = server + 'https://api.weixin.qq.com/cgi-bin/ticket/getticket'

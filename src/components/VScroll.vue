@@ -188,7 +188,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size:1.2rem;
+  font-size:1rem;
   color:#666;
   background:#eee;
 }
