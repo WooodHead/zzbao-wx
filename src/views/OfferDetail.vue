@@ -98,7 +98,7 @@
       if (this.$localStorage.get('orderUser')) {
         this.orderUser.license = JSON.parse(this.$localStorage.get('orderUser')).ownerLicense
       }
-      if (this.$route.query.platform !== '') {
+      if (this.$route.query.platform !== undefined) {
         this.info = true
       }
       this.customerId = this.$route.query.customerId || ' '
@@ -260,7 +260,11 @@
             ownerTel: this.orderUser.tel,
             customerId: this.customerId
           }))
-          this.$router.push('/offer/photograph/' + this.$route.params.id + '/' + this.$route.params.userId + '?platform=' + this.$route.query.platform)
+          if (this.$route.query.platform) {
+            this.$router.push('/offer/photograph/' + this.$route.params.id + '/' + this.$route.params.userId + '?platform=' + this.$route.query.platform)
+          } else {
+            this.$router.push('/offer/photograph/' + this.$route.params.id + '/' + this.$route.params.userId)
+          }
         }
         this.loading = false
       }

@@ -52,8 +52,8 @@
       <h2>客服工作时间：9:00~21:00</h2>
       <group gutter="10px">
         <div style="padding:0 1rem 1rem 1rem;">
-          <x-button plain type="primary" style="border-color:#eb3d00;color:#eb3d00;" @click.native="takeQQ">咨询在线客服</x-button>
-          <x-button plain type="primary" style="border-color:#47B6E5;color:#47B6E5;" @click.native="takeTel">拨打客服热线</x-button>
+          <x-button type="primary" @click.native="takeQQ">咨询在线客服</x-button>
+          <x-button type="warn" @click.native="takeTel">拨打客服热线</x-button>
         </div>
       </group>
       <x-button @click.native="setService(false)" plain type="primary" style="border-color:#ccc;color:#999;border-radius:0;border-left:none;border-right:none;">取消</x-button>
@@ -109,7 +109,7 @@
     methods: {
       takeQQ () {
         console.log('QQ')
-        loadURL('http://wpa.qq.com/msgrd?v=3&uin=2306157540&site=qq&menu=yes')
+        window.location.href = 'http://wpa.qq.com/msgrd?v=3&uin=2306157540&site=qq&menu=yes'
       },
       takeTel () {
         window.location.href="tel:4006 128 070"
