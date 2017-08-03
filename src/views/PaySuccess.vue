@@ -51,13 +51,14 @@
     },
     methods: {
       seeOrder () {
-        if (this.$route.query.platform === 'ios') {
-          loadURL(server + '/?showOrder=click')
-        } else if (this.$route.query.platform === 'android') {
-          jsToApp.back()
-        } else {
-          this.jump('/orderdetail/' + this.userId + '/' + this.orderId + '/web')
-        }
+        // if (this.$route.query.platform === 'ios') {
+        //   loadURL(server + '/?showOrder=click')
+        // } else if (this.$route.query.platform === 'android') {
+        //   jsToApp.back()
+        // } else {
+        //   this.jump('/orderdetail/' + this.userId + '/' + this.orderId + '/web')
+        // }
+        this.jump('/payinfo/' + this.userId + '/' + this.orderId)
       },
       backHome () {
         if (this.$route.query.platform === 'ios') {
