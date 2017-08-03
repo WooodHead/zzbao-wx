@@ -3,19 +3,21 @@
     <tab :line-width=2 active-color='#EB3D00' v-model="index">
       <tab-item class="vux-center" :selected="current === item.text" v-for="(item, index) in bar" @on-item-click="handleChange(item, index)" :key="index">{{item.text}}</tab-item>
     </tab>
-    <swiper v-model="index" :show-dots="false" class="h" :height="height" @on-index-change="handleSwiper" :min-moving-distance="100">
-      <swiper-item v-for="(item, index) in bar" :key="index" class="h">
-        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
-          <no-data v-if="list.length === 0">
-            <h2 slot="icon" class="iconfont icon-none"></h2>
-            <p slot="title" class="text">没有相关订单！</p>
-          </no-data>
-          <div class="tab-swiper vux-center h auto">
-            <order-item :list="list"></order-item>
-          </div>
-        </v-scroll>
-      </swiper-item>
-    </swiper>
+    <!--<swiper v-model="index" :show-dots="false" class="h" :height="height" @on-index-change="handleSwiper" :min-moving-distance="100">
+      <swiper-item v-for="(item, index) in bar" :key="index" class="h">-->
+        <div class="h" style="position:relative;">
+          <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
+            <no-data v-if="list.length === 0">
+              <h2 slot="icon" class="iconfont icon-none"></h2>
+              <p slot="title" class="text">没有相关订单！</p>
+            </no-data>
+            <div class="tab-swiper vux-center h auto">
+              <order-item :list="list"></order-item>
+            </div>
+          </v-scroll>
+        </div>
+      <!--</swiper-item>
+    </swiper>-->
     <popup v-model="service" class="service" :hide-on-blur="false">
       <h2>客服工作时间：9:00~21:00</h2>
       <group gutter="10px">
@@ -82,7 +84,7 @@
       })
     },
     mounted () {
-      this.height = document.querySelector('.vux-slider').clientHeight + 'px'
+      // this.height = document.querySelector('.vux-slider').clientHeight + 'px'
       this.tag = this.$route.params.tag
       this.platform = this.$route.query.platform
     },
@@ -197,9 +199,9 @@
       },
       handleChange (item, index) {
         this.form.pageIndex = 0
-        this.index = index
-        // this.$router.replace('/order/' + this.bar[this.index].key + '/' + this.$route.params.userId)
+        this.$router.replace('/order/' + this.bar[this.index].key + '/' + this.$route.params.userId + '/' + this.tag)
         this.form.status = this.bar[index].key
+        this.getList(() => {}, 1)
       },
       handleSwiper (index) {
         this.form.pageIndex = 0
