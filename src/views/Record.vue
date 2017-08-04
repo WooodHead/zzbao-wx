@@ -1,7 +1,7 @@
 <template>
   <div>
     <group gutter="0">
-      <cell is-link class="score-list" v-for="(item, index) in list" :key="index" :link="'/record/' + item.id" @click.native="handleSave(item)">
+      <cell is-link class="score-list" v-for="(item, index) in list" :key="index" @click.native="handleSave(item)">
         <li class="row w">
           <span class="col v-m col-11 t-l">
             <b class="price">-{{item.money / 10}}元</b>
@@ -95,6 +95,7 @@
         this.$localStorage.set('record', JSON.stringify(item))
         this.setTitle('提现详情')
         console.log(item)
+        this.$router.push('/record/' + item.id)
       },
       onInfinite (done) {
         this.getList(0)
