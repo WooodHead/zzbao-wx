@@ -26,6 +26,7 @@
       </div>
       <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
         <p slot="no-more">没有更多！</p>
+        <p slot="no-results">没有更多！</p>
         <div slot="spinner" style="padding:1rem;">
           <img style="width:2rem;" class="v-m" src="static/img/331.svg" alt="">
           <span class="v-m" style="font-size:1rem;color:#666;">加载中</span>
