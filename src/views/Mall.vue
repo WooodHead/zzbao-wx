@@ -2,7 +2,7 @@
   <div class="page gray">
     <swiper class="w" :aspect-ratio="315/712" dots-position="center" auto>
       <swiper-item class="swiper-demo-img" v-for="(item, index) in recommend" :key="index" @click.native="jump(item.target)">
-        <img class="w" v-lazy="item.url"/>
+        <img class="w h" v-lazy="item.url"/>
       </swiper-item>
     </swiper>
     <div class="p-1 white sub-line">

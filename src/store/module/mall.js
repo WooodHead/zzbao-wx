@@ -34,7 +34,7 @@ const mutations = {
         }
       })
       .then(res => {
-        console.log('加载完成')
+        console.log(res)
         This.showLoading = false
         This.list = res.body.data.productList
         This.$http({

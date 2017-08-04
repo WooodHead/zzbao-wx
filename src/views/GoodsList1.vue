@@ -6,33 +6,31 @@
         <span v-if="index === 0" :class="select ? 'active' : ''">{{option}}</span>
       </tab-item>
     </tab>
-    <div class="h auto">
-      <no-data v-if="noData">
-        <h2 slot="icon" class="iconfont icon-none"></h2>
-        <p slot="title" class="text">没有相关订单！</p>
-      </no-data>
-      <div class="tab-swiper vux-center">
-        <ul class="grid goods-list">
-          <li class="col col-12" v-for="(item, index) in list" :key="index">
-            <router-link :to="'/goods/' + item.id" class="goods" @click.native="handleSaveData(item)">
-              <span class="cover">
-                <img class="w h" v-lazy="{src: item.listPic, error: 'static/img/err1.png', loading: 'static/img/loading1.gif'}"/>
-              </span>
-              <b class="name">{{item.name}}</b>
-              <span class="c-red">积分<b class="score">{{item.score}}</b></span>
-            </router-link>
-          </li>
-        </ul>
-      </div>
-      <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
-        <p slot="no-more">没有更多！</p>
-        <div slot="spinner" style="padding:1rem;">
-          <img style="width:2rem;" class="v-m" src="static/img/331.svg" alt="">
-          <span class="v-m" style="font-size:1rem;color:#666;">加载中</span>
+    <div class="h content">
+      <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" style="top:44px;" :enableRefresh="true">
+        <div class="tab-swiper vux-center h auto">
+            <ul class="grid goods-list">
+              <li class="col col-12" v-for="(item, index) in list" :key="index">
+                <router-link :to="'/goods/' + item.id" class="goods" @click.native="handleSaveData(item)">
+                  <span class="cover">
+                    <img class="w h" v-lazy="{src: item.listPic, error: 'static/img/err1.png', loading: 'static/img/loading1.gif'}"/>
+                  </span>
+                  <b class="name">{{item.name}}</b>
+                  <span class="c-red">积分<b class="score">{{item.score}}</b></span>
+                </router-link>
+              </li>
+            </ul>
         </div>
-      </infinite-loading>
+      </v-scroll>
+      <!-- <div class="addressNull" v-if="showLoading">
+        <img style="width:4rem;" src="static/img/pageLoad.svg" alt="">
+        <p slot="text">正在努力加载商品列表！</p>
+      </div> -->
     </div>
     <popup position="top" v-model="select" class="popUp">
+      <!--<group gutter="0">
+        <cell v-for="(item, index) in options" :key="index" :title="item.name" is-link :link="'/mall/' + item.id" @click.native="handleSelect(item)"></cell>
+      </group>-->
       <div class="sub-nav">
         <router-link v-for="(item, index) in options" :key="index" :to="'/mall/' + item.id" replace @click.native="handleSelect(item)">{{item.name}}</router-link>
       </div>
@@ -42,8 +40,8 @@
 <script>
   import {Tab, TabItem, Popup, Swiper, SwiperItem, XImg, Group, Cell} from 'vux'
   import {mapMutations} from 'vuex'
-  import InfiniteLoading from 'vue-infinite-loading'
-  import noData from '@/components/Null'
+  import Loading from '@/components/Loading'
+  import VScroll from '../components/VScroll'
   import {product} from '../config'
   export default {
     name: 'goodsList',
@@ -73,7 +71,6 @@
         showLoading: false,
         select: false,
         score: false,
-        noData:false,
         bar: [{
           text: '全部',
           key: 'all'
@@ -97,14 +94,14 @@
           timeOrder: 0,
           priceOrder: 0,
           defaultOrder: 0,
-          limit: 4,
+          limit: 10,
           pageIndex: 0
         },
         activeList: [] // 分类商品列表
       }
     },
     mounted () {
-      // this.height = document.querySelector('.content').clientHeight + 'px'
+      this.height = document.querySelector('.content').clientHeight + 'px'
     },
     components: {
       Tab,
@@ -114,9 +111,9 @@
       SwiperItem,
       XImg,
       Group,
-      noData,
       Cell,
-      InfiniteLoading
+      Loading,
+      VScroll
     },
     created () {
       const query = this.$route.query.init
@@ -139,6 +136,7 @@
           this.option = this.options[i].name
         }
       }
+      this.getList(() => {}, 1)
     },
     methods: {
       handleChange (index) {
@@ -166,7 +164,8 @@
               }
               this.bar[this.index].sort = !this.bar[this.index].sort
               this.form.pageIndex = 0
-              this.getList(1)
+              this.statusInit()
+              this.getList(() => {}, 1)
               break
             case 3:
               if (!this.bar[this.index].sort) {
@@ -180,28 +179,38 @@
               }
               this.bar[this.index].sort = !this.bar[this.index].sort
               this.form.pageIndex = 0
-              this.getList(1)
+              this.statusInit()
+              this.getList(() => {}, 1)
               break
           }
         }
-        this.noData = false
-        this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
       },
       handleSelect (item) {
         this.option = item.name
         this.form.type = item.id
         this.select = false
-        this.noData = false
-        this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
-        this.getList(1)
+        this.getProduct(this)
       },
       handleSaveData (item) {
         this.$localStorage.set('goods', JSON.stringify(item))
       },
-      onInfinite () {
-        this.getList(0)
+      onRefresh (done) {
+        this.form.pageIndex = 0
+        this.statusInit()
+        this.getList(done, 1)
       },
-      getList (status) {
+      onInfinite (done) {
+        this.form.pageIndex = this.list.length / this.form.limit
+        if (this.list.length % this.form.limit) {
+          this.statusNoMore()
+        } else {
+          this.$el.querySelectorAll('.load').forEach(el => {
+            el.style.display = 'block'
+          })
+          this.getList(done, 0)
+        }
+      },
+      getList (done, status) {
         console.log(this.form)
         this.$http({
           method: 'jsonp',
@@ -210,33 +219,59 @@
           jsonpCallback: 'json',
           params: this.form,
           before: (req) => {
-            this.form.pageIndex = Math.ceil(this.list.length / this.form.limit)
-            console.log('请求第' + this.form.pageIndex + '页')
             if (status) {
               this.list = []
             }
+            this.showLoading = true
           }
         })
         .then(res => {
           console.log(res)
-          if (res.body.data.productList.length) {
-            this.list = this.list.concat(res.body.data.productList)
-            this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
-            if (res.body.data.productList.length < this.form.limit) {
-              this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
-            }
-          } else {
-            console.log('nomore')
+          res.body.data.productList.forEach(el => {
+            this.list.push(el)
+          })
+          if (this.list.length < this.form.limit) {
+            this.statusNull()
+          } else if (res.body.data.productList.length < this.form.limit) {
             this.statusNoMore()
-            this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
-            if (!this.list.length) {
-              this.noData = true
-            }
+          } else {
+            this.statusLoad()
           }
+          if (this.list.length < this.form.limit) {
+            this.statusInit()
+          }
+          done()
         })
       },
       statusNoMore () {
-        this.$el.querySelectorAll('.infinite-status-prompt').forEach(el => {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'none'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'block'
+        })
+      },
+      statusLoad () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'block'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'none'
+        })
+      },
+      statusInit () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'none'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
+          el.style.display = 'none'
+        })
+      },
+      statusNull () {
+        this.$el.querySelectorAll('.load').forEach(el => {
+          el.style.display = 'none'
+        })
+        this.$el.querySelectorAll('.no-more').forEach(el => {
           el.style.display = 'none'
         })
       },
