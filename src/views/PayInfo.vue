@@ -4,7 +4,8 @@
       <cell title="投保公司" :value="order.companyName"></cell>
       <cell title="保单信息" value="保单详情" is-link :link="'/policy/' + form.userId + '/' + form.orderId"></cell>
       <cell title="商业险" :value="'￥' + order.samount"></cell>
-      <cell title="交强险（车船费）" :value="'￥' + order.jqamount"></cell>
+      <cell title="交强险" :value="'￥' + order.jamount"></cell>
+      <cell title="车船费" :value="'￥' + order.camount"></cell>
       <cell>
         <p slot="value">应付总额：<span class="num c-red">￥{{order.amount}}</span></p>
       </cell>
@@ -56,6 +57,7 @@
           params: this.form
         })
         .then(res => {
+          console.log(res)
           this.order = res.body.data.order
           this.order.jqamount = parseFloat(this.order.jamount) + parseFloat(this.order.camount)
           switch (this.order.payType) {

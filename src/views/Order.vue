@@ -194,7 +194,6 @@
             }
           } else {
             console.log('nomore')
-            this.statusNoMore()
             this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
             if (!this.list.length) {
               this.noData = true
@@ -215,35 +214,6 @@
         this.$router.replace('/order/' + this.bar[this.index].key + '/' + this.$route.params.userId + '/' + this.tag)
         this.form.status = this.bar[index].key
         this.getList(1)
-      },
-      statusNoMore () {
-        this.$el.querySelectorAll('.infinite-status-prompt').forEach(el => {
-          el.style.display = 'none'
-        })
-      },
-      statusLoad () {
-        this.$el.querySelectorAll('.load').forEach(el => {
-          el.style.display = 'block'
-        })
-        this.$el.querySelectorAll('.no-more').forEach(el => {
-          el.style.display = 'none'
-        })
-      },
-      statusInit () {
-        this.$el.querySelectorAll('.load').forEach(el => {
-          el.style.display = 'none'
-        })
-        this.$el.querySelectorAll('.no-more').forEach(el => {
-          el.style.display = 'none'
-        })
-      },
-      statusNull () {
-        this.$el.querySelectorAll('.load').forEach(el => {
-          el.style.display = 'none'
-        })
-        this.$el.querySelectorAll('.no-more').forEach(el => {
-          el.style.display = 'none'
-        })
       }
     }
   }
