@@ -163,6 +163,7 @@
             //   text: '网络连接失败，请稍后重试！',
             //   time: '3000'
             // })
+            this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
             console.log('timeout')
           },
           before: () => {
@@ -170,7 +171,6 @@
             console.log('请求第' + this.form.pageIndex + '页')
             if (status) {
               this.list = []
-              this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
             }
           }
         })
@@ -193,9 +193,11 @@
             }
           } else {
             console.log('nomore')
-            this.noData = true
             this.statusNoMore()
             this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+            if (!this.list.length) {
+              this.noData = true
+            }
           }
         })
       },

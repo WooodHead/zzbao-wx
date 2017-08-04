@@ -1,7 +1,6 @@
 <template>
   <div class="page gray h">
-    <div>
-      <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
+    <div style="position:absolute;top:0;bottom:0;left:0;right:0;overflow:auto;">
         <ul class="safe-list white">
           <li class="row w"  v-for="(item, index) in list" :key="index">
             <span class="col v-m col-9 t-l p-5">
@@ -19,9 +18,15 @@
             </span>
           </li>
         </ul>
-      </v-scroll>
+        <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
+          <p slot="no-more">没有更多！</p>
+          <div slot="spinner" style="padding:1rem;">
+            <img style="width:2rem;" class="v-m" src="static/img/331.svg" alt="">
+            <span class="v-m" style="font-size:1rem;color:#666;">加载中</span>
+          </div>
+        </infinite-loading>
     </div>
-    <div class="row w h tip" v-if="list.length === 0">
+    <div class="row w h tip" v-if="noData">
       <none>
         <img slot="img" src="static/img/sorry.png" alt="">
         <p slot="text">没有兑换奖品记录哦！</p>
@@ -33,7 +38,7 @@
 <script>
   import {XImg} from 'vux'
   import {exchangeLog, timeout} from '../config'
-  import VScroll from '../components/VScroll'
+  import InfiniteLoading from 'vue-infinite-loading'
   import none from '@/components/None'
   export default {
     name: 'exchange',
@@ -48,6 +53,7 @@
         height: '',
         loading: false,
         timeout: timeout,
+        noData: false,
         request: true,
         form: {
           userId: 0,
@@ -60,7 +66,7 @@
     },
     components: {
       XImg,
-      VScroll,
+      InfiniteLoading,
       none
     },
     mounted () {
@@ -68,35 +74,10 @@
         this.$router.replace('/login')
       } else {
         this.form.userId = this.$route.params.userId
-        this.getList(() => {}, null)
       }
     },
     methods: {
-      statusNoMore () {
-        this.$el.querySelectorAll('.load').forEach(el => {
-          el.style.display = 'none'
-        })
-        this.$el.querySelectorAll('.no-more').forEach(el => {
-          el.style.display = 'block'
-        })
-      },
-      statusLoad () {
-        this.$el.querySelectorAll('.load').forEach(el => {
-          el.style.display = 'block'
-        })
-        this.$el.querySelectorAll('.no-more').forEach(el => {
-          el.style.display = 'none'
-        })
-      },
-      statusInit () {
-        this.$el.querySelectorAll('.load').forEach(el => {
-          el.style.display = 'none'
-        })
-        this.$el.querySelectorAll('.no-more').forEach(el => {
-          el.style.display = 'none'
-        })
-      },
-      getList (done, status) {
+      getList (status) {
         const This = this
         this.$http({
           method: 'jsonp',
@@ -121,6 +102,8 @@
             console.log('timeout')
           },
           before: () => {
+            this.form.pageIndex = Math.ceil(this.list.length / this.form.limit)
+            console.log('请求第' + this.form.pageIndex + '页')
             if (status) {
               this.list = []
             }
@@ -128,35 +111,22 @@
         })
         .then(res => {
           console.log(res)
-          res.body.data.productList.forEach(el => {
-            This.list.push(el)
-          })
-          if (res.body.data.productList.length < This.form.limit) {
-            this.statusNoMore()
+          if (res.body.data.productList.length) {
+            this.list = this.list.concat(res.body.data.productList)
+            this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+            if (res.body.data.productList.length < this.form.limit) {
+              this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+            }
           } else {
-            this.statusLoad()
+            this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+            if (!this.list.length) {
+              this.noData = true
+            }
           }
-          if (this.list.length < this.form.limit) {
-            this.statusInit()
-          }
-          done()
         })
       },
-      onRefresh (done) {
-        this.form.pageIndex = 0
-        this.statusInit()
-        this.getList(done, 1)
-      },
       onInfinite (done) {
-        this.form.pageIndex ++
-        if (this.list.length % this.form.limit) {
-          this.statusNoMore()
-        } else {
-          this.$el.querySelectorAll('.load').forEach(el => {
-            el.style.display = 'block'
-          })
-          this.getList(done, 0)
-        }
+        this.getList(0)
       }
     }
   }

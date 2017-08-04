@@ -1,5 +1,5 @@
 <template>
-  <div class="page gray fix-banner">
+  <div class="page gray fix-banner" style="display:flex;display:-webkit-flex;flex-direction:column;">
     <div class="banner">
       <div class="row w h">
         <div class="col v-m t-c">
@@ -8,9 +8,9 @@
         </div>
       </div>
     </div>
-    <div class="h content">
-      <h2 class="title"><span class="iconfont icon-jilu"></span>收入记录</h2>
-      <v-scroll style="top:21vh;bottom:0;" :on-refresh="onRefresh" :on-infinite="onInfinite">
+    <h2 class="title"><span class="iconfont icon-jilu"></span>收入记录</h2>
+    <div class="h content" style="flex:1;-webkit-flex:1;">
+      <div class="auto">
         <group gutter="0px">
           <cell v-for="(item, index) in list" :key="index">
             <ul class="row w">
@@ -22,7 +22,14 @@
             </ul>
           </cell>
         </group>
-      </v-scroll>
+        <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
+          <p slot="no-more">没有更多！</p>
+          <div slot="spinner" style="padding:1rem;">
+            <img style="width:2rem;" class="v-m" src="static/img/331.svg" alt="">
+            <span class="v-m" style="font-size:1rem;color:#666;">加载中</span>
+          </div>
+        </infinite-loading>
+      </div>
       <div class="row w h tip" v-if="list.length === 0">
         <none>
           <img slot="img" src="static/img/sorry.png" alt="">
@@ -35,7 +42,7 @@
 <script>
   import {Group, Cell, dateFormat} from 'vux'
   import {detail, wallet, timeout} from '../config'
-  import VScroll from '../components/VScroll'
+  import InfiniteLoading from 'vue-infinite-loading'
   import none from '@/components/None'
   export default {
     name: 'detail',
@@ -48,7 +55,7 @@
     components: {
       Group,
       Cell,
-      VScroll,
+      InfiniteLoading,
       none
     },
     data () {
@@ -74,39 +81,10 @@
       }
     },
     methods: {
-      statusNoMore () {
-        this.$el.querySelectorAll('.load').forEach(el => {
-          el.style.display = 'none'
-        })
-        this.$el.querySelectorAll('.no-more').forEach(el => {
-          el.style.display = 'block'
-        })
-      },
-      statusLoad () {
-        this.$el.querySelectorAll('.load').forEach(el => {
-          el.style.display = 'block'
-        })
-        this.$el.querySelectorAll('.no-more').forEach(el => {
-          el.style.display = 'none'
-        })
-      },
-      statusInit () {
-        this.$el.querySelectorAll('.load').forEach(el => {
-          el.style.display = 'none'
-        })
-        this.$el.querySelectorAll('.no-more').forEach(el => {
-          el.style.display = 'none'
-        })
-      },
-      onRefresh (done) {
-        this.form.pageIndex = 0
-        this.getList(done, 1)
-      },
       onInfinite (done) {
-        this.form.pageIndex ++
-        this.getList(done, 0)
+        this.getList(0)
       },
-      getList (done, status) {
+      getList (status) {
         const This = this
         this.$http({
           method: 'jsonp',
@@ -131,25 +109,31 @@
             console.log('timeout')
           },
           before: () => {
+            this.form.pageIndex = Math.ceil(this.list.length / this.form.limit)
+            console.log('请求第' + this.form.pageIndex + '页')
             if (status) {
               this.list = []
             }
           }
         })
         .then(res => {
-          console.log(res)
-          res.body.data.scoreList.forEach(el => {
-            This.list.push(el)
-          })
-          if (res.body.data.scoreList.length < This.form.limit) {
-            this.statusNoMore()
+          if (res.body.data.scoreList.length) {
+            this.list = this.list.concat(res.body.data.scoreList)
+            this.list.forEach(el => {
+              el.createTime = dateFormat(el.createTime)
+            })
+            this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+            if (res.body.data.scoreList.length < this.form.limit) {
+              this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+            }
           } else {
-            this.statusLoad()
+            console.log('nomore')
+            this.statusNoMore()
+            this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+            if (!this.list.length) {
+              this.noData = true
+            }
           }
-          if (this.list.length < this.form.limit) {
-            this.statusInit()
-          }
-          done()
           for (const i in this.list) {
             this.list[i].createTime = dateFormat(this.list[i].createTime)
           }

@@ -1,22 +1,27 @@
 <template>
   <div>
-    <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
-      <group gutter="0">
-        <cell is-link class="score-list" v-for="(item, index) in list" :key="index" :link="'/record/' + item.id" @click.native="handleSave(item)">
-          <li class="row w">
-            <span class="col v-m col-11 t-l">
-              <b class="price">-{{item.money / 10}}元</b>
-              <i class="score">积分余额：{{item.balance}}分</i>
-            </span>
-            <span class="col v-m col-13 t-r">
-              <i class="score">{{item.createTime}}</i>
-              <i :class="'status ' + showCss(item.status)">{{showText(item.status)}}</i>
-            </span>
-          </li>
-        </cell>
-      </group>
-    </v-scroll>
-    <div class="row w h tip" v-if="list.length === 0">
+    <group gutter="0">
+      <cell is-link class="score-list" v-for="(item, index) in list" :key="index" :link="'/record/' + item.id" @click.native="handleSave(item)">
+        <li class="row w">
+          <span class="col v-m col-11 t-l">
+            <b class="price">-{{item.money / 10}}元</b>
+            <i class="score">积分余额：{{item.balance}}分</i>
+          </span>
+          <span class="col v-m col-13 t-r">
+            <i class="score">{{item.createTime}}</i>
+            <i :class="'status ' + showCss(item.status)">{{showText(item.status)}}</i>
+          </span>
+        </li>
+      </cell>
+    </group>
+    <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
+      <p slot="no-more">没有更多！</p>
+      <div slot="spinner" style="padding:1rem;">
+        <img style="width:2rem;" class="v-m" src="static/img/331.svg" alt="">
+        <span class="v-m" style="font-size:1rem;color:#666;">加载中</span>
+      </div>
+    </infinite-loading>
+    <div class="row w h tip" v-if="noData">
       <none>
         <img slot="img" src="static/img/sorry.png" alt="">
         <p slot="text">没有提现记录哦！</p>
@@ -27,7 +32,7 @@
 <script>
   import {Cell, dateFormat, Group} from 'vux'
   import {withdrawlog} from '../config'
-  import VScroll from '../components/VScroll'
+  import InfiniteLoading from 'vue-infinite-loading'
   import none from '@/components/None'
   export default {
     name: 'record',
@@ -40,6 +45,7 @@
     data () {
       return {
         height: '0px',
+        noData: false,
         list: [],
         form: {
           userId: '',
@@ -52,13 +58,12 @@
       Cell,
       dateFormat,
       Group,
-      VScroll,
+      InfiniteLoading,
       none
     },
     created () {
       this.setTitle('提现记录')
       this.form.userId = this.$route.query.userId
-      this.getList(() => {}, null)
     },
     methods: {
       showCss (status) {
@@ -86,51 +91,15 @@
           jsToApp.setTitle(title)
         }
       },
-      statusNoMore () {
-        this.$el.querySelectorAll('.load').forEach(el => {
-          el.style.display = 'none'
-        })
-        this.$el.querySelectorAll('.no-more').forEach(el => {
-          el.style.display = 'block'
-        })
-      },
-      statusLoad () {
-        this.$el.querySelectorAll('.load').forEach(el => {
-          el.style.display = 'block'
-        })
-        this.$el.querySelectorAll('.no-more').forEach(el => {
-          el.style.display = 'none'
-        })
-      },
-      statusInit () {
-        this.$el.querySelectorAll('.load').forEach(el => {
-          el.style.display = 'none'
-        })
-        this.$el.querySelectorAll('.no-more').forEach(el => {
-          el.style.display = 'none'
-        })
-      },
       handleSave (item) {
         this.$localStorage.set('record', JSON.stringify(item))
         this.setTitle('提现详情')
         console.log(item)
       },
-      onRefresh (done) {
-        this.form.pageIndex = 0
-        this.statusInit()
-        this.getList(done, 1)
-      },
       onInfinite (done) {
-        if (this.list.length % this.form.limit) {
-          this.statusNoMore()
-        } else {
-          this.$el.querySelectorAll('.load').forEach(el => {
-            el.style.display = 'block'
-          })
-          this.getList(done, 0)
-        }
+        this.getList(0)
       },
-      getList (done, status) {
+      getList (status) {
         const This = this
         this.$http({
           method: 'jsonp',
@@ -139,25 +108,26 @@
           jsonpCallback: 'json',
           params: this.form,
           before: () => {
+            this.form.pageIndex = Math.ceil(this.list.length / this.form.limit)
+            console.log('请求第' + this.form.pageIndex + '页')
             if (status) {
               this.list = []
             }
           }
         })
         .then(res => {
-          console.log(res)
-          res.body.data.scoreList.forEach(el => {
-            This.list.push(el)
-          })
-          if (res.body.data.scoreList.length < This.form.limit) {
-            this.statusNoMore()
+          if (res.body.data.scoreList.length) {
+            this.list = this.list.concat(res.body.data.scoreList)
+            this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+            if (res.body.data.scoreList.length < this.form.limit) {
+              this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+            }
           } else {
-            this.statusLoad()
+            this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+            if (!this.list.length) {
+              this.noData = true
+            }
           }
-          if (this.list.length < this.form.limit) {
-            this.statusInit()
-          }
-          done()
           for (const i in this.list) {
             this.list[i].createTime = dateFormat(this.list[i].createTime)
           }
