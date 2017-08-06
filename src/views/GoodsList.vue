@@ -14,13 +14,13 @@
       <div class="tab-swiper vux-center">
         <ul class="grid goods-list">
           <li class="col col-12" v-for="(item, index) in list" :key="index">
-            <router-link :to="'/goods/' + item.id" class="goods" @click.native="handleSaveData(item)">
+            <div class="goods" @click="handleSaveData(item)">
               <span class="cover">
                 <img class="w h" v-lazy="{src: item.listPic, error: 'static/img/err1.png', loading: 'static/img/loading1.gif'}"/>
               </span>
               <b class="name">{{item.name}}</b>
               <span class="c-red">积分<b class="score">{{item.score}}</b></span>
-            </router-link>
+            </div>
           </li>
         </ul>
       </div>
@@ -98,7 +98,7 @@
           timeOrder: 0,
           priceOrder: 0,
           defaultOrder: 0,
-          limit: 4,
+          limit: 10,
           pageIndex: 0
         },
         activeList: [] // 分类商品列表
@@ -198,6 +198,7 @@
       },
       handleSaveData (item) {
         this.$localStorage.set('goods', JSON.stringify(item))
+        this.$router.push('/goods/' + item.id)
       },
       onInfinite () {
         this.getList(0)
