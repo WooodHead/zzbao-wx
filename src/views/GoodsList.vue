@@ -1,6 +1,6 @@
 <template>
   <div class="page gray has-tab">
-    <tab class="sort" :line-width=2 active-color='#EB3D00' v-model="index">
+    <tab class="sort" :line-width=2 active-color='#FFA500' v-model="index">
       <tab-item class="vux-center select" :class="{sort: item.sort}" v-for="(item, index) in bar" :key="index" @on-item-click="handleChange">
         <span v-if="index > 0">{{item.text}}</span>
         <span v-if="index === 0" :class="select ? 'active' : ''">{{option}}</span>
@@ -256,7 +256,7 @@
 .vux-tab .vux-tab-item:first-child span:after{content:"";display:inline-block;width:1rem;height:1rem;background:url(../assets/img/down.png) no-repeat;background-size:1rem;position:absolute;right:-1rem;top:50%;transform:translate(0,-50%);transition:0.3s;}
 .vux-tab .vux-tab-item:first-child span.active:after{transform:translate(0,-50%) rotate(180deg);}
 .sort .weui-cell__ft:after{display:none;}
-.sort .vux-tab-selected .weui-cell__ft{color:#EB3D00;}
+.sort .vux-tab-selected .weui-cell__ft{color:#FFA500;}
 .vux-popup-dialog.vux-popup-top{top:44px !important;}
 .vux-tab-item.select:nth-child(3):after,.vux-tab-item.select:nth-child(4):after{content:"";display:inline-block;width:1rem;height:1rem;background:url(../assets/img/default.png) no-repeat right center;background-size:1.4rem;vertical-align:middle;}
 .vux-tab-item.select.vux-tab-selected:nth-child(3):after,.vux-tab-item.select.vux-tab-selected:nth-child(4):after{content:"";display:inline-block;width:1rem;height:1rem;background:url(../assets/img/asc.png) no-repeat right center;background-size:1.4rem;vertical-align:middle;}

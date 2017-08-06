@@ -210,6 +210,6 @@
 </script>
 <style>
 .num{font-size:1.8rem;}
-.weui-cells_radio .weui-check:checked + .weui-icon-checked:before{content:"\e63f" !important;color:#fff !important;display:inline-block;width:2rem;height:2rem;line-height:2rem;text-align:center;background:#EB3D00;border-radius:50%;font-family:"iconfont"}
+.weui-cells_radio .weui-check:checked + .weui-icon-checked:before{content:"\e63f" !important;color:#fff !important;display:inline-block;width:2rem;height:2rem;line-height:2rem;text-align:center;background:#FFA500;border-radius:50%;font-family:"iconfont"}
 .weui-mask_transparent{background:rgba(17,17,17,0.7)}
 </style>

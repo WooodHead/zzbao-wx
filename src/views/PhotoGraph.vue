@@ -247,5 +247,5 @@
 .uploading{position:absolute;top:0;left:0;bottom:0;right:0;background:rgba(0,0,0,0.5);z-index:1000;}
 .uploading img{width:3rem;margin-top:5rem;}
 .uploading p{font-size:1rem;color:rgba(255,255,255,0.9);margin-top:0.5rem;}
-.take-photo .iconfont:active{color:#EB3D00;transition:0.3s;}
+.take-photo .iconfont:active{color:#FFA500;transition:0.3s;}
 </style>

@@ -166,7 +166,7 @@
 .fix-banner{padding-top:24vh;}
 .has-double-btn{padding-bottom:20vh;}
 .has-double-btn .btn-area{height:20vh;}
-.fix-banner .banner{background-color:#EB3D00;height:24vh;margin-top:-24vh;}
+.fix-banner .banner{background-color:#FFA500;height:24vh;margin-top:-24vh;}
 .banner .col{padding:1rem;font-size:1.2rem;color:#fff;}
 .banner a{color:#fff;vertical-align:middle;}
 .banner a span{display:inline-block;}

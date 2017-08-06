@@ -16,7 +16,7 @@
         </li>
       </ul>
     </blur>-->
-    <div class="head-bar" style="background:#EB3D00;height:200px;">
+    <div class="head-bar" style="background:#FFA500;height:200px;">
       <ul class="row w h" style="position:relative;z-index:1;">
         <li class="col v-b col-18">
           <!-- <img v-lazy="userInfo.userSex > 1 ? 'static/img/female.png' : 'static/img/male.png'" alt="" class="circle v-m" v-if="userInfo"> -->
@@ -74,7 +74,7 @@
         </cell>
       </group>
       <group gutter="10px" style="margin-bottom:10px;" v-if="userInfo">
-        <x-button @click.native="logout = true" plain type='primary' style="border-left:none;border-right:none;border-radius:0;border-color:#ECECEC;color:#EB3D00;">注销/登录</x-button>
+        <x-button @click.native="logout = true" plain type='primary' style="border-left:none;border-right:none;border-radius:0;border-color:#ECECEC;color:#FFA500;">注销/登录</x-button>
       </group>
     </div>
     <confirm class="logout" v-model="logout" @on-confirm="handleLogout">
@@ -205,15 +205,15 @@
 <style>
 .vux-bg-blur{z-index:0 !important;}
 .iconfont{font-size:1.6rem;padding:0 1rem;}
-.weui-dialog__btn_primary{color:#EB3D00 !important;}
+.weui-dialog__btn_primary{color:#FFA500 !important;}
 .fix-blur{padding-top:200px;}
 .fix-blur .head-bar{margin-top:-200px;}
 .head-bar a{font-size:1.2rem;color:#fff;padding:0;}
-.default .num{color:#eb3d00;font-size:1.4rem;}
+.default .num{color:#FFA500;font-size:1.4rem;}
 .default .text{color:#3a3a3a;font-size:1rem;}
 .default a:first-child:after{content:"";display:inline-block;width:1px;height:40px;background:#E0E0E0;position:absolute;right:0;top:50%;transform:translateY(-50%)}
 .fix-info{position:fixed;top:160px;left:50%;width:90%;transform:translateX(-50%);border-radius:1rem;z-index:100;box-shadow:0 5px 20px #ccc;padding:0.5rem 0.8rem;}
-.logout .weui-dialog__btn_primary{background:#EB3D00;color:#fff !important;border-radius:0.5rem;margin:0 2rem 2rem 1rem;height:3rem;line-height:3rem;font-size:1.2rem;}
+.logout .weui-dialog__btn_primary{background:#FFA500;color:#fff !important;border-radius:0.5rem;margin:0 2rem 2rem 1rem;height:3rem;line-height:3rem;font-size:1.2rem;}
 .logout .weui-dialog__btn_default{background:#fff;color:#989898 !important;border-radius:0.5rem;margin:0 1rem 2rem 2rem;height:3rem;line-height:3rem;font-size:1.2rem;border:1px solid #989898;}
 .logout .weui-dialog__ft:after{display:none;}
 </style>

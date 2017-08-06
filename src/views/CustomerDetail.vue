@@ -284,7 +284,7 @@ input,select:focus{outline:none;}
 .cus-main li input,.cus-main li textarea{display:inline-block;width:100%;border:none;text-align:right;font-size:1.2rem;color:#2b2b2b;}
 .cus-main li textarea{text-align:left;background:none;line-height:2;font-family:microsoft yahei;resize:none;}*/
 
-.cus-footer a{display:inline-block;font-size:1.2rem;color:#fff;background:#EB3D00;border-radius:0.4rem;width:100%;text-align:center;padding: 0.5rem 0;}
+.cus-footer a{display:inline-block;font-size:1.2rem;color:#fff;background:#FFA500;border-radius:0.4rem;width:100%;text-align:center;padding: 0.5rem 0;}
 .cus-footer a:hover{opacity:0.8;filter:alpha(opacity=80);}
 </style>
 

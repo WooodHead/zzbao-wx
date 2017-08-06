@@ -31,7 +31,7 @@
     </group>
     <group gutter="5px" v-if="order" class="orderDetail">
       <cell title="保单信息" is-link :link="'/policy/' + form.userId + '/' + form.orderId" @click.native="setTitle('保单信息')">
-        <span style="color:#EB3D00;">查看详情</span>
+        <span style="color:#FFA500;">查看详情</span>
       </cell>
       <cell title="商业险"  v-if="order.extraAmount"></cell>
       <cell v-if="order.baseAmount">
@@ -164,7 +164,7 @@
             return {
               icon: 'icon-tishi',
               status: '待报价',
-              text: '报价结果将在<span style="color:#EB3D00;padding:0 5px;">1</span>个工作日之内反馈'
+              text: '报价结果将在<span style="color:#FFA500;padding:0 5px;">1</span>个工作日之内反馈'
             }
           case -1:
             return {
@@ -239,7 +239,7 @@
 <style scoped>
 .num{font-size:1.6rem;}
 .tip{font-size:1.4rem;color:#333;}
-.tip .iconfont{font-size:2.2rem;margin-right:0;vertical-align: middle;color:#EB3D00;}
+.tip .iconfont{font-size:2.2rem;margin-right:0;vertical-align: middle;color:#FFA500;}
 .vux-label-desc img{margin-right:0.5rem;}
 .vux-label-desc .row{border-top:1px solid #ECECEC;}
 .vux-label-desc .row .col{padding:1rem 0;position:relative;}

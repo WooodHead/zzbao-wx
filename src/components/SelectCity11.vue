@@ -7,7 +7,7 @@
     </group>
     <div v-transfer-dom>
       <popup v-model="show" position="bottom" height="60%" class="bg-f select">
-        <tab active-color='#EB3D00' v-model="index" class="select-tab">
+        <tab active-color='#FFA500' v-model="index" class="select-tab">
           <tab-item :selected="index === active" v-for="(item, index) in tab" :key="index" @click.native="handleClick(index)">{{item.text}}</tab-item>
         </tab>
         <swiper v-model="active" class="select-list" :loop="false" :show-dots="false" height="100%" :threshold="100" @on-index-change="handleChange">

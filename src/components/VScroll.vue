@@ -136,7 +136,7 @@ export default {
 }
 </script>
 <style>
-.yo-scroll .iconfont{color:#EB3D00;}
+.yo-scroll .iconfont{color:#FFA500;}
 .yo-scroll {
   position: absolute;
   top: 0;

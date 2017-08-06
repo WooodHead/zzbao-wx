@@ -1,6 +1,6 @@
 <template>
   <div class="page gray auto has-tab">
-    <tab :line-width=2 active-color='#EB3D00' v-model="index" style="position:fixed;top:0;left:0;width:100%;margin:0;z-index:100;">
+    <tab :line-width=2 active-color='#FFA500' v-model="index" style="position:fixed;top:0;left:0;width:100%;margin:0;z-index:100;">
       <tab-item class="vux-center" :selected="current === item.text" v-for="(item, index) in bar" @on-item-click="handleChange(item, index)" :key="index">{{item.text}}</tab-item>
     </tab>
     <!--<swiper v-model="index" :show-dots="false" class="h" :height="height" @on-index-change="handleSwiper" :min-moving-distance="100">

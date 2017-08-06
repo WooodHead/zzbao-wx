@@ -112,8 +112,8 @@
 <style lang="less">
 .custom-primary-red {
   border-radius: 99px!important;
-  border-color: #CE3C39!important;
-  color: #CE3C39!important;
+  border-color: #FFA500!important;
+  color: #FFA500!important;
   &:active {
     border-color: rgba(206, 60, 57, 0.6)!important;
     color: rgba(206, 60, 57, 0.6)!important;

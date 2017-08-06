@@ -160,7 +160,7 @@
 .time{font-size:1rem;color:#9D9D9D;}
 .text{font-size:1.1rem;line-height:1.8;color:#565656;}
 .fix-banner{padding-top:15vh !important;}
-.banner{height:15vh !important;margin-top:-15vh !important;background:#EB3D00;color:#fff;}
+.banner{height:15vh !important;margin-top:-15vh !important;background:#FFA500;color:#fff;}
 .banner p{font-size:1rem;color:rgba(255,255,255,0.8);}
 .title:before{display:none;}
 .title{padding:0.3rem 1rem;border-bottom:1px solid #ECECEC;margin-top:0;}

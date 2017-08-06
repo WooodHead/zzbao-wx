@@ -179,7 +179,7 @@
 </script>
 <style scoped>
 .fix-banner{padding-top:18vh;}
-.banner{height:18vh;margin-top:-18vh;background:#EB3D00;color:#fff;}
+.banner{height:18vh;margin-top:-18vh;background:#FFA500;color:#fff;}
 .banner p{font-size:1rem;color:rgba(255,255,255,0.8);}
 .text{font-size:1.2rem;padding:0.5rem 1rem;color:#444;}
 .text a{text-decoration:underline;}

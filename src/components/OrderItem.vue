@@ -128,7 +128,7 @@
   }
 </script>
 <style scoped>
-.order-item .status .col{padding:10px;color:#eb3d00;font-size:1.1rem;}
+.order-item .status .col{padding:10px;color:#FFA500;font-size:1.1rem;}
 .order-item .status .time{color:#2b2b2b;}
 .order-item .good{background:#F6F6F6;}
 .order-item .good .col{padding:10px;}

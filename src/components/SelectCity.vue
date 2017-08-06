@@ -8,7 +8,7 @@
     <div v-transfer-dom>
       <popup v-model="popShow" position="bottom" height="60%" class="bg-f select">
         <h2 style="font-size:1.2rem;color:#2b2b2b;margin-top:-100px;text-align:center;border-bottom:1px solid #E9E9E9;padding-bottom:10px;padding-top:10px;">{{title}}</h2>
-        <tab active-color='#EB3D00' class="select-tab" v-model="index">
+        <tab active-color='#FFA500' class="select-tab" v-model="index">
           <tab-item v-for="(item, index) in area" :key="index" @click.native="_tabClick(index)">{{item.name}}</tab-item>
         </tab>
         <swiper v-model="index" class="select-list" :loop="false" :show-dots="false" height="100%" :threshold="100" @on-index-change="_swiperChange">
@@ -259,7 +259,7 @@ export default {
 .list{padding:0 0 0 1.5rem;}
 .list li{font-size:1.2rem;color:#333;padding:15px 10px 15px 0;border-bottom:1px solid #e9e9e9;display:table;width:100%;}
 .list li b{display:inline-block;width:100%;}
-.list .active{color:#EB3D00;}
+.list .active{color:#FFA500;}
 </style>
 <style>
 .select-text{font-size:14px;}
