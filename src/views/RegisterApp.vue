@@ -108,7 +108,7 @@
         if (!this.form.tel || !this.$refs.tel.valid) {
           this.$vux.toast.show({
             type: 'text',
-            width: '20em',
+            width: '15em',
             position: 'bottom',
             text: '请填写正确的手机号码！',
             time: '1000'
@@ -121,12 +121,20 @@
             text: '请填写您的姓名',
             time: '1000'
           })
-        } else if (!this.$refs.pwd.valid || this.pwd !== this.form.pwd) {
+        } else if (!this.$refs.pwd.valid || !this.form.pwd) {
           this.$vux.toast.show({
             type: 'text',
-            width: '10em',
+            width: '14em',
             position: 'bottom',
-            text: '密码输入有误！',
+            text: '请填写登录密码！',
+            time: '1000'
+          })
+        } else if (this.pwd !== this.form.pwd) {
+          this.$vux.toast.show({
+            type: 'text',
+            width: '15em',
+            position: 'bottom',
+            text: '两次输入的密码不同！',
             time: '1000'
           })
         } else if (!this.form.captcha) {
@@ -169,6 +177,14 @@
                     window.location.href = this.loginUrl
                   }
                 }, 1000)
+              } else {
+                this.$vux.toast.show({
+                  type: 'text',
+                  width: '20em',
+                  position: 'bottom',
+                  text: res.body.msg,
+                  time: '1000'
+                })
               }
             })
           } else {

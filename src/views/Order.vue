@@ -90,15 +90,19 @@
     },
     mounted () {
       // this.height = document.querySelector('.vux-slider').clientHeight + 'px'
-      this.tag = this.$route.params.tag
-      this.platform = this.$route.query.platform
     },
     created () {
+      const This = this
+      this.tag = this.$route.params.tag
+      this.platform = this.$route.query.platform
       if (this.$route.params.userId !== 'null') {
         this.form.userId = this.$route.params.userId
         this.form.status = this.$route.params.id
-        if (this.form.status === '-100') {
-          this.getList(1)
+        console.log(this.tag)
+        if (this.tag === 'ios') {
+          setTimeout(() => {
+            This.getList(1)
+          }, 500)
         }
       } else {
         this.$router.replace('/login')
@@ -140,12 +144,10 @@
         this.showService = false
       },
       onInfinite () {
-        console.log(0)
         this.getList(0)
       },
       getList (status) {
         const This = this
-        
         this.$http({
           method: 'jsonp',
           url: orderList,
@@ -172,6 +174,9 @@
             console.log('请求第' + this.form.pageIndex + '页')
             if (status) {
               this.list = []
+            }
+            if (this.tag === 'ios') {
+              window.alert(this.form.userId)
             }
           }
         })
