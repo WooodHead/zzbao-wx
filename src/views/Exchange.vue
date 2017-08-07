@@ -19,6 +19,7 @@
           </li>
         </ul>
         <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
+          <p slot="no-results"></p>
           <p slot="no-more">没有更多！</p>
           <div slot="spinner" style="padding:1rem;">
             <img style="width:2rem;" class="v-m" src="static/img/331.svg" alt="">
